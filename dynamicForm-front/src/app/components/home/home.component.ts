@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Form } from 'src/app/interfaces/Form';
 
 @Component({
@@ -7,32 +8,38 @@ import { Form } from 'src/app/interfaces/Form';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  constructor(private readonly router: Router) {}
+
   details: Form[] = [
     {
       id: 1,
-      name: 'License'
+      name: 'License',
     },
     {
       id: 2,
-      name: 'Registration'
+      name: 'Registration',
     },
     {
       id: 3,
-      name: 'Passport'
+      name: 'Passport',
     },
     {
       id: 4,
-      name: 'FAFSA '
+      name: 'FAFSA ',
     },
     {
       id: 5,
-      name: 'Trainee Program'
+      name: 'Trainee Program',
     },
     {
       id: 6,
-      name: 'Sign Up Form'
+      name: 'Sign Up Form',
     },
   ];
+
+  redirect(): void {
+    this.router.navigate(['/form-builder']);
+  }
 
   edit() {}
 
