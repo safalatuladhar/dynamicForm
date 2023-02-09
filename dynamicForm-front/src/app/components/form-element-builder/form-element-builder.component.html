@@ -1,0 +1,169 @@
+<div class="parent-wrapper">
+  <div class="title-control-wrapper">
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-align-left"></i>
+      <p>Text Field</p>
+    </div>
+    <div class="btn-wrapper">
+      <button type="button" class="btn btn-danger">Cancel</button>
+      <button type="button" class="btn btn-primary">Confirm</button>
+    </div>
+  </div>
+
+  <div class="scroll-container">
+    <div class="text-form-wrapper">
+      <form>
+        <div class="form-group">
+          <label for="nameInput">Name</label>
+          <input
+            [(ngModel)]="formElement.name"
+            type="text"
+            id="nameInput"
+            name="name"
+            class="form-control"
+            placeholder="Enter form element's name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="idInput">ID</label>
+          <input
+            [(ngModel)]="formElement.ids"
+            type="text"
+            class="form-control"
+            id="idInput"
+            name="ids"
+            placeholder="Enter form element's id"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="placeholderInput">Placeholder</label>
+          <input
+            [(ngModel)]="formElement.placeholder"
+            type="text"
+            id="placeholderInput"
+            class="form-control"
+            name="placeholder"
+            placeholder="Enter form element's placeholder"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="classInput">Class</label>
+          <input
+            type="text"
+            [(ngModel)]="formElement.class"
+            id="classInput"
+            name="class"
+            class="form-control"
+            placeholder="Enter form element's class"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="classInput">Value</label>
+          <input
+            [(ngModel)]="formElement.value"
+            type="text"
+            id="valueInput"
+            name="value"
+            class="form-control"
+            placeholder="Enter form element's value"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="fileTypeInput">File Type</label>
+          <input
+            type="text"
+            [(ngModel)]="formElement.fileType"
+            id="fileTypeInput"
+            name="filetype"
+            class="form-control"
+            placeholder="Enter form element's file type"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="options-wrapper">
+      <p>Options</p>
+      <div class="form-wrapper">
+        <form>
+          <div
+            class="form-group"
+            *ngFor="let option of formElement.options; index as i"
+          >
+            <input
+              type="text"
+              id="optionInput"
+              class="form-control"
+              [value]="option.name"
+              placeholder="Enter option"
+              required
+              (change)="updateOptionField($event, i)"
+            />
+
+            <button
+              type="button"
+              class="btn btn-danger"
+              *ngIf="formElement.options.length !== 1"
+              (click)="removeOptionField(i)"
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
+          </div>
+
+          <div class="btn-add-wrapper">
+            <button
+              type="button"
+              class="btn btn-primary btn-add"
+              (click)="addOptionField()"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="settings-wrapper">
+      <p>Settings</p>
+      <div class="checkbox-wrapper">
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="option1"
+            name="required"
+            [(ngModel)]="formElement.required"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Required</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox2"
+            name="multiple"
+            [(ngModel)]="formElement.multiple"
+            value="option2"
+          />
+          <label class="form-check-label" for="inlineCheckbox2">Multiple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox3"
+            name="disabled"
+            [(ngModel)]="formElement.disabled"
+            value="option3"
+          />
+          <label class="form-check-label" for="inlineCheckbox3">Disabled</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
