@@ -45,5 +45,15 @@ export class HomeComponent {
 
   remove() {}
 
-  download() {}
+  download() {
+     const link = document.createElement('a');
+     link.setAttribute('target', '_blank');
+     link.setAttribute('href', 'C:/Users/safala.tuladhar/Downloads/forms');
+     link.setAttribute('download', `form.html`);
+     document.body.appendChild(link);
+     link.click();
+     link.remove();
+     console.log(link);
+}
+
 }
