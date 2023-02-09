@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 
 @Injectable({
@@ -7,18 +8,25 @@ import { Form } from '../interfaces/Form.interface';
 export class FormBuilderService {
   private form: Form = {
     id: null,
-    name: 'License Registration',
+    name: 'License Registration Form',
     user_id: 1,
     formComponents: [],
   };
 
-  constructor() {}
+  form$$ = new BehaviorSubject<Form>(this.form);
 
-  getTitle(): string {
-    return this.form.name;
-  }
-
-  setTitle(name: string) {
-    this.form.name = name;
+  setTitle(title: string) {
+    if (title.trim().length === 0) {
+      this.form.name = 'Untitled';
+    } else {
+      this.form.name = title;
+    }
+    this.form$$.next(this.form);
   }
 }
+
+// Input text
+// Textarea
+// Select
+// Checkbox
+// File
