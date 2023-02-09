@@ -5,6 +5,7 @@ import { FormBuilderComponent } from './form-builder.component';
 import { FormBuilderHeaderComponent } from 'src/app/components/form-builder-header/form-builder-header.component';
 import { FormElementSidebarComponent } from 'src/app/components/form-element-sidebar/form-element-sidebar.component';
 import { FormBuilderPlaygroundComponent } from 'src/app/components/form-builder-playground/form-builder-playground.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [{ path: '', component: FormBuilderComponent }];
 
@@ -15,6 +16,6 @@ const routes: Routes = [{ path: '', component: FormBuilderComponent }];
     FormElementSidebarComponent,
     FormBuilderPlaygroundComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, FormsModule, RouterModule.forChild(routes)],
 })
 export class FormBuilderModule {}
