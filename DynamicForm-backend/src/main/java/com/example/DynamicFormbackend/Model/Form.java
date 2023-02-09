@@ -3,9 +3,7 @@ package com.example.DynamicFormbackend.Model;
 
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 

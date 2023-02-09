@@ -11,7 +11,9 @@ public class FromComponentDTO {
     private Boolean required;
     private String ids;
     private String classs;
-    private int order;
+    private int orders;
+    private String types;
+
 
     private List<OptionDTO> optionsDTO;
 
@@ -79,12 +81,12 @@ public class FromComponentDTO {
         this.classs = classs;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrders() {
+        return orders;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrders(int orders) {
+        this.orders = orders;
     }
 
     public List<OptionDTO> getOptions() {
@@ -93,5 +95,21 @@ public class FromComponentDTO {
 
     public void setOptions(List<OptionDTO> options) {
         this.optionsDTO = options;
+    }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
+    }
+
+    public List<OptionDTO> getOptionsDTO() {
+        return optionsDTO;
+    }
+
+    public void setOptionsDTO(List<OptionDTO> optionsDTO) {
+        this.optionsDTO = optionsDTO;
     }
 }

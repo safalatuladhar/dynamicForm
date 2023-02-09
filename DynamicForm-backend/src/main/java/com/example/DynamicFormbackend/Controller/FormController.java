@@ -1,7 +1,7 @@
 package com.example.DynamicFormbackend.Controller;
 
 
-import com.example.DynamicFormbackend.DTO.FormDetailDTO;
+import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Service.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class FormController {
         return ResponseEntity.ok().body(formService.getAllForm());
     }
     @PostMapping("/form")
-    public HttpStatus createNewForm(@RequestBody FormDetailDTO formDetailDTO){
-        formService.createFormAndComponents(formDetailDTO);
+    public HttpStatus createNewForm(@RequestBody FormDTO formDTO){
+        formService.createFormAndComponents(formDTO);
         return HttpStatus.OK;
     }
     @DeleteMapping("/form/{id}")
@@ -32,9 +32,9 @@ public class FormController {
         return HttpStatus.OK;
     }
     @PutMapping("/form/{id}")
-    public HttpStatus updateForm(@RequestBody FormDetailDTO formDetailDTO,@PathVariable long id)
+    public HttpStatus updateForm(@RequestBody FormDTO formDTO,@PathVariable long id)
     {
-        formService.updateFormAndComponent(formDetailDTO,id);
+        formService.updateFormAndComponent(formDTO,id);
         return HttpStatus.OK;
     }
 }

@@ -51,8 +51,9 @@ public class FormComponent {
         this.required = formComponentDTO.isRequired();
         this.ids = formComponentDTO.getIds();
         this.classs = formComponentDTO.getClasss();
-        this.orders = formComponentDTO.getOrder();
+        this.orders = (int) formComponentDTO.getOrders();
         this.form = form;
+
     }
 
     public long getId() {

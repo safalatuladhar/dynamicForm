@@ -1,6 +1,7 @@
 package com.example.DynamicFormbackend.Service;
 
-import com.example.DynamicFormbackend.DTO.FormDetailDTO;
+import com.example.DynamicFormbackend.DTO.FormDTO;
+import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.FromComponentDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
 import com.example.DynamicFormbackend.Model.Form;
@@ -36,10 +37,10 @@ public class FormService {
         form.setUser(user);
         return formRepository.save(form);
     }
-    public void createFormAndComponents(FormDetailDTO formDetailDTO){
-        User user = userRepository.getReferenceById(formDetailDTO.getFormDTO().getUser_id());
-        Form form = this.createForm(new Form(formDetailDTO.getFormDTO()),user);
-        for (FromComponentDTO formComponentDTO:formDetailDTO.getFromComponentDTO()){
+    public void createFormAndComponents(FormDTO formDTO){
+        User user = userRepository.getReferenceById(formDTO.getUser_id());
+        Form form = this.createForm(new Form(formDTO),user);
+        for (FromComponentDTO formComponentDTO:formDTO.getFromComponentDTO()){
             FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO,form));
             if(!formComponentDTO.getOptions().isEmpty()){
                 List<Option> options = new ArrayList<>();
@@ -56,11 +57,11 @@ public class FormService {
         formRepository.deleteById(id);
     }
 
-    public void updateFormAndComponent(FormDetailDTO formDetailDTO, long id) {
+    public void updateFormAndComponent(FormDTO formDTO, long id) {
 //        formRepository
         Form form = formRepository.findById(id).orElseThrow();
-        form.setName(formDetailDTO.getFormDTO().getName());
+        form.setName(formDTO.getName());
         form = formRepository.save(form);
-        formComponentService.updateFormComponent(formDetailDTO,form,id);
+        formComponentService.updateFormComponent(formDTO,form,id);
     }
 }
