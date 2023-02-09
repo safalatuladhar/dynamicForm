@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 
 @Component({
@@ -6,9 +7,10 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
   templateUrl: './form-builder-header.component.html',
   styleUrls: ['./form-builder-header.component.scss'],
 })
-export class FormBuilderHeaderComponent implements OnInit {
+export class FormBuilderHeaderComponent implements OnInit, OnDestroy {
   constructor(private readonly formService: FormBuilderService) {}
 
+  private subscription: Subscription;
   title: string = '';
 
   onTitleSubmit(event: Event) {
@@ -16,22 +18,24 @@ export class FormBuilderHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title = this.formService.getTitle();
+    this.subscription = this.formService.form$$.subscribe(
+      (val) => (this.title = val.name)
+    );
   }
 
   onTitleChange() {
-    if (this.title.trim().length === 0) {
-      this.formService.setTitle('Untitled');
-      this.title = 'Untitled';
-      return;
-    }
     this.formService.setTitle(this.title);
   }
 
   cancel(): void {
     console.log('Form Cancelled');
   }
+
   save(): void {
     console.log('Form Saved');
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
