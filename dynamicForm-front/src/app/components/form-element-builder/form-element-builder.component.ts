@@ -13,6 +13,7 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
 })
 export class FormElementBuilderComponent {
   @Input() formType: FormElementType;
+  @Input() modal:any;
 
   elementChecklist = [...formElementAtrributeMap];
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
