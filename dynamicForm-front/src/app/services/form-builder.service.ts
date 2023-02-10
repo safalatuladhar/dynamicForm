@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
+import { FormElement } from '../interfaces/FormElement.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +24,11 @@ export class FormBuilderService {
     }
     this.form$$.next(this.form);
   }
-}
 
-// Input text
-// Textarea
-// Select
-// Checkbox
-// File
+  addElementToForm(formElement: FormElement) {
+    console.log(formElement);
+
+    this.form.formComponents.push(formElement);
+    this.form$$.next(this.form);
+  }
+}

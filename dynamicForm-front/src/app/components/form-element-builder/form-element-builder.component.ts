@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
-  formElementMap,
+  formElementAtrributeMap,
+  formElementInfo,
   FormElementType,
 } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
+import { FormBuilderService } from 'src/app/services/form-builder.service';
 
 @Component({
   selector: 'app-form-element-builder',
@@ -12,9 +14,12 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
 })
 export class FormElementBuilderComponent {
   @Input() formType: FormElementType;
-  @Input() modal:any;
+  @Input() modal: any;
 
-  elementChecklist = [...formElementMap];
+  constructor(private readonly formService: FormBuilderService) {}
+
+  elementChecklist = [...formElementAtrributeMap];
+  elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   formElement: FormElement = {
     class: '',
@@ -42,5 +47,36 @@ export class FormElementBuilderComponent {
 
   removeOptionField(index: number) {
     this.formElement.options.splice(index, 1);
+  }
+
+  saveElement() {
+    if (!this.validateFormElement()) {
+      return;
+    }
+    this.formService.addElementToForm(this.formElement);
+    this.modal.dismiss();
+  }
+
+  validateFormElement(): boolean {
+    if (
+      this.formType !== FormElementType.SELECT &&
+      this.formType !== FormElementType.CHECKBOX
+    ) {
+      this.formElement.options = null;
+    } else {
+      let valid = true;
+      this.formElement.options.forEach((option) => {
+        valid = valid && option.name.trim().length > 0;
+      });
+      if (!valid) {
+        alert('Invalid Option!!');
+        return false;
+      }
+    }
+    if (!this.formElement.name.trim()) {
+      alert('Invalid Name!!');
+      return false;
+    }
+    return true;
   }
 }
