@@ -1,0 +1,128 @@
+.parent-wrapper {
+  width: 510px;
+  background-color: white;
+  max-height: 80vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  border-radius: 5px;
+  padding: 1em 1.5em;
+
+  .title-control-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(201, 201, 201);
+
+    .icon-wrapper {
+      display: flex;
+      align-items: end;
+      gap: 1em;
+
+      svg {
+        font-size: 1.3em;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+    }
+
+    .btn-wrapper {
+      display: flex;
+      gap: 0.5em;
+      .btn {
+        font-size: 0.55em;
+      }
+    }
+  }
+
+  .scroll-container {
+    max-height: calc(80vh - 100px);
+    overflow-y: auto;
+    margin-top: 6px;
+    padding: 0 5px 1em 5px;
+
+    .text-form-wrapper {
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        label {
+          color: grey;
+          font-size: 0.7em;
+          font-weight: 500;
+        }
+
+        input {
+          font-size: 0.7em;
+        }
+      }
+    }
+  }
+
+  .options-wrapper {
+    margin-top: 1em;
+    p {
+      margin: 0;
+      color: grey;
+      font-size: 0.7em;
+      font-weight: 500;
+    }
+
+    .form-wrapper {
+      margin-top: 0.8em;
+      padding: 0.8em;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+      border-radius: 5px;
+      width: 60%;
+
+      .form-group {
+        margin-bottom: 0.5em;
+        input {
+          font-size: 0.7em;
+          display: inline;
+          width: 81%;
+        }
+
+        .btn {
+          border-radius: 3px;
+          margin-left: 6px;
+          font-size: 0.7em;
+        }
+      }
+
+      .btn-add-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        .btn-add {
+          font-size: 0.6em;
+          border-radius: 3px;
+          padding-left: 1.7em;
+          padding-right: 1.7em;
+        }
+      }
+    }
+  }
+
+  .settings-wrapper {
+    margin-top: 1em;
+    p {
+      margin: 0;
+      color: grey;
+      font-size: 0.7em;
+      font-weight: 500;
+    }
+
+    .checkbox-wrapper {
+      margin-top: 4px;
+
+      label {
+        font-size: 0.8em;
+      }
+    }
+  }
+}

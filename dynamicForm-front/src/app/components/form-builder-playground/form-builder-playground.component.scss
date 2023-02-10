@@ -1,5 +1,10 @@
 .playground {
   border-radius: 5px;
   min-height: calc(100vh - 85px);
+  // Remove later **********
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //  **********************
   background-color: #f5f5f5;
 }

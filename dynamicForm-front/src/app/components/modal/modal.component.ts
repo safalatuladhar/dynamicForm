@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormElementType } from 'src/app/enums/FormElementType.enum';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent{
+export class ModalComponent implements OnInit{
+  @Input() formType: FormElementType;
+  @Input() modal:any;
   content = '';
   
   closeResult = '';
+  
 
-	constructor(private modalService: NgbModal) {
-    // this.open(this.content)
+	constructor(private modalService: NgbModal) {}
+  ngOnInit(): void {
+    console.log('formtype',this.formType);
+    console.log('modal',this.modal);
   }
 	open(contents) {
     console.log('contents',contents)

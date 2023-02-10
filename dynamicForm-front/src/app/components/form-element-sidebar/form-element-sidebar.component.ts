@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -8,16 +9,17 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./form-element-sidebar.component.scss']
 })
 export class FormElementSidebarComponent {
+  formType:FormElementType
+  type:FormElementType
+  // formType=FormElementType.CHECKBOX
+
+  // @Input() formType: FormElementType;
   closeResult =''
   constructor(private modalService: NgbModal){}
-  open(content){
-    let html = ` <ng-template #content let-modal>
-    <p>
-    First focusable element within the modal window will receive focus upon opening. This could be configured to focus any
-    other element by adding an <code>ngbAutofocus</code> attribute on it.
-  </p> </ng-template>`
+  open(content,formType:FormElementType){
+    this.formType = formType
+    console.log("this",this.formType)
     console.log('content',content)
-    // this.modalService.open(ModalComponent)
     this.modalService.open( content,{ ariaLabelledBy: 'modal-basic-title' }).result.then(
 			(result) => {
 				 `Closed with: ${result}`;
