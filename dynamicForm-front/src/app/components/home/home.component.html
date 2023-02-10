@@ -7,54 +7,55 @@
     </button>
   </div>
 
-  <div class="row bg-light p-3">
-    <h3>Forms</h3>
-
-    <table class="table table-striped">
-      <thead>
-        <tr class="text-center">
-          <th style="width: 10%" scope="col">S.No</th>
-          <th scope="col">Form Name</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="text-center align-middle" *ngFor="let item of details">
-        <tr>
-          <th scope="row">{{ item.id }}</th>
-          <td>
-            <a href="#" class="form-title">{{ item.name }}</a>
-          </td>
-          <td style="width: 20%">
-            <div class="d-flex center">
-              <button class="btn m-2" (click)="edit()">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </button>
-              <button class="btn m-2" (click)="remove()">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-              <button class="btn m-2 bi" (click)="download()">
+ 
+    <div class="row bg-light p-3">
+      <h3>Forms</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr class="text-center">
+            <th style="width: 10%" scope="col">S.No</th>
+            <th scope="col">Form Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-center align-middle" *ngFor="let item of details">
+          <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>
+              <a href="#" class="form-title">{{ item.name }}</a>
+            </td>
+            <td style="width: 20%">
+              <div class="d-flex center">
+                <button class="btn m-2" (click)="edit()">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+                <button class="btn m-2" (click)="remove()">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="btn m-2 bi" (click)="download()">
                 <i class="fa-solid fa-download"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <footer>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </footer>
-  </div>
+      <footer>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </div>
+
 </div>

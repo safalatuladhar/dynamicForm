@@ -57,5 +57,29 @@ export class HomeComponent {
 
   remove() {}
 
-  download() {}
+
+    download() {
+       var html = `
+      <html>
+        <head>
+          <title>My HTML File</title>
+        </head>
+        <body>
+          <h1>Hello, HTML!</h1>
+          <p>This is an HTML file.</p>
+        </body>
+      </html>
+    `;
+    
+    const data = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.download = 'my-file.html';
+    link.href = url;
+    link.click();
+    }
+
+    // fortextfield(html,formElement){
+    //   html+=`<input = "`+formElement.type+`" id =`;
+    // }
 }
