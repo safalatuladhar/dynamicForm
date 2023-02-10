@@ -5,8 +5,16 @@
       <p>{{ elementInfoList[formType].title }}</p>
     </div>
     <div class="btn-wrapper">
-      <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-danger">Cancel</button>
-      <button type="button" class="btn btn-primary">Confirm</button>
+      <button
+        type="button"
+        (click)="modal.dismiss('Cross click')"
+        class="btn btn-danger"
+      >
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" (click)="saveElement()">
+        Confirm
+      </button>
     </div>
   </div>
 
