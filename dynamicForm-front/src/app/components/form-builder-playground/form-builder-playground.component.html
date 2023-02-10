@@ -1,3 +1,5 @@
 <div class="playground">
-  <app-form-element-builder [formType]="formType"></app-form-element-builder>
+  <div *ngFor="let formComponent of formComponents">
+    <app-form-element-raw [formElement]="formComponent"></app-form-element-raw>
+  </div>
 </div>
