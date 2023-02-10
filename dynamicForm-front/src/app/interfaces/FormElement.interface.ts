@@ -7,7 +7,19 @@ export interface FormElement {
   disabled: boolean;
   placeholder: string;
   required: boolean;
+  label: string;
   ids: string;
   class: string;
+  fileType: string;
+  multiple: boolean;
   options: Option[] | null;
 }
+
+/**
+ * Common
+ * ids
+ * name
+ * class
+ * required
+ * disabled
+ */

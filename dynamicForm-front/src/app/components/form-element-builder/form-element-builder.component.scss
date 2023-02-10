@@ -39,8 +39,8 @@
   }
 
   .scroll-container {
-    height: calc(80vh - 100px);
-    overflow: auto;
+    max-height: calc(80vh - 100px);
+    overflow-y: auto;
     margin-top: 6px;
     padding: 0 5px 1em 5px;
 

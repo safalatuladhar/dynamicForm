@@ -37,6 +37,21 @@
         </div>
 
         <div class="form-group">
+          <label for="labelInput">Label</label>
+          <input
+            [(ngModel)]="formElement.label"
+            type="text"
+            class="form-control"
+            id="labelInput"
+            name="label"
+            placeholder="Enter form element's label"
+          />
+        </div>
+
+        <div
+          class="form-group"
+          *ngIf="!elementChecklist[formType].includes('placeholder')"
+        >
           <label for="placeholderInput">Placeholder</label>
           <input
             [(ngModel)]="formElement.placeholder"
@@ -60,7 +75,10 @@
           />
         </div>
 
-        <div class="form-group">
+        <div
+          class="form-group"
+          *ngIf="!elementChecklist[formType].includes('value')"
+        >
           <label for="classInput">Value</label>
           <input
             [(ngModel)]="formElement.value"
@@ -72,7 +90,10 @@
           />
         </div>
 
-        <div class="form-group">
+        <div
+          class="form-group"
+          *ngIf="!elementChecklist[formType].includes('fileType')"
+        >
           <label for="fileTypeInput">File Type</label>
           <input
             type="text"
@@ -86,7 +107,10 @@
       </form>
     </div>
 
-    <div class="options-wrapper">
+    <div
+      class="options-wrapper"
+      *ngIf="!elementChecklist[formType].includes('options')"
+    >
       <p>Options</p>
       <div class="form-wrapper">
         <form>
@@ -141,7 +165,10 @@
           />
           <label class="form-check-label" for="inlineCheckbox1">Required</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div
+          class="form-check form-check-inline"
+          *ngIf="!elementChecklist[formType].includes('multiple')"
+        >
           <input
             class="form-check-input"
             type="checkbox"

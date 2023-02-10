@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  formElementMap,
+  FormElementType,
+} from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 
 @Component({
@@ -7,6 +11,10 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
   styleUrls: ['./form-element-builder.component.scss'],
 })
 export class FormElementBuilderComponent {
+  @Input() formType: FormElementType;
+
+  elementChecklist = [...formElementMap];
+
   formElement: FormElement = {
     class: '',
     disabled: false,
@@ -16,6 +24,7 @@ export class FormElementBuilderComponent {
     options: [{ id: 999, name: '' }],
     placeholder: '',
     required: true,
+    label: '',
     value: '',
     multiple: null,
     fileType: '',
