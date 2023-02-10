@@ -1,8 +1,8 @@
 <div class="parent-wrapper">
   <div class="title-control-wrapper">
     <div class="icon-wrapper">
-      <i class="fa-solid fa-align-left"></i>
-      <p>Text Field</p>
+      <i [class]="elementInfoList[formType].class"></i>
+      <p>{{ elementInfoList[formType].title }}</p>
     </div>
     <div class="btn-wrapper">
       <button type="button" class="btn btn-danger">Cancel</button>

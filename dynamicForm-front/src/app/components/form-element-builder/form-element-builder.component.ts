@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
-  formElementMap,
+  formElementAtrributeMap,
+  formElementInfo,
   FormElementType,
 } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
@@ -13,7 +14,8 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
 export class FormElementBuilderComponent {
   @Input() formType: FormElementType;
 
-  elementChecklist = [...formElementMap];
+  elementChecklist = [...formElementAtrributeMap];
+  elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   formElement: FormElement = {
     class: '',
