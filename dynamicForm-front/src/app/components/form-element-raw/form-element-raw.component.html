@@ -1,0 +1,15 @@
+<div class="parent-wrapper">
+  <div class="title-control-wrapper">
+    <div class="icon-wrapper">
+      <i [class]="elementInfoList[formElement.type].class"></i>
+      <p>{{ elementInfoList[formElement.type].title }}</p>
+    </div>
+    <div class="btn-wrapper">
+      <button type="button" class="btn btn-primary">Edit</button>
+      <button type="button" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+  <div>
+    <p><strong>Name: </strong> {{ formElement.name }}</p>
+  </div>
+</div>

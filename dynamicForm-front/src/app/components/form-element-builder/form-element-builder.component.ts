@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import {
   formElementAtrributeMap,
@@ -12,7 +13,7 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
   templateUrl: './form-element-builder.component.html',
   styleUrls: ['./form-element-builder.component.scss'],
 })
-export class FormElementBuilderComponent {
+export class FormElementBuilderComponent implements OnInit {
   @Input() formType: FormElementType;
   @Input() modal: any;
 
@@ -21,8 +22,13 @@ export class FormElementBuilderComponent {
   elementChecklist = [...formElementAtrributeMap];
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
+  ngOnInit(): void {
+    this.formElement.type = this.formType;
+  }
+
   formElement: FormElement = {
     class: '',
+    type: -1,
     disabled: false,
     id: 10101,
     ids: '',
