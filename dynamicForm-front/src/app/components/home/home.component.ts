@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { Option } from 'src/app/interfaces/Option.interface';
@@ -51,6 +52,65 @@ export class HomeComponent {
     },
   ];
 
+  formComponent: FormElement[] = [
+    {
+      id: 952,
+      name: 'Lname1',
+      value: '1',
+      disabled: false,
+      placeholder: 'Insert LName',
+      required: false,
+      ids: 'f2',
+      classs: 'form-control',
+      label: null,
+      fileType: null,
+      multiple: null,
+      type: FormElementType.TEXTAREA,
+      options: [
+        { id: 803, name: 'India', value: null },
+        { id: 802, name: 'Nepal', value: null },
+      ],
+    },
+
+    {
+      id: 952,
+      name: 'Lname1',
+      value: '1',
+      disabled: false,
+      placeholder: 'Insert LName',
+      required: false,
+      ids: 'f2',
+      classs: 'form-control',
+      label: null,
+      fileType: null,
+      multiple: null,
+      type: FormElementType.FILE_UPLOAD,
+      options: [
+        { id: 803, name: 'India', value: null },
+        { id: 802, name: 'Nepal', value: null },
+      ],
+    },
+
+    {
+      id: 952,
+      name: 'Lname1',
+      value: '1',
+      disabled: false,
+      placeholder: 'Insert LName',
+      required: false,
+      ids: 'f2',
+      classs: 'form-control',
+      label: 'enter name:',
+      fileType: null,
+      multiple: null,
+      type: FormElementType.TEXTFIELD,
+      options: [
+        { id: 803, name: 'India', value: null },
+        { id: 802, name: 'Nepal', value: null },
+      ],
+    },
+  ];
+
   redirect(): void {
     this.router.navigate(['/form-builder']);
   }
@@ -59,21 +119,28 @@ export class HomeComponent {
 
   remove() {}
 
-  download() {
-    var html = `
+  download(form: Form) {
+    var html = this.formBuilder(this.formComponent);
+    var htmlFormat =
+      `
       <html>
-        <head>
-          <title>My HTML File</title>
-        </head>
-        <body>`;
-    //       <h1>Hello, HTML!</h1>
-    //       <p>This is an HTML file.</p>
-    //     </body>
-    //   </html>
+      <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <title> abc </title>
+      </head>
+      <body>
+      <form method="post" enctype="multipart/form-data">
+      ` +
+      html +
+      `  
+      </form>
 
-    // `;
+      </body>
+      </html>
+    `;
+    console.log(html);
 
-    const data = new Blob([html], { type: 'text/html' });
+    const data = new Blob([htmlFormat], { type: 'text/html' });
     const url = URL.createObjectURL(data);
     const link = document.createElement('a');
     link.download = 'my-file.html';
@@ -96,13 +163,13 @@ export class HomeComponent {
       ` 
             name="` +
       formComponent.name +
-      `
+      `"
             class=" ` +
-      formComponent.class +
-      `
-            placeholder=` +
+      formComponent.classs +
+      `"
+            placeholder="` +
       formComponent.placeholder +
-      `
+      `"
           />
         </div>`;
     return html;
@@ -129,15 +196,15 @@ export class HomeComponent {
       `</label>
           
           <select
-            id=` +
+            id="` +
       data.id +
-      `
-            name=` +
+      `"
+            name="` +
       data.name +
-      `
-            class=` +
-      data.class +
-      `>
+      `"
+            class="` +
+      data.classs +
+      `">
             ` +
       option +
       `           
@@ -146,34 +213,31 @@ export class HomeComponent {
     return html;
   }
 
-  checkbox(data: FormElement[]) {
-    var html = '';
-    data.forEach((item) => {
-      html += ` <value=" ` + item.name + `"> `;
-    });
-
-    return html;
-  }
-
   checkboxField(formComponent: FormElement) {
-    const html =
-      `<div class="form-group">
+    var html = '';
+
+    formComponent.options.forEach((item) => {
+      html +=
+        `<div class="form-group">
           <input  type="checkbox"  id=` +
-      formComponent.id +
-      ` 
+        formComponent.id +
+        ` 
             name="` +
-      formComponent.name +
-      `
+        formComponent.name +
+        `
             class=" ` +
-      formComponent.class +
-      this.checkbox +
-      `     />
+        formComponent.classs +
+        ` value=" ` +
+        item.name +
+        `>
+
         <label for="` +
-      formComponent.id +
-      `">` +
-      formComponent.label +
-      `</label>
+        formComponent.id +
+        `">` +
+        item.name +
+        `</label>
         </div>`;
+    });
     return html;
   }
 
@@ -191,27 +255,51 @@ export class HomeComponent {
       ` 
             name="` +
       formComponent.name +
-      `
+      `"
             class=" ` +
-      formComponent.class + `rows= ` + formComponent.value +
-       `cols= ` + formComponent.value + `> ` +
-        formComponent.value +`     
-          /textarea>
+      formComponent.classs +
+      `" rows = ` +
+      `5` +
+      `" cols= ` +
+      `5` +
+      `">      
+          </textarea>
         </div>`;
     return html;
   }
 
   fileuploadField(formComponent: FormElement) {
-   const html =
-     `<div class="form-group">
+    const html =
+      `<div class="form-group">
           <input  type="file"  id=` +
-     formComponent.id +
-     ` 
+      formComponent.id +
+      ` 
             name="` +
-     formComponent.name +
-     `>
+      formComponent.name +
+      `>
        <input  type="submit">
         </div>`;
-   return html;
+    return html;
+  }
+
+
+  formBuilder(formComponent: FormElement[]) {
+    var html = '';
+    formComponent.forEach((item) => {
+      console.log(item.type === 0);
+
+      if (item.type === 0) {
+        html += this.textField(item);
+      } else if (item.type === 2) {
+        html += this.checkboxField(item);
+      } else if (item.type === 4) {
+        html += this.selectField(item);
+      } else if (item.type === 1) {
+        html += this.textareaField(item);
+      } else if (item.type === 3) {
+        html += this.fileuploadField(item);
+      }
+    });
+    return html;
   }
 }

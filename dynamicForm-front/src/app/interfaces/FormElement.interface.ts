@@ -1,3 +1,4 @@
+import { FormElementType } from '../enums/FormElementType.enum';
 import { Option } from './Option.interface';
 
 export interface FormElement {
@@ -9,10 +10,11 @@ export interface FormElement {
   required: boolean;
   label: string;
   ids: string;
-  class: string;
+  classs: string;
   fileType: string;
   multiple: boolean;
   options: Option[] | null;
+  type: FormElementType;
 }
 
 /**

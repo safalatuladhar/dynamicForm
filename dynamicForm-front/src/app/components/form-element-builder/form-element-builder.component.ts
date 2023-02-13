@@ -16,22 +16,23 @@ export class FormElementBuilderComponent {
   elementChecklist = [...formElementMap];
 
   formElement: FormElement = {
-    class: '',
+    classs: '',
     disabled: false,
     id: 10101,
     ids: '',
     name: '',
-    options: [{ id: 999, name: '' }],
+    options: [{ id: 999, name: '', value: '' }],
     placeholder: '',
     required: true,
     label: '',
     value: '',
     multiple: null,
     fileType: '',
+    type: null,
   };
 
   addOptionField() {
-    this.formElement.options.push({ id: 999, name: '' });
+    this.formElement.options.push({ id: 999, name: '', value: '' });
   }
 
   updateOptionField(event, index) {
