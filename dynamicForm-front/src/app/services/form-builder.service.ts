@@ -7,10 +7,9 @@ import { FormElement } from '../interfaces/FormElement.interface';
   providedIn: 'root',
 })
 export class FormBuilderService {
-
   private form: Form = {
     id: null,
-    name: 'License Registration Form',
+    name: 'New Form',
     user_id: 1,
     formComponents: [],
   };
@@ -27,8 +26,6 @@ export class FormBuilderService {
   }
 
   addElementToForm(formElement: FormElement) {
-    console.log(formElement);
-
     this.form.formComponents.push(formElement);
     this.form$$.next(this.form);
   }

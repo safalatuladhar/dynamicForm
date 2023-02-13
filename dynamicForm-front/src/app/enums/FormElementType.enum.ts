@@ -7,11 +7,11 @@ export enum FormElementType {
 }
 
 export const formElementAtrributeMap = [
-  ['multiple', 'options', 'fileType'], //TEXTFIELD
-  ['multiple', 'fileType', 'placeholder', 'value'], //SELECT
-  ['multiple', 'fileType', 'placeholder'], //CHECKBOX
+  ['multiple', 'options', 'fileType', 'rows-cols'], //TEXTFIELD
+  ['multiple', 'fileType', 'placeholder', 'value', 'rows-cols'], //SELECT
+  ['multiple', 'fileType', 'placeholder', 'rows-cols'], //CHECKBOX
   ['multiple', 'options', 'fileType'], //TEXTAREA
-  ['options', 'placeholder'], //FILE_UPLOAD
+  ['options', 'placeholder', 'rows-cols'], //FILE_UPLOAD
 ];
 
 export const formElementInfo: { class: string; title: string }[] = [

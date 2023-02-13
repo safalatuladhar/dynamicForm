@@ -13,6 +13,8 @@ export interface FormElement {
   class: string;
   fileType: string;
   multiple: boolean;
+  rows: number;
+  cols: number;
   options: Option[] | null;
 }
 
