@@ -6,9 +6,14 @@ import { FormBuilderHeaderComponent } from 'src/app/components/form-builder-head
 import { FormElementSidebarComponent } from 'src/app/components/form-element-sidebar/form-element-sidebar.component';
 import { FormBuilderPlaygroundComponent } from 'src/app/components/form-builder-playground/form-builder-playground.component';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { FormElementBuilderComponent } from 'src/app/components/form-element-builder/form-element-builder.component';
+import { FormElementRawComponent } from 'src/app/components/form-element-raw/form-element-raw.component';
 
-const routes: Routes = [{ path: '', component: FormBuilderComponent }];
+const routes: Routes = [
+  { path: ':id', component: FormBuilderComponent },
+  { path: '', component: FormBuilderComponent }
+];
 
 @NgModule({
   declarations: [
@@ -17,6 +22,8 @@ const routes: Routes = [{ path: '', component: FormBuilderComponent }];
     FormElementSidebarComponent,
     FormBuilderPlaygroundComponent,
     FormElementBuilderComponent,
+    ModalComponent,
+    FormElementRawComponent,
   ],
   imports: [CommonModule, FormsModule, RouterModule.forChild(routes)],
 })

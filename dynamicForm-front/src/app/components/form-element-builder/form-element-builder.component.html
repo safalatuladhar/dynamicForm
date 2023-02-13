@@ -1,12 +1,20 @@
 <div class="parent-wrapper">
   <div class="title-control-wrapper">
     <div class="icon-wrapper">
-      <i class="fa-solid fa-align-left"></i>
-      <p>Text Field</p>
+      <i [class]="elementInfoList[formType].class"></i>
+      <p>{{ elementInfoList[formType].title }}</p>
     </div>
     <div class="btn-wrapper">
-      <button type="button" class="btn btn-danger">Cancel</button>
-      <button type="button" class="btn btn-primary">Confirm</button>
+      <button
+        type="button"
+        (click)="modal.dismiss('Cross click')"
+        class="btn btn-danger"
+      >
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" (click)="saveElement()">
+        Confirm
+      </button>
     </div>
   </div>
 
@@ -22,6 +30,7 @@
             name="name"
             class="form-control"
             placeholder="Enter form element's name"
+            required
           />
         </div>
         <div class="form-group">
@@ -44,6 +53,7 @@
             class="form-control"
             id="labelInput"
             name="label"
+            required
             placeholder="Enter form element's label"
           />
         </div>
@@ -67,7 +77,7 @@
           <label for="classInput">Class</label>
           <input
             type="text"
-            [(ngModel)]="formElement.classs"
+            [(ngModel)]="formElement.class"
             id="classInput"
             name="class"
             class="form-control"
@@ -104,6 +114,34 @@
             placeholder="Enter form element's file type"
           />
         </div>
+
+        <div *ngIf="!elementChecklist[formType].includes('rows-cols')">
+          <div class="form-group">
+            <label for="rowsInput">Rows</label>
+            <input
+              type="number"
+              [(ngModel)]="formElement.rows"
+              id="rowsInput"
+              name="rows"
+              class="form-control"
+              placeholder="Enter text area's row count"
+              min="1"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="colsInput">Cols</label>
+            <input
+              type="number"
+              [(ngModel)]="formElement.cols"
+              id="colsInput"
+              name="cols"
+              class="form-control"
+              placeholder="Enter text area's col count"
+              min="1"
+            />
+          </div>
+        </div>
       </form>
     </div>
 
@@ -123,7 +161,16 @@
               id="optionInput"
               class="form-control"
               [value]="option.name"
-              placeholder="Enter option"
+              placeholder="Enter option name"
+              required
+              (change)="updateOptionField($event, i)"
+            />
+            <input
+              type="text"
+              id="optionValue"
+              class="form-control"
+              [value]="option.value"
+              placeholder="Enter option value"
               required
               (change)="updateOptionField($event, i)"
             />

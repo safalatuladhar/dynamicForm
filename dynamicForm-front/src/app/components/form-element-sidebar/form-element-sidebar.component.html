@@ -1,3 +1,9 @@
+<ng-template #content let-modal>
+  <app-modal [formType]="formType" [modal]="modal" [formElement]="formElement" [index]="null">
+    <p>Test</p>
+  </app-modal>
+</ng-template>
+
 <aside class="form-element-wrapper">
   <div class="title-wrapper">
     <p>Form Elements</p>
@@ -10,7 +16,11 @@
         <p>Text Field</p>
       </div>
       <div class="add-wrapper">
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          (click)="open(content, 0)"
+          class="btn btn-primary"
+        >
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -22,7 +32,11 @@
         <p>Select</p>
       </div>
       <div class="add-wrapper">
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          (click)="open(content, 1)"
+          class="btn btn-primary"
+        >
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -34,7 +48,11 @@
         <p>Checkbox</p>
       </div>
       <div class="add-wrapper">
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          (click)="open(content, 2)"
+          class="btn btn-primary"
+        >
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -46,7 +64,11 @@
         <p>Textarea</p>
       </div>
       <div class="add-wrapper">
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          (click)="open(content, 3)"
+          class="btn btn-primary"
+        >
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -58,7 +80,11 @@
         <p>File Upload</p>
       </div>
       <div class="add-wrapper">
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          (click)="open(content, 4)"
+          class="btn btn-primary"
+        >
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>

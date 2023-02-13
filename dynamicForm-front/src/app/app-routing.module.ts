@@ -17,6 +17,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'form-builder/:id',
+    loadChildren: () =>
+      import('./pages/form-builder/form-builder.module').then(
+        (m) => m.FormBuilderModule
+      ),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(

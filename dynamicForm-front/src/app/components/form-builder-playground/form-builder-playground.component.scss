@@ -1,10 +1,10 @@
 .playground {
   border-radius: 5px;
-  min-height: calc(100vh - 85px);
-  // Remove later **********
+  padding: 1em 0;
+  min-height: calc(100vh - 75px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  //  **********************
+  gap: 1em;
   background-color: #f5f5f5;
 }

@@ -28,6 +28,11 @@ public class FormComponent {
     private String ids;
     private String classs;
     private int orders;
+    private String label;
+    private String fileType;
+    private Boolean multiple;
+
+
 
 //    @JsonIgnoreProperties("formComponent")
     @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -42,6 +47,8 @@ public class FormComponent {
     public FormComponent() {
     }
 
+
+
     public FormComponent(FromComponentDTO formComponentDTO, Form form) {
         this.id = formComponentDTO.getId();
         this.name = formComponentDTO.getName();
@@ -52,6 +59,9 @@ public class FormComponent {
         this.ids = formComponentDTO.getIds();
         this.classs = formComponentDTO.getClasss();
         this.orders = (int) formComponentDTO.getOrders();
+        this.label = formComponentDTO.getLabel();
+        this.fileType = formComponentDTO.getFileType();
+        this.multiple = formComponentDTO.getMultiple();
         this.form = form;
 
     }
@@ -142,5 +152,29 @@ public class FormComponent {
 
     public void setForm(Form form) {
         this.form = form;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public Boolean getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(Boolean multiple) {
+        this.multiple = multiple;
     }
 }

@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { Option } from 'src/app/interfaces/Option.interface';
+import { FormService } from 'src/app/services/form.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  constructor(private readonly router: Router) {}
+export class HomeComponent implements OnInit {
+  constructor(
+    private readonly router: Router,
+    private readonly formService: FormService
+  ) {}
+  ngOnInit(): void {
+    this.getForm();
+  }
+  getForm(): void {
+    this.formService.getForm();
+    this.formService.form$$.subscribe({
+      next: (response) => {
+        this.details = response;
+      },
+    });
+  }
 
   details: Form[] = [
     {
@@ -61,11 +76,13 @@ export class HomeComponent {
       placeholder: 'Insert LName',
       required: false,
       ids: 'f2',
-      classs: 'form-control',
+      class: 'form-control',
       label: null,
       fileType: null,
       multiple: null,
       type: FormElementType.TEXTAREA,
+      rows: 1,
+      cols: 1,
       options: [
         { id: 803, name: 'India', value: null },
         { id: 802, name: 'Nepal', value: null },
@@ -80,10 +97,12 @@ export class HomeComponent {
       placeholder: 'Insert LName',
       required: false,
       ids: 'f2',
-      classs: 'form-control',
+      class: 'form-control',
       label: null,
       fileType: null,
       multiple: null,
+      rows: 1,
+      cols: 1,
       type: FormElementType.FILE_UPLOAD,
       options: [
         { id: 803, name: 'India', value: null },
@@ -99,10 +118,12 @@ export class HomeComponent {
       placeholder: 'Insert LName',
       required: false,
       ids: 'f2',
-      classs: 'form-control',
+      class: 'form-control',
       label: 'enter name:',
       fileType: null,
       multiple: null,
+      rows: 1,
+      cols: 1,
       type: FormElementType.TEXTFIELD,
       options: [
         { id: 803, name: 'India', value: null },
@@ -115,11 +136,13 @@ export class HomeComponent {
     this.router.navigate(['/form-builder']);
   }
 
-  edit() {}
+  edit(id) {
+    this.router.navigate(['/form-builder', id]);
+  }
 
   remove() {}
 
-  download(form: Form) {
+  download() {
     var html = this.formBuilder(this.formComponent);
     var htmlFormat =
       `
@@ -165,7 +188,7 @@ export class HomeComponent {
       formComponent.name +
       `"
             class=" ` +
-      formComponent.classs +
+      formComponent.class +
       `"
             placeholder="` +
       formComponent.placeholder +
@@ -203,7 +226,7 @@ export class HomeComponent {
       data.name +
       `"
             class="` +
-      data.classs +
+      data.class +
       `">
             ` +
       option +
@@ -226,7 +249,7 @@ export class HomeComponent {
         formComponent.name +
         `
             class=" ` +
-        formComponent.classs +
+        formComponent.class +
         ` value=" ` +
         item.name +
         `>
@@ -257,7 +280,7 @@ export class HomeComponent {
       formComponent.name +
       `"
             class=" ` +
-      formComponent.classs +
+      formComponent.class +
       `" rows = ` +
       `5` +
       `" cols= ` +
@@ -281,7 +304,6 @@ export class HomeComponent {
         </div>`;
     return html;
   }
-
 
   formBuilder(formComponent: FormElement[]) {
     var html = '';

@@ -1,11 +1,32 @@
-.btn {
-  border: none;
+header {
+  height: 20vh;
+  padding: 3em 4em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(249, 249, 249);
+
+  a {
+    margin: 0;
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+
+    h3 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+  }
+
+  .btn {
+    font-size: 0.9em;
+    padding: 0.5em 1.7em;
+  }
 }
 
 .form-title {
   color: #403f3f;
 }
 
-a{
+a {
   color: black;
 }
