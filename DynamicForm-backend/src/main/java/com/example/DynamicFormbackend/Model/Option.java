@@ -18,6 +18,7 @@ public class Option {
     private long id;
 
     private String name;
+    private String value;
 
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
@@ -56,5 +57,13 @@ public class Option {
 
     public void setFormComponent(FormComponent formComponent) {
         this.formComponent = formComponent;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

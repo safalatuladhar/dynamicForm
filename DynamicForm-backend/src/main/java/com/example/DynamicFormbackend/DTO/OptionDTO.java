@@ -3,6 +3,8 @@ package com.example.DynamicFormbackend.DTO;
 public class OptionDTO {
     private long id;
     private String name;
+    private String value;
+
 
     public long getId() {
         return id;
@@ -18,5 +20,13 @@ public class OptionDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

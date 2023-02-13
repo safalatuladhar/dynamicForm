@@ -46,17 +46,18 @@ export class FormElementBuilderComponent implements OnInit {
     id: 10101,
     ids: '',
     name: '',
-    options: [{ id: 999, name: '' }],
+    options: [{ id: 999, name: '', value:'' }],
     placeholder: '',
     required: true,
     label: '',
     value: '',
     multiple: null,
     fileType: '',
+
   };
 
   addOptionField() {
-    this.formElement.options.push({ id: 999, name: '' });
+    this.formElement.options.push({ id: 999, name: '', value:'' });
   }
 
   updateOptionField(event, index) {

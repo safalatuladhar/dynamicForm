@@ -12,7 +12,11 @@ public class FromComponentDTO {
     private String ids;
     private String classs;
     private int orders;
-    private String types;
+    private String type;
+
+    private String label;
+    private String fileType;
+    private Boolean multiple;
 
 
     private List<OptionDTO> optionsDTO;
@@ -97,13 +101,6 @@ public class FromComponentDTO {
         this.optionsDTO = options;
     }
 
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
-    }
 
     public List<OptionDTO> getOptionsDTO() {
         return optionsDTO;
@@ -111,5 +108,45 @@ public class FromComponentDTO {
 
     public void setOptionsDTO(List<OptionDTO> optionsDTO) {
         this.optionsDTO = optionsDTO;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public Boolean getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(Boolean multiple) {
+        this.multiple = multiple;
     }
 }

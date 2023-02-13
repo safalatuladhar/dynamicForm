@@ -131,7 +131,16 @@
               id="optionInput"
               class="form-control"
               [value]="option.name"
-              placeholder="Enter option"
+              placeholder="Enter option name"
+              required
+              (change)="updateOptionField($event, i)"
+            />
+            <input
+              type="text"
+              id="optionValue"
+              class="form-control"
+              [value]="option.value"
+              placeholder="Enter option value"
               required
               (change)="updateOptionField($event, i)"
             />
