@@ -1,8 +1,7 @@
 package com.example.DynamicFormbackend.Service;
 
 import com.example.DynamicFormbackend.DTO.FormDTO;
-import com.example.DynamicFormbackend.DTO.FormDTO;
-import com.example.DynamicFormbackend.DTO.FromComponentDTO;
+import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
 import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Model.FormComponent;
@@ -33,6 +32,13 @@ public class FormService {
         return formRepository.findAll();
     }
 
+    public Form getForm(long id){
+        Form form = formRepository.findById(id).orElseThrow();
+        List<FormComponent> components = formComponentService.getFormComponentByFormId(id);
+        form.setFormComponents(components);
+        return form;
+    }
+
     public Form createForm(Form form, User user){
         form.setUser(user);
         return formRepository.save(form);
@@ -40,7 +46,7 @@ public class FormService {
     public void createFormAndComponents(FormDTO formDTO){
         User user = userRepository.getReferenceById(formDTO.getUser_id());
         Form form = this.createForm(new Form(formDTO),user);
-        for (FromComponentDTO formComponentDTO:formDTO.getFromComponentDTO()){
+        for (FormComponentDTO formComponentDTO:formDTO.getFormComponents()){
             FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO,form));
             if(!formComponentDTO.getOptions().isEmpty()){
                 List<Option> options = new ArrayList<>();

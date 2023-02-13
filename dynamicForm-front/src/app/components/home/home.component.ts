@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
@@ -16,134 +17,30 @@ export class HomeComponent implements OnInit {
     private readonly router: Router,
     private readonly formService: FormService
   ) {}
+
+  formList: Form[] = [];
+
+  subscription: Subscription;
+
   ngOnInit(): void {
-    this.getForm();
-  }
-  getForm(): void {
     this.formService.getForm();
-    this.formService.form$$.subscribe({
-      next: (response) => {
-        this.details = response;
-      },
+    this.subscription = this.formService.formList$$.subscribe((list) => {
+      this.formList = list;
     });
   }
 
-  details: Form[] = [
-    {
-      id: 1,
-      name: 'License',
-      user_id: 1,
-      formComponents: null,
-    },
-    {
-      id: 2,
-      name: 'Registration',
-      user_id: 1,
-      formComponents: null,
-    },
-    {
-      id: 3,
-      name: 'Passport',
-      user_id: 1,
-      formComponents: null,
-    },
-    {
-      id: 4,
-      name: 'FAFSA ',
-      user_id: 1,
-      formComponents: null,
-    },
-    {
-      id: 5,
-      name: 'Trainee Program',
-      user_id: 1,
-      formComponents: null,
-    },
-    {
-      id: 6,
-      name: 'Sign Up Form',
-      user_id: 1,
-      formComponents: null,
-    },
-  ];
-
-  formComponent: FormElement[] = [
-    {
-      id: 952,
-      name: 'Lname1',
-      value: '1',
-      disabled: false,
-      placeholder: 'Insert LName',
-      required: false,
-      ids: 'f2',
-      class: 'form-control',
-      label: null,
-      fileType: null,
-      multiple: null,
-      type: FormElementType.TEXTAREA,
-      rows: 1,
-      cols: 1,
-      options: [
-        { id: 803, name: 'India', value: null },
-        { id: 802, name: 'Nepal', value: null },
-      ],
-    },
-
-    {
-      id: 952,
-      name: 'Lname1',
-      value: '1',
-      disabled: false,
-      placeholder: 'Insert LName',
-      required: false,
-      ids: 'f2',
-      class: 'form-control',
-      label: null,
-      fileType: null,
-      multiple: null,
-      rows: 1,
-      cols: 1,
-      type: FormElementType.FILE_UPLOAD,
-      options: [
-        { id: 803, name: 'India', value: null },
-        { id: 802, name: 'Nepal', value: null },
-      ],
-    },
-
-    {
-      id: 952,
-      name: 'Lname1',
-      value: '1',
-      disabled: false,
-      placeholder: 'Insert LName',
-      required: false,
-      ids: 'f2',
-      class: 'form-control',
-      label: 'enter name:',
-      fileType: null,
-      multiple: null,
-      rows: 1,
-      cols: 1,
-      type: FormElementType.TEXTFIELD,
-      options: [
-        { id: 803, name: 'India', value: null },
-        { id: 802, name: 'Nepal', value: null },
-      ],
-    },
-  ];
-
   redirect(): void {
-    this.router.navigate(['/form-builder']);
+    this.router.navigate(['form-builder']);
   }
 
   edit(id) {
-    this.router.navigate(['/form-builder', id]);
+    this.router.navigate(['form-builder', id]);
   }
 
   remove() {}
 
   download() {
-    var html = this.formBuilder(this.formComponent);
+    // var html = this.formBuilder(this.formComponent);
     var htmlFormat =
       `
       <html>
@@ -154,14 +51,13 @@ export class HomeComponent implements OnInit {
       <body>
       <form method="post" enctype="multipart/form-data">
       ` +
-      html +
-      `  
+      'html' +
+      `
       </form>
 
       </body>
       </html>
     `;
-    console.log(html);
 
     const data = new Blob([htmlFormat], { type: 'text/html' });
     const url = URL.createObjectURL(data);
@@ -188,7 +84,7 @@ export class HomeComponent implements OnInit {
       formComponent.name +
       `"
             class=" ` +
-      formComponent.class +
+      formComponent.className +
       `"
             placeholder="` +
       formComponent.placeholder +
@@ -226,7 +122,7 @@ export class HomeComponent implements OnInit {
       data.name +
       `"
             class="` +
-      data.class +
+      data.className +
       `">
             ` +
       option +
@@ -249,7 +145,7 @@ export class HomeComponent implements OnInit {
         formComponent.name +
         `
             class=" ` +
-        formComponent.class +
+        formComponent.className +
         ` value=" ` +
         item.name +
         `>
@@ -280,7 +176,7 @@ export class HomeComponent implements OnInit {
       formComponent.name +
       `"
             class=" ` +
-      formComponent.class +
+      formComponent.className +
       `" rows = ` +
       `5` +
       `" cols= ` +

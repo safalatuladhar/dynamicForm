@@ -35,7 +35,7 @@ export class FormElementBuilderComponent implements OnInit {
   }
 
   formElement: FormElement = {
-    class: '',
+    className: '',
     type: -1,
     disabled: false,
     id: 10101,

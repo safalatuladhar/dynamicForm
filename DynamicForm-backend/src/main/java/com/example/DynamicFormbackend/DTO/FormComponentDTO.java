@@ -2,21 +2,20 @@ package com.example.DynamicFormbackend.DTO;
 
 import java.util.List;
 
-public class FromComponentDTO {
+public class FormComponentDTO {
     private long id;
     private String name;
     private String value;
-    private Boolean disabled;
+    private boolean disabled;
     private String placeholder;
-    private Boolean required;
+    private boolean required;
     private String ids;
-    private String classs;
+    private String className;
     private int orders;
     private String type;
-
     private String label;
     private String fileType;
-    private Boolean multiple;
+    private boolean multiple;
 
 
     private List<OptionDTO> optionsDTO;
@@ -45,11 +44,11 @@ public class FromComponentDTO {
         this.value = value;
     }
 
-    public Boolean isDisabled() {
+    public boolean isDisabled() {
         return disabled;
     }
 
-    public void setDisabled(Boolean disabled) {
+    public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 
@@ -61,11 +60,11 @@ public class FromComponentDTO {
         this.placeholder = placeholder;
     }
 
-    public Boolean isRequired() {
+    public boolean isRequired() {
         return required;
     }
 
-    public void setRequired(Boolean required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -78,11 +77,11 @@ public class FromComponentDTO {
     }
 
     public String getClasss() {
-        return classs;
+        return className;
     }
 
     public void setClasss(String classs) {
-        this.classs = classs;
+        this.className = classs;
     }
 
     public int getOrders() {
@@ -110,11 +109,11 @@ public class FromComponentDTO {
         this.optionsDTO = optionsDTO;
     }
 
-    public Boolean getDisabled() {
+    public boolean getDisabled() {
         return disabled;
     }
 
-    public Boolean getRequired() {
+    public boolean getRequired() {
         return required;
     }
 
@@ -142,11 +141,11 @@ public class FromComponentDTO {
         this.fileType = fileType;
     }
 
-    public Boolean getMultiple() {
+    public boolean getMultiple() {
         return multiple;
     }
 
-    public void setMultiple(Boolean multiple) {
+    public void setMultiple(boolean multiple) {
         this.multiple = multiple;
     }
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     private String name;
 
     @JsonIgnoreProperties("user")

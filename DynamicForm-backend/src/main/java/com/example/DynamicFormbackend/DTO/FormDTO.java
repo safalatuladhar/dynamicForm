@@ -7,7 +7,7 @@ public class FormDTO {
     private Long id;
     private String Name;
     private Long user_id;
-    private List<FromComponentDTO> fromComponentDTO;
+    private List<FormComponentDTO> formComponents;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class FormDTO {
         this.user_id = user_id;
     }
 
-    public List<FromComponentDTO> getFromComponentDTO() {
-        return fromComponentDTO;
+    public List<FormComponentDTO> getFormComponents() {
+        return formComponents;
     }
 
-    public void setFromComponentDTO(List<FromComponentDTO> fromComponentDTO) {
-        this.fromComponentDTO = fromComponentDTO;
+    public void setFormComponents(List<FormComponentDTO> formComponentDTO) {
+        this.formComponents = formComponentDTO;
     }
 }

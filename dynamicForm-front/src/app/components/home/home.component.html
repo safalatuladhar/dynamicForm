@@ -20,11 +20,13 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody class="text-center align-middle" *ngFor="let item of details">
+      <tbody class="text-center align-middle" *ngFor="let item of formList">
         <tr>
           <th scope="row">{{ item.id }}</th>
           <td>
-            <a href="#" class="form-title">{{ item.name }}</a>
+            <a [routerLink]="'/form-builder/' + item.id" class="form-title">{{
+              item.name
+            }}</a>
           </td>
           <td style="width: 20%">
             <div class="d-flex center">
