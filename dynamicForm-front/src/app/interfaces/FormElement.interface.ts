@@ -1,5 +1,5 @@
-import { Option } from './Option.interface';
 import { FormElementType } from '../enums/FormElementType.enum';
+import { Option } from './Option.interface';
 export interface FormElement {
   id: number | null;
   type: FormElementType;
