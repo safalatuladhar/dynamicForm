@@ -20,10 +20,9 @@ export class FormBuilderService {
     })
     this.form$$.next(this.form);
   }
-
   private form: Form = {
     id: null,
-    name: 'Untitled',
+    name: 'New Form',
     user_id: 1,
     formComponents: [],
   };

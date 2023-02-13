@@ -30,6 +30,7 @@
             name="name"
             class="form-control"
             placeholder="Enter form element's name"
+            required
           />
         </div>
         <div class="form-group">
@@ -52,6 +53,7 @@
             class="form-control"
             id="labelInput"
             name="label"
+            required
             placeholder="Enter form element's label"
           />
         </div>
@@ -111,6 +113,34 @@
             class="form-control"
             placeholder="Enter form element's file type"
           />
+        </div>
+
+        <div *ngIf="!elementChecklist[formType].includes('rows-cols')">
+          <div class="form-group">
+            <label for="rowsInput">Rows</label>
+            <input
+              type="number"
+              [(ngModel)]="formElement.rows"
+              id="rowsInput"
+              name="rows"
+              class="form-control"
+              placeholder="Enter text area's row count"
+              min="1"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="colsInput">Cols</label>
+            <input
+              type="number"
+              [(ngModel)]="formElement.cols"
+              id="colsInput"
+              name="cols"
+              class="form-control"
+              placeholder="Enter text area's col count"
+              min="1"
+            />
+          </div>
         </div>
       </form>
     </div>

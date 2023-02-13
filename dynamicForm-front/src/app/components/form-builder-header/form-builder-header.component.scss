@@ -19,6 +19,11 @@
       padding: 0 6px;
       outline: none;
       border: none;
+
+      &:hover {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+      }
     }
   }
 

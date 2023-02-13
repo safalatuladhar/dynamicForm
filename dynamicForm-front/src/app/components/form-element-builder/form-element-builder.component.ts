@@ -16,9 +16,9 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
 export class FormElementBuilderComponent implements OnInit {
   @Input() formType: FormElementType;
   @Input() modal: any;
-  @Input() formElements:FormElement;
-  @Input() index:number;
-  flag:boolean=false;
+  @Input() formElements: FormElement;
+  @Input() index: number;
+  flag: boolean = false;
 
   constructor(private readonly formService: FormBuilderService) {}
 
@@ -26,16 +26,11 @@ export class FormElementBuilderComponent implements OnInit {
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   ngOnInit(): void {
-    // console.log("THisformelement",this.formElement);
-    
-    if(this.formElements === null){
-      
+    if (this.formElements === null) {
       this.formElement.type = this.formType;
-    }
-    else{
-      // console.log("inelse");
+    } else {
       this.flag = true;
-      this.formElement = this.formElements
+      this.formElement = this.formElements;
     }
   }
 
@@ -46,18 +41,19 @@ export class FormElementBuilderComponent implements OnInit {
     id: 10101,
     ids: '',
     name: '',
-    options: [{ id: 999, name: '', value:'' }],
+    options: [{ id: 999, name: '', value: '' }],
     placeholder: '',
     required: true,
     label: '',
+    rows: 1,
+    cols: 1,
     value: '',
     multiple: null,
     fileType: '',
-
   };
 
   addOptionField() {
-    this.formElement.options.push({ id: 999, name: '', value:'' });
+    this.formElement.options.push({ id: 999, name: '', value: '' });
   }
 
   updateOptionField(event, index) {
@@ -70,16 +66,13 @@ export class FormElementBuilderComponent implements OnInit {
   }
 
   saveElement() {
-    console.log(this.index)
     if (!this.validateFormElement()) {
       return;
     }
-    if(this.index ==null)
-    {
+    if (this.index == null) {
       this.formService.addElementToForm(this.formElement);
-    }
-    else{
-      this.formService.updateElementInform(this.formElement,this.index)
+    } else {
+      this.formService.updateElementInform(this.formElement, this.index);
     }
     this.modal.dismiss();
   }
