@@ -14,11 +14,27 @@ export class FormBuilderService {
     this.formElementService.fromElement$$.subscribe({
       next:response =>{
         this.form.formComponents = response;
+        console.log('response',response);
+        // response.form.name
+
         // console.log(this.form.formComponents)
         // console.log('element',this.formComponents);        
+        this.form$$.next(this.form);
       }
     })
-    this.form$$.next(this.form);
+    this.formElementService.getOneForm(id)
+    this.formElementService.oneForm$$.subscribe({
+      next:response =>{
+        this.form.name=response.name;
+        this.form$$.next(this.form);
+        console.log('resposnsename',response.name);
+        
+        console.log(this.form.name)
+
+      }
+    })
+    // this.formElementService.
+
   }
   private form: Form = {
     id: null,
