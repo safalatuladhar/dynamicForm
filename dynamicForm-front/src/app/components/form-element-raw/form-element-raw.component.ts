@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { formElementInfo, FormElementType } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
+import { FormBuilderService } from 'src/app/services/form-builder.service';
 
 @Component({
   selector: 'app-form-element-raw',
@@ -11,7 +12,7 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
 export class FormElementRawComponent {
   @Input() index:number;
   @Input() formElement: FormElement;
-  constructor(private modalService: NgbModal){}
+  constructor(private modalService: NgbModal, private readonly formService:FormBuilderService){}
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   open(content,formType:FormElementType){
@@ -24,5 +25,8 @@ export class FormElementRawComponent {
 				// this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 			},
 		);
+  }
+  delete(index:number){
+    this.formService.deleteElementFromForm(index);
   }
 }
