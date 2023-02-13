@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormElementType } from 'src/app/enums/FormElementType.enum';
+import { FormElement } from 'src/app/interfaces/FormElement.interface';
 
 @Component({
   selector: 'app-modal',
@@ -10,6 +11,8 @@ import { FormElementType } from 'src/app/enums/FormElementType.enum';
 export class ModalComponent implements OnInit{
   @Input() formType: FormElementType;
   @Input() modal:any;
+  @Input() formElement:FormElement;
+  @Input() index:number;
   content = '';
   
   closeResult = '';

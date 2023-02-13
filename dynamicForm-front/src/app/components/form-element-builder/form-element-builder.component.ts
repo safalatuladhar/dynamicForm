@@ -16,6 +16,9 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
 export class FormElementBuilderComponent implements OnInit {
   @Input() formType: FormElementType;
   @Input() modal: any;
+  @Input() formElements:FormElement;
+  @Input() index:number;
+  flag:boolean=false;
 
   constructor(private readonly formService: FormBuilderService) {}
 
@@ -23,7 +26,17 @@ export class FormElementBuilderComponent implements OnInit {
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   ngOnInit(): void {
-    this.formElement.type = this.formType;
+    // console.log("THisformelement",this.formElement);
+    
+    if(this.formElements === null){
+      
+      this.formElement.type = this.formType;
+    }
+    else{
+      // console.log("inelse");
+      this.flag = true;
+      this.formElement = this.formElements
+    }
   }
 
   formElement: FormElement = {
@@ -56,10 +69,17 @@ export class FormElementBuilderComponent implements OnInit {
   }
 
   saveElement() {
+    console.log(this.index)
     if (!this.validateFormElement()) {
       return;
     }
-    this.formService.addElementToForm(this.formElement);
+    if(this.index ==null)
+    {
+      this.formService.addElementToForm(this.formElement);
+    }
+    else{
+      this.formService.updateElementInform(this.formElement,this.index)
+    }
     this.modal.dismiss();
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormElementType } from 'src/app/enums/FormElementType.enum';
+import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -11,6 +12,7 @@ import { ModalComponent } from '../modal/modal.component';
 export class FormElementSidebarComponent {
   formType:FormElementType
   type:FormElementType
+  formElement:FormElement = null
   // formType=FormElementType.CHECKBOX
 
   // @Input() formType: FormElementType;

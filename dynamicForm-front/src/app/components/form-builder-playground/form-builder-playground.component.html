@@ -1,5 +1,5 @@
 <div class="playground">
-  <div *ngFor="let formComponent of formComponents">
-    <app-form-element-raw [formElement]="formComponent"></app-form-element-raw>
+  <div *ngFor="let formComponent of formComponents; index as i">
+    <app-form-element-raw [formElement]="formComponent" [index]="i"></app-form-element-raw>
   </div>
 </div>
