@@ -18,14 +18,14 @@ export class HtmlFormBuilderUtil {
   private generateCompleteHtml(): string {
     let html = `
           <html>
-          ${this.generateHead(this.form.name)}
+          ${this.generateHead()}
           <body>
           <div class="container">
           <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
           <h3>${this.form.name}</h3>
           </div>  
           <form method="post" enctype="multipart/form-data">
-            ${this.formBuilder(this.form.formComponents)}
+            ${this.formBuilder()}
             <div class="d-flex justify-content-end p-2">
             <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -37,9 +37,9 @@ export class HtmlFormBuilderUtil {
     return html;
   }
 
-  private formBuilder(formComponent: FormElement[]): string {
+  formBuilder(): string {
     let html = '';
-    formComponent.forEach((item) => {
+    this.form.formComponents.forEach((item) => {
       if (item.type === 0) {
         html += this.textField(item);
       } else if (item.type === 1) {
@@ -55,11 +55,11 @@ export class HtmlFormBuilderUtil {
     return html;
   }
 
-  private generateHead(title: string): string {
+  private generateHead(): string {
     let head = `
     <head>
     <meta charset="utf-8"/>
-    <title>${title}</title>
+    <title>${this.form.name}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -81,9 +81,15 @@ export class HtmlFormBuilderUtil {
 
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
-        <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
-        <input type="text" id="${formComponent.id}" name="${formComponent.name}" value="${formComponent.value}"
-                class="form-control ${formComponent.className}" placeholder="${formComponent.placeholder}" disabled="${formComponent.disabled}"/>
+        <label class="form-label" for="${formComponent.id}">${
+      formComponent.label
+    }</label>
+        <input type="text" id="${formComponent.id}" name="${
+      formComponent.name
+    }" value="${formComponent.value}"
+                class="form-control ${formComponent.className}" placeholder="${
+      formComponent.placeholder
+    }" ${formComponent.disabled ? 'disabled' : ''}"/>
         </div>`;
     return html;
   }
@@ -100,7 +106,9 @@ export class HtmlFormBuilderUtil {
     const option = this.option(data.options);
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${data.id}">${data.label}</label>
-        <select class="form-control ${data.className}" id="${data.id}" name="${data.name}">
+        <select class="form-control ${data.className}" id="${data.id}" name="${
+      data.name
+    } ${data.disabled ? 'disabled' : ''}">
                 ${option}         
         </select>
         </div>`;
@@ -112,13 +120,16 @@ export class HtmlFormBuilderUtil {
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
       html += `<div class="form-check" >
-        <label for="${formComponent.id}" class="form-check-label">${item.name}</label>
+        <label for="${formComponent.id}" class="form-check-label">${
+        item.name
+      }</label>
         <input 
           class="form-check-input ${formComponent.className}" 
           type="checkbox"  
           id="${formComponent.id}" 
           name="${formComponent.name}" 
           value="${formComponent.value}">
+          ${formComponent.disabled ? 'disabled' : ''}
         </div>`;
     });
     html += `</div>`;
@@ -127,14 +138,16 @@ export class HtmlFormBuilderUtil {
 
   private textareaField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
-        <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
+        <label class="form-label" for="${formComponent.id}">${
+      formComponent.label
+    }</label>
         <textarea
           id="${formComponent.id}" 
           name="${formComponent.name}"
           class="form-control ${formComponent.className}" 
           rows="${formComponent.rows}"
-          cols="${formComponent.cols}">
-        </textarea>
+          ${formComponent.disabled ? 'disabled' : ''}
+          cols="${formComponent.cols}">${formComponent.value}</textarea>
         </div>`;
     return html;
   }

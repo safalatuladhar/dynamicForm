@@ -1,6 +1,11 @@
 <ng-template #content let-modal>
-  <app-modal [formType]="formType" [modal]="modal" [formElement]="formElement" [index]="null">
-    <p>Test</p>
+  <app-modal>
+    <app-form-element-builder
+      [formType]="formType"
+      [modal]="modal"
+      [formElements]="formElement"
+      [index]="null"
+    ></app-form-element-builder>
   </app-modal>
 </ng-template>
 

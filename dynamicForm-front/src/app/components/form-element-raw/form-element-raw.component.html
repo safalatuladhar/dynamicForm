@@ -23,12 +23,12 @@
 </div>
 
 <ng-template #content let-modal>
-  <app-modal
-    [formType]="formElement.type"
-    [modal]="modal"
-    [formElement]="formElement"
-    [index]="index"
-  >
-    <p>Test</p>
+  <app-modal>
+    <app-form-element-builder
+      [formType]="formElement.type"
+      [modal]="modal"
+      [formElements]="formElement"
+      [index]="index"
+    ></app-form-element-builder>
   </app-modal>
 </ng-template>
