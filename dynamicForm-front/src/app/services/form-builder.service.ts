@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject, catchError, from } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { FormService } from './form.service';
@@ -11,32 +11,8 @@ import { FormService } from './form.service';
 export class FormBuilderService {
   constructor(private readonly http: HttpClient) {}
 
-  addElement(id: string) {
-    // this.formElementService.getFormComponent(id);
-    // this.formElementService.fromElement$$.subscribe({
-    //   next: (response) => {
-    //     this.form.formComponents = response;
-    //     console.log('response', response);
-    //     // response.form.name
-    //     // console.log(this.form.formComponents)
-    //     // console.log('element',this.formComponents);
-    //     this.form$$.next(this.form);
-    //   },
-    // });
-    // this.formElementService.getOneForm(id);
-    // this.formElementService.oneForm$$.subscribe({
-    //   next: (response) => {
-    //     this.form.name = response.name;
-    //     this.form$$.next(this.form);
-    //     console.log('resposnsename', response.name);
-    //     console.log(this.form.name);
-    //   },
-    // });
-    // this.formElementService.
-  }
-
   private form: Form = {
-    id: null,
+    id: 101,
     name: 'New Form',
     user_id: 1,
     formComponents: [],
@@ -74,5 +50,19 @@ export class FormBuilderService {
 
   deleteElementFromForm(index: number) {
     this.form.formComponents.splice(index, 1);
+  }
+
+  saveFormToRemote() {
+    this.http
+      .post('http://localhost:8080/form', this.form)
+      .pipe(
+        catchError((err) => {
+          console.log('Error saving form');
+          return err;
+        })
+      )
+      .subscribe((res) => {
+        console.log('Form saved to remote');
+      });
   }
 }

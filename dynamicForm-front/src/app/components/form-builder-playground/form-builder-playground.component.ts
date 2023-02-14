@@ -14,10 +14,7 @@ import { FormService } from 'src/app/services/form.service';
   styleUrls: ['./form-builder-playground.component.scss'],
 })
 export class FormBuilderPlaygroundComponent implements OnInit, OnDestroy {
-  constructor(
-    private readonly formService: FormBuilderService,
-    private readonly formElementService: FormService
-  ) {}
+  constructor(private readonly formService: FormBuilderService) {}
 
   private subscription: Subscription;
   formComponents: FormElement[];

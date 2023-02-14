@@ -1,7 +1,7 @@
 package com.example.DynamicFormbackend.Service;
 
-import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
+import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
 import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Model.FormComponent;
@@ -28,30 +28,32 @@ public class FormService {
     private FormComponentService formComponentService;
     @Autowired
     private OptionRepository optionRepository;
-    public List<Form> getAllForm(){
+
+    public List<Form> getAllForm() {
         return formRepository.findAll();
     }
 
-    public Form getForm(long id){
+    public Form getForm(long id) {
         Form form = formRepository.findById(id).orElseThrow();
         List<FormComponent> components = formComponentService.getFormComponentByFormId(id);
         form.setFormComponents(components);
         return form;
     }
 
-    public Form createForm(Form form, User user){
+    public Form createForm(Form form, User user) {
         form.setUser(user);
         return formRepository.save(form);
     }
-    public void createFormAndComponents(FormDTO formDTO){
+
+    public void createFormAndComponents(FormDTO formDTO) {
         User user = userRepository.getReferenceById(formDTO.getUser_id());
-        Form form = this.createForm(new Form(formDTO),user);
-        for (FormComponentDTO formComponentDTO:formDTO.getFormComponents()){
-            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO,form));
-            if(!formComponentDTO.getOptions().isEmpty()){
+        Form form = this.createForm(new Form(formDTO), user);
+        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
+            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
+            if (formComponentDTO.getOptions() != null) {
                 List<Option> options = new ArrayList<>();
-                for(OptionDTO optionDTO: formComponentDTO.getOptions()){
-                    options.add(new Option(optionDTO,formComponent));
+                for (OptionDTO optionDTO : formComponentDTO.getOptions()) {
+                    options.add(new Option(optionDTO, formComponent));
                 }
                 this.optionRepository.saveAll(options);
             }
@@ -68,6 +70,6 @@ public class FormService {
         Form form = formRepository.findById(id).orElseThrow();
         form.setName(formDTO.getName());
         form = formRepository.save(form);
-        formComponentService.updateFormComponent(formDTO,form,id);
+        formComponentService.updateFormComponent(formDTO, form, id);
     }
 }

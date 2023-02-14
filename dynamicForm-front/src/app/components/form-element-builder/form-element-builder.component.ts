@@ -38,10 +38,10 @@ export class FormElementBuilderComponent implements OnInit {
     className: '',
     type: -1,
     disabled: false,
-    id: 10101,
+    id: 101,
     ids: '',
     name: '',
-    options: [{ id: 999, name: '', value: '' }],
+    options: [{ id: 101, name: '', value: '' }],
     placeholder: '',
     required: true,
     label: '',
@@ -56,9 +56,14 @@ export class FormElementBuilderComponent implements OnInit {
     this.formElement.options.push({ id: 999, name: '', value: '' });
   }
 
-  updateOptionField(event, index) {
+  updateOptionNameField(event, index) {
     const value = (event.target as HTMLInputElement).value;
     this.formElement.options[index].name = value;
+  }
+
+  updateOptionValueField(event, index) {
+    const value = (event.target as HTMLInputElement).value;
+    this.formElement.options[index].value = value;
   }
 
   removeOptionField(index: number) {

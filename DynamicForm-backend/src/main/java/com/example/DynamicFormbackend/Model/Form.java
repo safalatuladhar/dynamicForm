@@ -22,15 +22,13 @@ public class Form {
 
     private String Name;
 
-    //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    @JsonIgnoreProperties("forms")
+
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "form")
-
+    @OneToMany(mappedBy = "form",cascade = CascadeType.ALL)
     private List<FormComponent> formComponents;
 
     public Form() {

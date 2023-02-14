@@ -32,7 +32,7 @@ export class FormBuilderHeaderComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    console.log('Form Saved');
+    this.formService.saveFormToRemote();
   }
 
   ngOnDestroy(): void {

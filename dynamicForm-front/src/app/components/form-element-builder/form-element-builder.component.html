@@ -156,24 +156,30 @@
             class="form-group"
             *ngFor="let option of formElement.options; index as i"
           >
-            <input
-              type="text"
-              id="optionInput"
-              class="form-control"
-              [value]="option.name"
-              placeholder="Enter option name"
-              required
-              (change)="updateOptionField($event, i)"
-            />
-            <input
-              type="text"
-              id="optionValue"
-              class="form-control"
-              [value]="option.value"
-              placeholder="Enter option value"
-              required
-              (change)="updateOptionField($event, i)"
-            />
+            <div>
+              <label for="optionValue">Name</label>
+              <input
+                type="text"
+                id="optionName"
+                class="form-control"
+                [value]="option.name"
+                placeholder="..."
+                required
+                (change)="updateOptionNameField($event, i)"
+              />
+            </div>
+            <div>
+              <label for="optionValue">Value</label>
+              <input
+                type="text"
+                id="optionValue"
+                class="form-control"
+                [value]="option.value"
+                placeholder="..."
+                required
+                (change)="updateOptionValueField($event, i)"
+              />
+            </div>
 
             <button
               type="button"

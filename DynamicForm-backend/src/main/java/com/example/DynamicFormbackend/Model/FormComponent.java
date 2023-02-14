@@ -19,6 +19,7 @@ public class FormComponent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private int type;
     private String value;
     private boolean disabled;
     private String placeholder;
@@ -30,19 +31,15 @@ public class FormComponent {
     private String fileType;
     private boolean multiple;
 
-//    @JsonIgnoreProperties("formComponent")
-    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Option> options;
 
-//    @JsonIgnoreProperties("formComponents")
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "form_id")
     private Form form;
 
     public FormComponent() {
     }
-
 
 
     public FormComponent(FormComponentDTO formComponentDTO, Form form) {
@@ -128,6 +125,38 @@ public class FormComponent {
 
     public int getOrders() {
         return orders;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 
     public void setOrders(int orders) {
