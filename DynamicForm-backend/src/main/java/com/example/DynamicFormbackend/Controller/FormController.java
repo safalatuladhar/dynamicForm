@@ -17,24 +17,30 @@ public class FormController {
     private FormService formService;
 
     @GetMapping("/form")
-    public ResponseEntity<List<Form>> getAllFormComponent(){
+    public ResponseEntity<List<Form>> getAllFormComponent() {
         return ResponseEntity.ok().body(formService.getAllForm());
     }
+
+    @GetMapping("/form/{id}")
+    public ResponseEntity<Form> getForm(@PathVariable long id) {
+        return ResponseEntity.ok().body(formService.getForm(id));
+    }
+
     @PostMapping("/form")
-    public HttpStatus createNewForm(@RequestBody FormDTO formDTO){
+    public HttpStatus createNewForm(@RequestBody FormDTO formDTO) {
         formService.createFormAndComponents(formDTO);
         return HttpStatus.OK;
     }
+
     @DeleteMapping("/form/{id}")
-    public HttpStatus deleteForm(@PathVariable long id)
-    {
+    public HttpStatus deleteForm(@PathVariable long id) {
         formService.deleteForm(id);
         return HttpStatus.OK;
     }
+
     @PutMapping("/form/{id}")
-    public HttpStatus updateForm(@RequestBody FormDTO formDTO,@PathVariable long id)
-    {
-        formService.updateFormAndComponent(formDTO,id);
+    public HttpStatus updateForm(@RequestBody FormDTO formDTO, @PathVariable long id) {
+        formService.updateFormAndComponent(formDTO, id);
         return HttpStatus.OK;
     }
 }

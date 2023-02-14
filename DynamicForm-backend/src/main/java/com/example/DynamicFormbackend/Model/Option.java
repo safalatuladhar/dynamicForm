@@ -32,6 +32,7 @@ public class Option {
     public Option(OptionDTO optionDTO, FormComponent formComponent) {
         this.id = optionDTO.getId();
         this.name = optionDTO.getName();
+        this.value = optionDTO.getValue();
         this.formComponent = formComponent;
     }
 

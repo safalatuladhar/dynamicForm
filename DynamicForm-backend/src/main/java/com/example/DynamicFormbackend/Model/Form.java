@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 
@@ -18,21 +18,18 @@ public class Form {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     private String Name;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-//    @JsonIgnoreProperties("forms")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "form")
-//    @JsonIgnoreProperties("form")
-    @JsonIgnore
-    private Set<FormComponent> formComponents;
+    @OneToMany(mappedBy = "form",cascade = CascadeType.ALL)
+    private List<FormComponent> formComponents;
 
     public Form() {
     }
@@ -42,11 +39,11 @@ public class Form {
         Name = formDTO.getName();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,11 +63,11 @@ public class Form {
         this.user = user;
     }
 
-    public Set<FormComponent> getFormComponents() {
+    public List<FormComponent> getFormComponents() {
         return formComponents;
     }
 
-    public void setFormComponents(Set<FormComponent> formComponents) {
+    public void setFormComponents(List<FormComponent> formComponents) {
         this.formComponents = formComponents;
     }
 }

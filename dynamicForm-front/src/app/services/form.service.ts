@@ -1,33 +1,40 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, first } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, first, of } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
-import { FormElement } from '../interfaces/FormElement.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormService {
-  private form: Form = {
-    id: null,
-    name: 'New Form',
-    user_id: 1,
-    formComponents: [],
-  };
-  form$$ = new BehaviorSubject<Form[]>([]);
-  fromElement$$ = new BehaviorSubject<FormElement[]>([]);
-  oneForm$$ = new BehaviorSubject<Form>(this.form);
+  constructor(private http: HttpClient) {}
 
-  public getForm():void {
-    this.http.get<Form[]>('http://localhost:8080/form').pipe(first()).subscribe(form => this.form$$.next(form));
-  }
-  public getOneForm(id:string):void {
-    this.http.get<Form>('http://localhost:8080/form/'+id).pipe(first()).subscribe(forms => this.oneForm$$.next(forms));
+  formList: Form[] = [];
+  formList$$ = new BehaviorSubject<Form[]>(this.formList);
+
+  public getForm(): void {
+    this.http
+      .get<Form[]>('http://localhost:8080/form')
+      .subscribe((formList) => {
+        this.formList = [...formList];
+        this.formList$$.next(formList);
+      });
   }
 
-  public getFormComponent(id:string):void{
-    this.http.get<FormElement[]>('http://localhost:8080/formComponent/'+id).pipe(first()).subscribe(formElement => this.fromElement$$.next(formElement));
+  public deleteForm(id: number): void {
+    this.http
+      .delete<Form[]>(`http://localhost:8080/form/${id}`)
+      .pipe(
+        catchError(
+          catchError((err) => {
+            alert('Error deleting form');
+            return of([err]);
+          })
+        )
+      )
+      .subscribe(() => {
+        this.formList = this.formList.filter((form) => form.id !== id);
+        this.formList$$.next(this.formList);
+      });
   }
-
-  constructor(private http:HttpClient) { }
 }

@@ -10,7 +10,7 @@ export interface FormElement {
   required: boolean;
   label: string;
   ids: string;
-  class: string;
+  className: string;
   fileType: string;
   multiple: boolean;
   rows: number;

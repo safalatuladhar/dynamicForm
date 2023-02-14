@@ -14,20 +14,12 @@ import { FormService } from 'src/app/services/form.service';
   styleUrls: ['./form-builder-playground.component.scss'],
 })
 export class FormBuilderPlaygroundComponent implements OnInit, OnDestroy {
-  constructor(private readonly formService: FormBuilderService,private route: ActivatedRoute,
-    private readonly formElementService:FormService) {}
-  id:string
+  constructor(private readonly formService: FormBuilderService) {}
 
   private subscription: Subscription;
   formComponents: FormElement[];
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => this.id = params['id']);
-    // console.log(this.id);
-
-    this.formService.addElement(this.id)
-    
-    
     this.subscription = this.formService.form$$.subscribe(
       (val) => (this.formComponents = val.formComponents)
     );

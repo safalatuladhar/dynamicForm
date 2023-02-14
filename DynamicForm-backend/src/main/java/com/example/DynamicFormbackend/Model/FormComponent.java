@@ -1,11 +1,9 @@
 package com.example.DynamicFormbackend.Model;
 
 
-import com.example.DynamicFormbackend.DTO.FromComponentDTO;
+import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -21,35 +19,30 @@ public class FormComponent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private int type;
     private String value;
-    private Boolean disabled;
+    private boolean disabled;
     private String placeholder;
-    private Boolean required;
+    private boolean required;
     private String ids;
-    private String classs;
+    private String className;
     private int orders;
     private String label;
     private String fileType;
-    private Boolean multiple;
+    private boolean multiple;
 
-
-
-//    @JsonIgnoreProperties("formComponent")
-    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Option> options;
 
-//    @JsonIgnoreProperties("formComponents")
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "form_id")
     private Form form;
 
     public FormComponent() {
     }
 
 
-
-    public FormComponent(FromComponentDTO formComponentDTO, Form form) {
+    public FormComponent(FormComponentDTO formComponentDTO, Form form) {
         this.id = formComponentDTO.getId();
         this.name = formComponentDTO.getName();
         this.value = formComponentDTO.getValue();
@@ -57,7 +50,7 @@ public class FormComponent {
         this.placeholder = formComponentDTO.getPlaceholder();
         this.required = formComponentDTO.isRequired();
         this.ids = formComponentDTO.getIds();
-        this.classs = formComponentDTO.getClasss();
+        this.className = formComponentDTO.getClasss();
         this.orders = (int) formComponentDTO.getOrders();
         this.label = formComponentDTO.getLabel();
         this.fileType = formComponentDTO.getFileType();
@@ -122,16 +115,48 @@ public class FormComponent {
         this.ids = ids;
     }
 
-    public String getClasss() {
-        return classs;
+    public String getClassName() {
+        return className;
     }
 
-    public void setClasss(String classs) {
-        this.classs = classs;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public int getOrders() {
         return orders;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 
     public void setOrders(int orders) {

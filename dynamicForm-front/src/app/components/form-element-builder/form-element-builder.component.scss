@@ -81,17 +81,26 @@
       width: 60%;
 
       .form-group {
-        margin-bottom: 0.5em;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: end;
+        gap: 2px;
+
+        label {
+          color: grey;
+          font-size: 0.7em;
+          margin: 0;
+          font-weight: 500;
+        }
+
         input {
           font-size: 0.7em;
-          display: inline;
-          width: 81%;
         }
 
         .btn {
           border-radius: 3px;
-          margin-left: 6px;
           font-size: 0.7em;
+          height: 50%;
         }
       }
 
