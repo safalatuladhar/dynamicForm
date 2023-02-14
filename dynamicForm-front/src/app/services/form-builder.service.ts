@@ -1,18 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, from } from 'rxjs';
+import { BehaviorSubject, catchError } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
-import { FormService } from './form.service';
+import { AppToastService } from './app-toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormBuilderService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly toastService: AppToastService
+  ) {}
 
   private form: Form = {
-    id: 101,
+    id: -1,
     name: 'New Form',
     user_id: 1,
     formComponents: [],
@@ -53,16 +56,31 @@ export class FormBuilderService {
   }
 
   saveFormToRemote() {
+    if (this.form.id !== -1) {
+      this.http
+        .put(`http://localhost:8080/form/${this.form.id}`, this.form)
+        .pipe(
+          catchError((err) => {
+            this.toastService.show('Error', 'Error updating form');
+            return null;
+          })
+        )
+        .subscribe((res) => {
+          this.toastService.show('Success', 'Form updated successfully');
+        });
+      return;
+    }
     this.http
-      .post('http://localhost:8080/form', this.form)
+      .post(`http://localhost:8080/form`, this.form)
       .pipe(
         catchError((err) => {
-          console.log('Error saving form');
-          return err;
+          this.toastService.show('Error', 'Error saving form');
+          return null;
         })
       )
       .subscribe((res) => {
-        console.log('Form saved to remote');
+        this.toastService.show('Success', 'Form saved successfully');
       });
+    return;
   }
 }

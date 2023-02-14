@@ -1,3 +1,5 @@
+import { FormElement } from '../interfaces/FormElement.interface';
+
 class HtmlFormBuilderUtil {
   download() {
     // var html = this.formBuilder(this.formComponent);

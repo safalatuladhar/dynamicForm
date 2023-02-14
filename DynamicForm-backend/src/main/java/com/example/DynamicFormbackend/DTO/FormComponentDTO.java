@@ -12,7 +12,7 @@ public class FormComponentDTO {
     private String ids;
     private String className;
     private int orders;
-    private String type;
+    private int type;
     private String label;
     private String fileType;
     private boolean multiple;
@@ -117,11 +117,11 @@ public class FormComponentDTO {
         return required;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

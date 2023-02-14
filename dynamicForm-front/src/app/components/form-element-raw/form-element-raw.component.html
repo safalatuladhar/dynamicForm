@@ -5,8 +5,16 @@
       <p>{{ elementInfoList[formElement.type].title }}</p>
     </div>
     <div class="btn-wrapper">
-      <button type="button" (click)="open(content, formElement.type)" class="btn btn-primary">Edit</button>
-      <button type="button" (click)="delete(index)"  class="btn btn-danger">Delete</button>
+      <button
+        type="button"
+        (click)="open(content, formElement.type)"
+        class="btn btn-primary"
+      >
+        Edit
+      </button>
+      <button type="button" (click)="delete(index)" class="btn btn-danger">
+        Delete
+      </button>
     </div>
   </div>
   <div>
@@ -15,7 +23,12 @@
 </div>
 
 <ng-template #content let-modal>
-  <app-modal [formType]="formElement.type" [modal]="modal" [formElement]="formElement" [index]="index">
+  <app-modal
+    [formType]="formElement.type"
+    [modal]="modal"
+    [formElement]="formElement"
+    [index]="index"
+  >
     <p>Test</p>
   </app-modal>
 </ng-template>
