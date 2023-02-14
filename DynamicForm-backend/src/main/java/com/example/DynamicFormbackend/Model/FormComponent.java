@@ -56,6 +56,7 @@ public class FormComponent {
         this.fileType = formComponentDTO.getFileType();
         this.multiple = formComponentDTO.getMultiple();
         this.form = form;
+        this.type = formComponentDTO.getType();
 
     }
 

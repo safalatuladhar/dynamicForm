@@ -37,7 +37,6 @@ export class FormBuilderHeaderComponent implements OnInit, OnDestroy {
 
   save(): void {
     this.formService.saveFormToRemote();
-    this.toastService.show('Added', 'Form saved successfully');
   }
 
   ngOnDestroy(): void {
