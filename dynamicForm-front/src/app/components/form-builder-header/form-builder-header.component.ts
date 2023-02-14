@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AppToastService } from 'src/app/services/app-toast.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 
 @Component({
@@ -8,7 +9,10 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
   styleUrls: ['./form-builder-header.component.scss'],
 })
 export class FormBuilderHeaderComponent implements OnInit, OnDestroy {
-  constructor(private readonly formService: FormBuilderService) {}
+  constructor(
+    private readonly formService: FormBuilderService,
+    private readonly toastService: AppToastService
+  ) {}
 
   private subscription: Subscription;
   title: string = '';
@@ -33,6 +37,7 @@ export class FormBuilderHeaderComponent implements OnInit, OnDestroy {
 
   save(): void {
     this.formService.saveFormToRemote();
+    this.toastService.show('Added', 'Form saved successfully');
   }
 
   ngOnDestroy(): void {

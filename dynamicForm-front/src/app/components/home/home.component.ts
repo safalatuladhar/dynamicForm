@@ -5,6 +5,7 @@ import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { Option } from 'src/app/interfaces/Option.interface';
+import { AppToastService } from 'src/app/services/app-toast.service';
 import { FormService } from 'src/app/services/form.service';
 
 @Component({
@@ -15,7 +16,8 @@ import { FormService } from 'src/app/services/form.service';
 export class HomeComponent implements OnInit {
   constructor(
     private readonly router: Router,
-    private readonly formService: FormService
+    private readonly formService: FormService,
+    private readonly toastService: AppToastService
   ) {}
 
   formList: Form[] = [];
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
 
   remove(id: number) {
     this.formService.deleteForm(id);
+    this.toastService.show('Removed', 'Form removed successfully.');
   }
 
   download() {}
