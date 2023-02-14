@@ -1,185 +1,155 @@
+import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
+import { Option } from '../interfaces/Option.interface';
 
-class HtmlFormBuilderUtil {
+export class HtmlFormBuilderUtil {
+  constructor(public form: Form) {}
+
   download() {
-    // var html = this.formBuilder(this.formComponent);
-    var htmlFormat =
-      `
-          <html>
-          <head>
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-          <title> abc </title>
-          </head>
-          <body>
-          <form method="post" enctype="multipart/form-data">
-          ` +
-      'html' +
-      `
-          </form>
-    
-          </body>
-          </html>
-        `;
-
+    let htmlFormat = this.generateCompleteHtml();
     const data = new Blob([htmlFormat], { type: 'text/html' });
     const url = URL.createObjectURL(data);
     const link = document.createElement('a');
-    link.download = 'my-file.html';
+    link.download = `${this.form.name}.html`;
     link.href = url;
     link.click();
   }
 
-  textField(formComponent: FormElement) {
-    const html =
-      `<div class="form-group">
-              <label for="` +
-      formComponent.id +
-      `">` +
-      formComponent.label +
-      `</label>
-              <input
-                type="text" 
-                id=` +
-      formComponent.id +
-      ` 
-                name="` +
-      formComponent.name +
-      `"
-                class=" ` +
-      formComponent.className +
-      `"
-                placeholder="` +
-      formComponent.placeholder +
-      `"
-              />
-            </div>`;
+  private generateCompleteHtml(): string {
+    let html = `
+          <html>
+          ${this.generateHead(this.form.name)}
+          <body>
+          <div class="container">
+          <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
+          <h3>${this.form.name}</h3>
+          </div>  
+          <form method="post" enctype="multipart/form-data">
+            ${this.formBuilder(this.form.formComponents)}
+            <div class="d-flex justify-content-end p-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          </div>
+          </body>
+          </html>
+        `;
     return html;
   }
 
-  option(data: Option[]) {
-    var html = '';
-    data.forEach((item) => {
-      html +=
-        ` <option value=" ` + item.name + `"> ` + item.name + `</option> `;
-    });
-
-    return html;
-  }
-
-  selectField(data: FormElement) {
-    const option = this.option(data.options);
-    const html =
-      `<div class="form-group">
-              <label for="` +
-      data.id +
-      `">` +
-      data.label +
-      `</label>
-              
-              <select
-                id="` +
-      data.id +
-      `"
-                name="` +
-      data.name +
-      `"
-                class="` +
-      data.className +
-      `">
-                ` +
-      option +
-      `           
-              </select>
-            </div>`;
-    return html;
-  }
-
-  checkboxField(formComponent: FormElement) {
-    var html = '';
-
-    formComponent.options.forEach((item) => {
-      html +=
-        `<div class="form-group">
-              <input  type="checkbox"  id=` +
-        formComponent.id +
-        ` 
-                name="` +
-        formComponent.name +
-        `
-                class=" ` +
-        formComponent.className +
-        ` value=" ` +
-        item.name +
-        `>
-    
-            <label for="` +
-        formComponent.id +
-        `">` +
-        item.name +
-        `</label>
-            </div>`;
-    });
-    return html;
-  }
-
-  textareaField(formComponent: FormElement) {
-    const html =
-      `<div class="form-group">
-              <label for="` +
-      formComponent.id +
-      `">` +
-      formComponent.label +
-      `</label>
-              <textarea
-                id=` +
-      formComponent.id +
-      ` 
-                name="` +
-      formComponent.name +
-      `"
-                class=" ` +
-      formComponent.className +
-      `" rows = ` +
-      `5` +
-      `" cols= ` +
-      `5` +
-      `">      
-              </textarea>
-            </div>`;
-    return html;
-  }
-
-  fileuploadField(formComponent: FormElement) {
-    const html =
-      `<div class="form-group">
-              <input  type="file"  id=` +
-      formComponent.id +
-      ` 
-                name="` +
-      formComponent.name +
-      `>
-           <input  type="submit">
-            </div>`;
-    return html;
-  }
-
-  formBuilder(formComponent: FormElement[]) {
-    var html = '';
+  private formBuilder(formComponent: FormElement[]): string {
+    let html = '';
     formComponent.forEach((item) => {
-      console.log(item.type === 0);
-
       if (item.type === 0) {
         html += this.textField(item);
+      } else if (item.type === 1) {
+        html += this.selectField(item);
       } else if (item.type === 2) {
         html += this.checkboxField(item);
-      } else if (item.type === 4) {
-        html += this.selectField(item);
-      } else if (item.type === 1) {
-        html += this.textareaField(item);
       } else if (item.type === 3) {
+        html += this.textareaField(item);
+      } else if (item.type === 4) {
         html += this.fileuploadField(item);
       }
     });
+    return html;
+  }
+
+  private generateHead(title: string): string {
+    let head = `
+    <head>
+    <meta charset="utf-8"/>
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+      body {
+        padding: 1em;
+      }
+      .container {
+        width: 50vw;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+          rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+        border-radius: 4px;
+        padding: 1em 2em;
+      }
+    </style>
+    </head>`;
+    return head;
+  }
+
+  private textField(formComponent: FormElement) {
+    const html = `<div class="form-group mb-2">
+        <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
+        <input type="text" id="${formComponent.id}" name="${formComponent.name}" value="${formComponent.value}"
+                class="form-control ${formComponent.className}" placeholder="${formComponent.placeholder}" disabled="${formComponent.disabled}"/>
+        </div>`;
+    return html;
+  }
+
+  private option(data: Option[]) {
+    let html = '';
+    data.forEach((item) => {
+      html += `<option value="${item.value}">${item.name}</option> `;
+    });
+    return html;
+  }
+
+  private selectField(data: FormElement) {
+    const option = this.option(data.options);
+    const html = `<div class="form-group mb-2">
+        <label class="form-label" for="${data.id}">${data.label}</label>
+        <select class="form-control ${data.className}" id="${data.id}" name="${data.name}">
+                ${option}         
+        </select>
+        </div>`;
+    return html;
+  }
+
+  private checkboxField(formComponent: FormElement) {
+    let html = `<div>
+    <label class="form-label" for="52">${formComponent.label}</label>`;
+    formComponent.options.forEach((item) => {
+      html += `<div class="form-check" >
+        <label for="${formComponent.id}" class="form-check-label">${item.name}</label>
+        <input 
+          class="form-check-input ${formComponent.className}" 
+          type="checkbox"  
+          id="${formComponent.id}" 
+          name="${formComponent.name}" 
+          value="${formComponent.value}">
+        </div>`;
+    });
+    html += `</div>`;
+    return html;
+  }
+
+  private textareaField(formComponent: FormElement) {
+    const html = `<div class="form-group mb-2">
+        <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
+        <textarea
+          id="${formComponent.id}" 
+          name="${formComponent.name}"
+          class="form-control ${formComponent.className}" 
+          rows="${formComponent.rows}"
+          cols="${formComponent.cols}">
+        </textarea>
+        </div>`;
+    return html;
+  }
+
+  private fileuploadField(formComponent: FormElement) {
+    const html = `<div class="form-group mb-2">
+    <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
+    <input 
+      type="file" 
+      class="form-control ${formComponent.className}" 
+      id="${formComponent.id}" 
+      multiple="${formComponent.multiple}"
+      name="${formComponent.name}"
+      accept="${formComponent.fileType}">
+  </div>`;
     return html;
   }
 }

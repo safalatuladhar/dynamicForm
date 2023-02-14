@@ -62,7 +62,7 @@ export class FormBuilderService {
         .pipe(
           catchError((err) => {
             this.toastService.show('Error', 'Error updating form');
-            return null;
+            return [];
           })
         )
         .subscribe((res) => {
@@ -75,7 +75,7 @@ export class FormBuilderService {
       .pipe(
         catchError((err) => {
           this.toastService.show('Error', 'Error saving form');
-          return null;
+          return [];
         })
       )
       .subscribe((res) => {

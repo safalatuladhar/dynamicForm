@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "options")
 public class Option {
     @Id
@@ -20,10 +19,8 @@ public class Option {
     private String name;
     private String value;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "form_component_id")
     private FormComponent  formComponent;
 
     public Option() {

@@ -27,7 +27,6 @@ export class FormService {
       .pipe(
         catchError(
           catchError((err) => {
-            alert('Error deleting form');
             return of([err]);
           })
         )
