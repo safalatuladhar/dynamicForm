@@ -27,7 +27,8 @@ export class FormService {
       .pipe(
         catchError(
           catchError((err) => {
-            return of([err]);
+            return of([err]);   
+            // whats this
           })
         )
       )

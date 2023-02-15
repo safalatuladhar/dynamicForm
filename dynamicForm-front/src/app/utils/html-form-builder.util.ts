@@ -50,6 +50,8 @@ export class HtmlFormBuilderUtil {
         html += this.textareaField(item);
       } else if (item.type === 4) {
         html += this.fileuploadField(item);
+      }else if(item.type === 5){
+        html += this.radioField(item);
       }
     });
     return html;
@@ -163,6 +165,27 @@ export class HtmlFormBuilderUtil {
       name="${formComponent.name}"
       accept="${formComponent.fileType}">
   </div>`;
+    return html;
+  }
+
+  private radioField(formComponent: FormElement) {
+    let html = `<div>
+    <label class="form-label" for="52">${formComponent.label}</label>`;
+    formComponent.options.forEach((item) => {
+      html += `<div class="form-check" >
+        <label for="${formComponent.id}" class="form-check-label">${
+        item.name
+      }</label>
+        <input 
+          class="form-check-input ${formComponent.className}" 
+          type="radio"  
+          id="${formComponent.id}" 
+          name="${formComponent.name}" 
+          value="${formComponent.value}">
+          ${formComponent.disabled ? 'disabled' : ''}
+        </div>`;
+    });
+    html += `</div>`;
     return html;
   }
 }
