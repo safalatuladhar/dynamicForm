@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { AppToastService } from './app-toast.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FormBuilderService {
   constructor(
     private readonly http: HttpClient,
-    private readonly toastService: AppToastService
+    private readonly toastService: AppToastService,
+    private readonly router: Router
   ) {}
 
   private form: Form = {
@@ -67,6 +67,7 @@ export class FormBuilderService {
         )
         .subscribe((res) => {
           this.toastService.show('Success', 'Form updated successfully');
+          this.router.navigate(['']);
         });
       return;
     }
@@ -80,6 +81,7 @@ export class FormBuilderService {
       )
       .subscribe((res) => {
         this.toastService.show('Success', 'Form saved successfully');
+        this.router.navigate(['']);
       });
     return;
   }

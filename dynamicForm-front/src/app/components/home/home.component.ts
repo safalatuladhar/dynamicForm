@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { FormService } from 'src/app/services/form.service';
-import { HtmlFormBuilderUtil } from 'src/app/utils/html-form-builder.util';
+import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.http
       .get<Form>(`http://localhost:8080/form/${id}`)
       .subscribe((form) => {
-        new HtmlFormBuilderUtil(form).download();
+        new HtmlFormBuilder(form).download();
       });
   }
 }
