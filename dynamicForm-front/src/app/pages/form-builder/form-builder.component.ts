@@ -6,6 +6,7 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
+  providers: [FormBuilderService],
 })
 export class FormBuilderComponent implements OnInit {
   constructor(
