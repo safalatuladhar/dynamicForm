@@ -1,0 +1,37 @@
+<div class="header-wrapper">
+  <form (submit)="onTitleSubmit($event)">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="form.name"
+      name="title"
+      (change)="onTitleChange()"
+    />
+  </form>
+
+  <div class="button-wrapper">
+    <button type="button" class="btn btn-light" (click)="open(content)">
+      <i class="fa-solid fa-eye"></i>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="container" style="padding: 1.5em">
+    <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
+      <h3>{{ form.name }}</h3>
+    </div>
+    <form
+      method="post"
+      class="modal-form-preview"
+      enctype="multipart/form-data"
+    ></form>
+    <div class="d-flex justify-content-end p-2">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</ng-template>

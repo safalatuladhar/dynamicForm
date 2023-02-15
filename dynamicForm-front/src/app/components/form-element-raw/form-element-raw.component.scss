@@ -1,0 +1,46 @@
+.parent-wrapper {
+  width: 510px;
+  background-color: white;
+  max-height: 80vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  border-radius: 5px;
+  padding: 1em 1.5em;
+
+  .title-control-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(201, 201, 201);
+
+    .icon-wrapper {
+      display: flex;
+      align-items: flex-end;
+      gap: 1em;
+
+      svg {
+        font-size: 1.3em;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+    }
+
+    .btn-wrapper {
+      display: flex;
+      gap: 0.5em;
+      .btn {
+        font-size: 0.55em;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    margin-top: 6px;
+    text-transform: capitalize;
+  }
+}
