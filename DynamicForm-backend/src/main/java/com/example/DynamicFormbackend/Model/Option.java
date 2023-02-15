@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-
+@Data
 @Table(name = "options")
 public class Option {
     @Id
@@ -33,35 +33,4 @@ public class Option {
         this.formComponent = formComponent;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public FormComponent getFormComponent() {
-        return formComponent;
-    }
-
-    public void setFormComponent(FormComponent formComponent) {
-        this.formComponent = formComponent;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }
