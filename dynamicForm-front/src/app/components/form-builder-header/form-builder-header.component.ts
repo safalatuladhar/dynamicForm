@@ -1,4 +1,5 @@
 import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
@@ -15,7 +16,8 @@ export class FormBuilderHeaderComponent
 {
   constructor(
     private readonly formService: FormBuilderService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private readonly router: Router
   ) {}
 
   private subscription: Subscription;
@@ -54,6 +56,8 @@ export class FormBuilderHeaderComponent
 
   save(): void {
     this.formService.saveFormToRemote();
+    this.router.navigate(['']);
+
   }
 
   ngOnDestroy(): void {

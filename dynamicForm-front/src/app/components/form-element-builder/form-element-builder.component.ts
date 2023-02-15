@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   formElementAtrributeMap,
   formElementInfo,
@@ -20,7 +21,9 @@ export class FormElementBuilderComponent implements OnInit {
   @Input() index: number;
   flag: boolean = false;
 
-  constructor(private readonly formService: FormBuilderService) {}
+  constructor(
+    private readonly formService: FormBuilderService,
+    private readonly router: Router,) {}
 
   elementChecklist = [...formElementAtrributeMap];
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
@@ -80,6 +83,8 @@ export class FormElementBuilderComponent implements OnInit {
       this.formService.updateElementInform(this.formElement, this.index);
     }
     this.modal.dismiss();
+    // this.
+
   }
 
   validateFormElement(): boolean {

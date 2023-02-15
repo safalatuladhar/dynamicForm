@@ -17,7 +17,7 @@ export class FormBuilderService {
   private form: Form = {
     id: -1,
     name: 'New Form',
-    user_id: 1,
+    userId: 1,
     formComponents: [],
   };
 
