@@ -46,7 +46,7 @@ public class FormService {
     }
 
     public void createFormAndComponents(FormDTO formDTO) {
-        User user = userRepository.getReferenceById(formDTO.getUser_id());
+        User user = userRepository.getReferenceById(formDTO.getUserId());
         Form form = this.createForm(new Form(formDTO), user);
         for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
             FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
