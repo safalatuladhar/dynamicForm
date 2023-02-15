@@ -1,3 +1,4 @@
+import { FormElementType } from '../enums/FormElementType.enum';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
@@ -16,6 +17,9 @@ export class HtmlFormBuilderUtil {
   }
 
   private generateCompleteHtml(): string {
+    let containsFile = this.form.formComponents.find(
+      (formComponent) => formComponent.type === FormElementType.FILE_UPLOAD
+    );
     let html = `
           <html>
           ${this.generateHead()}
@@ -24,7 +28,9 @@ export class HtmlFormBuilderUtil {
           <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
           <h3>${this.form.name}</h3>
           </div>  
-          <form method="post" enctype="multipart/form-data">
+          <form method="post" ${
+            containsFile ? 'enctype="multipart/form-data"' : ''
+          }>
             ${this.formBuilder()}
             <div class="d-flex justify-content-end p-2">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -108,7 +114,7 @@ export class HtmlFormBuilderUtil {
         <label class="form-label" for="${data.id}">${data.label}</label>
         <select class="form-control ${data.className}" id="${data.id}" name="${
       data.name
-    } ${data.disabled ? 'disabled' : ''}">
+    }" ${data.disabled ? 'disabled' : ''}>
                 ${option}         
         </select>
         </div>`;
