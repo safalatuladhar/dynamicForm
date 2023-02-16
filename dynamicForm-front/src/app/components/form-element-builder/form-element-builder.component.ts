@@ -53,6 +53,7 @@ export class FormElementBuilderComponent implements OnInit {
     rows: 1,
     cols: 1,
     value: '',
+    orders: -1,
     multiple: null,
     fileType: '',
   };
@@ -91,7 +92,6 @@ export class FormElementBuilderComponent implements OnInit {
     }
     this.modal.dismiss();
     // this.
-
   }
 
   validateFormElement(): boolean {
