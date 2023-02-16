@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -24,13 +25,14 @@ const routes: Routes = [
     FormBuilderPlaygroundComponent,
     FormElementBuilderComponent,
     ModalComponent,
-    FormElementRawComponent,
+    FormElementRawComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule.forChild(routes),
     SharedModule,
+    DragDropModule,
   ],
 })
 export class FormBuilderModule {}
