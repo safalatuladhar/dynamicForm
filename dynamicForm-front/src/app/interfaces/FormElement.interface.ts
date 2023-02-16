@@ -14,6 +14,7 @@ export interface FormElement {
   fileType: string;
   multiple: boolean;
   rows: number;
+  orders: number;
   cols: number;
   options: Option[] | null;
 }

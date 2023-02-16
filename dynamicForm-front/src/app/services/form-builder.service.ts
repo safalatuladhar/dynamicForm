@@ -55,7 +55,17 @@ export class FormBuilderService {
     this.form.formComponents.splice(index, 1);
   }
 
+  updateElementOrder() {
+    this.form.formComponents = this.form.formComponents.map((item, index) => {
+      item.orders = index;
+      return item;
+    });
+    this.form$$.next(this.form);
+  }
+
   saveFormToRemote() {
+    this.updateElementOrder();
+
     if (this.form.id !== -1) {
       this.http
         .put(`http://localhost:8080/form/${this.form.id}`, this.form)
