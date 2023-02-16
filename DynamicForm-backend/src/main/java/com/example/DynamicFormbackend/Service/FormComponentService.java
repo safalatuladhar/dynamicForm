@@ -11,6 +11,8 @@ import com.example.DynamicFormbackend.Repository.FormComponentRepository;
 import com.example.DynamicFormbackend.Repository.OptionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,8 +32,11 @@ public class FormComponentService {
     }
 
     public List<FormComponent> getFormComponentByFormId(long id) {
-        return formComponentRepository.findFormComponentByFormId(id);
+//        return formComponentRepository.findFormComponentByFormIdSorted(id);
+        return formComponentRepository.findFormComponentByFormId(id, Sort.by(Sort.Direction.ASC, "orders"));
     }
+
+
 
     public FormComponent createFormComponent(FormComponent formComponent) {
         return formComponentRepository.save(formComponent);

@@ -13,11 +13,12 @@ import lombok.EqualsAndHashCode;
 @Table(name = "options")
 public class Option {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
     private String value;
+    private int orders;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,6 +32,7 @@ public class Option {
         this.name = optionDTO.getName();
         this.value = optionDTO.getValue();
         this.formComponent = formComponent;
+        this.orders = optionDTO.getOrders();
     }
 
 }

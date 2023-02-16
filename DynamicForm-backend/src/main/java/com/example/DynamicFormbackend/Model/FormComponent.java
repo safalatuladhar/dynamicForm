@@ -37,6 +37,7 @@ public class FormComponent {
     private int cols;
 
     @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderBy("orders ASC")
     private Set<Option> options;
 
     @JsonIgnore
