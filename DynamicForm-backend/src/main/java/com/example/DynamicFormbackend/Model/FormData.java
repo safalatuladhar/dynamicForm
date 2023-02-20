@@ -1,5 +1,7 @@
 package com.example.DynamicFormbackend.Model;
 
+import com.example.DynamicFormbackend.DTO.FormDataDTO;
+import com.example.DynamicFormbackend.DTO.OptionDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,4 +26,6 @@ public class FormData {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_data_id", referencedColumnName = "id")
     private Form form;
+
+
 }

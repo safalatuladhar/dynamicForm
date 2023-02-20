@@ -1,12 +1,12 @@
 package com.example.DynamicFormbackend.Controller;
 
+import com.example.DynamicFormbackend.DTO.FormDataDTO;
 import com.example.DynamicFormbackend.Model.FormData;
 import com.example.DynamicFormbackend.Service.FormDataService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -15,21 +15,18 @@ public class FormDataController {
     @Autowired
     private final FormDataService formDataService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public FormDataController(FormDataService formDataService) {
         this.formDataService = formDataService;
     }
 
     @PostMapping("/formData")
-    public ResponseEntity<FormData> saveFormData(@RequestBody FormData formData) {
-        return ResponseEntity.ok().body(formDataService.saveData(formData));
+    public ResponseEntity<FormDataDTO> saveFormData(@RequestBody FormDataDTO formDataDTO) {
+
+        return ResponseEntity.ok().body(formDataService.saveData(formDataDTO));
+
     }
-
-//    @GetMapping("/formData/{id}")
-//    public ResponseEntity<List<FormData>> getFormData(@PathVariable long id) {
-//        return ResponseEntity.ok().body(formDataService.getFormDataByFormId(id));
-//    }
-
-
-
 
 }
