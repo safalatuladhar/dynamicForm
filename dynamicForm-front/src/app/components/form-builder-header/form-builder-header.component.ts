@@ -43,7 +43,7 @@ export class FormBuilderHeaderComponent
       return;
     }
     document.querySelector('.modal-form-preview').innerHTML =
-      new HtmlFormBuilder(this.form).formBuilder();
+      new HtmlFormBuilder(this.form,false).formBuilder();
   }
 
   onTitleChange() {

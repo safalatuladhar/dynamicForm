@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { formElementInfo, FormElementType } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
@@ -16,8 +16,10 @@ export class FormElementRawComponent {
   elementInfoList: { class: string; title: string }[] = [...formElementInfo];
 
   open(content,formType:FormElementType){
-    
-    this.modalService.open( content,{ ariaLabelledBy: 'modal-basic-title' }).result.then(
+    const options: NgbModalOptions = {
+      windowClass: 'your-custom-dialog-class'
+      };
+    this.modalService.open( content,options).result.then(
 			(result) => {
 				 `Closed with: ${result}`;
 			},

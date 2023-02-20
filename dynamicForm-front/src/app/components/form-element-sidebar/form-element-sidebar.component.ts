@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
-import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-form-element-sidebar',

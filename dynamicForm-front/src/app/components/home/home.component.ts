@@ -41,7 +41,10 @@ export class HomeComponent implements OnInit {
     this.http
       .get<Form>(`http://localhost:8080/form/${id}`)
       .subscribe((form) => {
-        new HtmlFormBuilder(form).download();
+        new HtmlFormBuilder(form,false).download();
       });
+  }
+  formData(id:number){
+    this.router.navigate([`/${id}`]);
   }
 }

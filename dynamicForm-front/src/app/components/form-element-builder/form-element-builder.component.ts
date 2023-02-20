@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
@@ -46,7 +47,7 @@ export class FormElementBuilderComponent implements OnInit {
     id: 101,
     ids: '',
     name: '',
-    options: [{ id: 101, name: '', value: '' }],
+    options: [{ id: 101, name: '', value: '', orders: -1 }],
     placeholder: '',
     required: true,
     label: '',
@@ -59,7 +60,7 @@ export class FormElementBuilderComponent implements OnInit {
   };
 
   addOptionField() {
-    this.formElement.options.push({ id: 999, name: '', value: '' });
+    this.formElement.options.push({ id: 999, name: '', value: '', orders: -1 });
   }
 
   updateOptionNameField(event, index) {
@@ -130,5 +131,11 @@ export class FormElementBuilderComponent implements OnInit {
     );
     this.formElement.ids = this.sanitizeValues(this.formElement.ids);
     this.formElement.name = this.sanitizeValues(this.formElement.name);
+  }
+
+  drop(event:CdkDragDrop<string[]>){
+    // console.log("HELLO");
+    // console.log(event.previousIndex,event.currentIndex);
+    moveItemInArray(this.formElement.options,event.previousIndex,event.currentIndex)
   }
 }

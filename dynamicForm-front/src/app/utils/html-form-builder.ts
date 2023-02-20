@@ -4,7 +4,7 @@ import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
 
 export class HtmlFormBuilder {
-  constructor(public form: Form) {}
+  constructor(public form: Form, public flag:boolean ) {}
 
   download() {
     let htmlFormat = this.generateCompleteHtml();
@@ -42,22 +42,25 @@ export class HtmlFormBuilder {
         `;
     return html;
   }
+  
 
   formBuilder(): string {
     let html = '';
     this.form.formComponents.forEach((item) => {
+      let fromControl = `formControlName="${item.name}"`
+      let arrayFormControl = `[formControlName]="${item.name}"`
       if (item.type === FormElementType.TEXTFIELD) {
-        html += this.textField(item);
+        html += this.textField(item,fromControl);
       } else if (item.type === FormElementType.SELECT) {
-        html += this.selectField(item);
+        html += this.selectField(item,arrayFormControl);
       } else if (item.type === FormElementType.CHECKBOX) {
-        html += this.checkboxField(item);
+        html += this.checkboxField(item,arrayFormControl);
       } else if (item.type === FormElementType.TEXTAREA) {
-        html += this.textareaField(item);
+        html += this.textareaField(item,fromControl);
       } else if (item.type === FormElementType.FILE_UPLOAD) {
-        html += this.fileuploadField(item);
+        html += this.fileuploadField(item,fromControl);
       } else if (item.type === FormElementType.RADIO) {
-        html += this.radioField(item);
+        html += this.radioField(item,arrayFormControl);
       }
     });
     return html;
@@ -105,7 +108,7 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private textField(formComponent: FormElement) {
+  private textField(formComponent: FormElement,text:string) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -113,8 +116,12 @@ export class HtmlFormBuilder {
         <input type="text" 
         ${this.generateCommonAttributes(formComponent)}
         value="${formComponent.value}"
-        placeholder="${formComponent.placeholder}"/>
+        placeholder="${formComponent.placeholder}"
+        ${this.flag?text:''}
+        />
         </div>`;
+      console.log(text);
+      
     return html;
   }
 
@@ -126,20 +133,21 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private selectField(formComponent: FormElement) {
+  private selectField(formComponent: FormElement, text:string) {
     const option = this.option(formComponent.options);
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>
-        <select ${this.generateCommonAttributes(formComponent, 'form-select')}>
+        <select ${this.flag?text:''} ${this.generateCommonAttributes(formComponent, 'form-select')} " "
+        >
                 ${option}         
         </select>
         </div>`;
     return html;
   }
 
-  private checkboxField(formComponent: FormElement) {
+  private checkboxField(formComponent: FormElement,fromControl:string) {
     let html = `<div class="form-group mb-2">
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
@@ -150,7 +158,8 @@ export class HtmlFormBuilder {
             { ...formComponent, id: item.id },
             'form-check-input'
           )}
-          type="checkbox"  
+          type="checkbox"
+          ${this.flag?fromControl:""}
           value="${item.value}">
         </div>`;
     });
@@ -158,7 +167,7 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private textareaField(formComponent: FormElement) {
+  private textareaField(formComponent: FormElement, fromControl:string) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -168,11 +177,12 @@ export class HtmlFormBuilder {
           rows="${formComponent.rows}"
           placeholder="${formComponent.placeholder}"
           cols="${formComponent.cols}">${formComponent.value}</textarea>
+          ${this.flag?fromControl:""}
         </div>`;
     return html;
   }
 
-  private fileuploadField(formComponent: FormElement) {
+  private fileuploadField(formComponent: FormElement, fromControl:string) {
     const html = `<div class="form-group mb-2">
     <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -182,11 +192,12 @@ export class HtmlFormBuilder {
       type="file" 
       multiple="${formComponent.multiple}"
       accept="${formComponent.fileType}">
+      ${this.flag?fromControl:""}
   </div>`;
     return html;
   }
 
-  private radioField(formComponent: FormElement) {
+  private radioField(formComponent: FormElement, fromControl:string) {
     let html = `<div>
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
@@ -199,6 +210,7 @@ export class HtmlFormBuilder {
         )} 
           type="radio"  
           value="${item.value}"
+          ${this.flag?fromControl:""}
           >
         </div>`;
     });

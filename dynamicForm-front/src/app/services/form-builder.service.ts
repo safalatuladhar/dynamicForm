@@ -29,6 +29,7 @@ export class FormBuilderService {
       .subscribe((form) => {
         this.form = form;
         this.form$$.next(this.form);
+        // console.log(form)
       });
   }
 
@@ -58,13 +59,28 @@ export class FormBuilderService {
   updateElementOrder() {
     this.form.formComponents = this.form.formComponents.map((item, index) => {
       item.orders = index;
+      if (item.options){
+        item.options = item.options.map((items,index)=>{
+          items.orders = index;
+          return items;
+        })
+      }
       return item;
     });
+    // this.form.formComponents.map((items)=>{
+    //   items.options = items.options.map((items,index)=>{
+    //     items.orders = index;
+    //     return items;
+    //   })
+    //   return items;
+    // })
     this.form$$.next(this.form);
   }
 
   saveFormToRemote() {
     this.updateElementOrder();
+    // console.log(this.form);
+    
 
     if (this.form.id !== -1) {
       this.http
