@@ -24,7 +24,7 @@ public class Form {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
 
     @JsonIgnore
