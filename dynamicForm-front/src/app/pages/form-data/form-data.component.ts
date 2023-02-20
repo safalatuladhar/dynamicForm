@@ -12,6 +12,7 @@ import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
   providers: [FormBuilderService],
 })
 export class FormDataComponent implements OnInit {
+  form: Form;
   constructor(
     private route: ActivatedRoute,
     private readonly http: HttpClient
@@ -22,6 +23,7 @@ export class FormDataComponent implements OnInit {
     this.http
       .get<Form>(`http://localhost:8080/form/${id}`)
       .subscribe((form) => {
+        this.form = form;
         let html = new HtmlFormBuilder(form, true).formBuilder();
         html += `<div  class="d-flex justify-content-end p-2">
         <button type="submit" (click)="getjson(this)" class="btn btn-primary">Submit</button>
@@ -30,15 +32,15 @@ export class FormDataComponent implements OnInit {
       });
   }
 
-  getjson(event: Event) {
+  getJson(event: Event) {
     event.preventDefault();
-    const form = document.forms.namedItem('submittable-form');
+    const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     let object = {};
     formData.forEach(function (value, key) {
       object[key] = value;
     });
-    // const json = JSON.stringify(object);
     console.log(object);
+    // const json = JSON.stringify(object);
   }
 }
