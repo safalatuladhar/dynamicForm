@@ -4,7 +4,7 @@ import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
 
 export class HtmlFormBuilder {
-  constructor(public form: Form, public flag:boolean ) {}
+  constructor(public form: Form, public flag: boolean) {}
 
   download() {
     let htmlFormat = this.generateCompleteHtml();
@@ -42,25 +42,24 @@ export class HtmlFormBuilder {
         `;
     return html;
   }
-  
 
   formBuilder(): string {
     let html = '';
     this.form.formComponents.forEach((item) => {
-      let fromControl = `formControlName="${item.name}"`
-      let arrayFormControl = `[formControlName]="${item.name}"`
+      let fromControl = `formControlName="${item.name}"`;
+      let arrayFormControl = `[formControlName]="${item.name}"`;
       if (item.type === FormElementType.TEXTFIELD) {
-        html += this.textField(item,fromControl);
+        html += this.textField(item, fromControl);
       } else if (item.type === FormElementType.SELECT) {
-        html += this.selectField(item,arrayFormControl);
+        html += this.selectField(item, arrayFormControl);
       } else if (item.type === FormElementType.CHECKBOX) {
-        html += this.checkboxField(item,arrayFormControl);
+        html += this.checkboxField(item, arrayFormControl);
       } else if (item.type === FormElementType.TEXTAREA) {
-        html += this.textareaField(item,fromControl);
+        html += this.textareaField(item, fromControl);
       } else if (item.type === FormElementType.FILE_UPLOAD) {
-        html += this.fileuploadField(item,fromControl);
+        html += this.fileuploadField(item, fromControl);
       } else if (item.type === FormElementType.RADIO) {
-        html += this.radioField(item,arrayFormControl);
+        html += this.radioField(item, arrayFormControl);
       }
     });
     return html;
@@ -96,7 +95,9 @@ export class HtmlFormBuilder {
   ) {
     const html = `class="${bstClass} ${formComponent.className}"
     id="${formComponent.id.toString()}" 
-    name="${formComponent.name}"
+    name="${formComponent.name}${
+      formComponent.type == FormElementType.CHECKBOX ? '[]' : ''
+    }"
     ${formComponent.disabled ? 'disabled' : ''}
     ${
       formComponent.required &&
@@ -108,7 +109,7 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private textField(formComponent: FormElement,text:string) {
+  private textField(formComponent: FormElement, text: string) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -117,11 +118,11 @@ export class HtmlFormBuilder {
         ${this.generateCommonAttributes(formComponent)}
         value="${formComponent.value}"
         placeholder="${formComponent.placeholder}"
-        ${this.flag?text:''}
+        ${this.flag ? text : ''}
         />
         </div>`;
-      console.log(text);
-      
+    // console.log(text);
+
     return html;
   }
 
@@ -133,13 +134,16 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private selectField(formComponent: FormElement, text:string) {
+  private selectField(formComponent: FormElement, text: string) {
     const option = this.option(formComponent.options);
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>
-        <select ${this.flag?text:''} ${this.generateCommonAttributes(formComponent, 'form-select')} " "
+        <select ${this.flag ? text : ''} ${this.generateCommonAttributes(
+      formComponent,
+      'form-select'
+    )} " "
         >
                 ${option}         
         </select>
@@ -147,7 +151,7 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private checkboxField(formComponent: FormElement,fromControl:string) {
+  private checkboxField(formComponent: FormElement, fromControl: string) {
     let html = `<div class="form-group mb-2">
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
@@ -159,7 +163,7 @@ export class HtmlFormBuilder {
             'form-check-input'
           )}
           type="checkbox"
-          ${this.flag?fromControl:""}
+          ${this.flag ? fromControl : ''}
           value="${item.value}">
         </div>`;
     });
@@ -167,7 +171,7 @@ export class HtmlFormBuilder {
     return html;
   }
 
-  private textareaField(formComponent: FormElement, fromControl:string) {
+  private textareaField(formComponent: FormElement, fromControl: string) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -177,12 +181,12 @@ export class HtmlFormBuilder {
           rows="${formComponent.rows}"
           placeholder="${formComponent.placeholder}"
           cols="${formComponent.cols}">${formComponent.value}</textarea>
-          ${this.flag?fromControl:""}
+          ${this.flag ? fromControl : ''}
         </div>`;
     return html;
   }
 
-  private fileuploadField(formComponent: FormElement, fromControl:string) {
+  private fileuploadField(formComponent: FormElement, fromControl: string) {
     const html = `<div class="form-group mb-2">
     <label class="form-label" for="${formComponent.id}">${
       formComponent.label
@@ -192,12 +196,12 @@ export class HtmlFormBuilder {
       type="file" 
       multiple="${formComponent.multiple}"
       accept="${formComponent.fileType}">
-      ${this.flag?fromControl:""}
+      ${this.flag ? fromControl : ''}
   </div>`;
     return html;
   }
 
-  private radioField(formComponent: FormElement, fromControl:string) {
+  private radioField(formComponent: FormElement, fromControl: string) {
     let html = `<div>
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
@@ -210,7 +214,7 @@ export class HtmlFormBuilder {
         )} 
           type="radio"  
           value="${item.value}"
-          ${this.flag?fromControl:""}
+          ${this.flag ? fromControl : ''}
           >
         </div>`;
     });
