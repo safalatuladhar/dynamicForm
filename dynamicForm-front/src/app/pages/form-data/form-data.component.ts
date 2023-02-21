@@ -32,15 +32,31 @@ export class FormDataComponent implements OnInit {
       });
   }
 
-  getJson(event: Event) {
+   getJson(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     let object = {};
     formData.forEach(function (value, key) {
-      object[key] = value;
+      if (key.includes("[]") )
+      {
+        // console.log(key,value);
+        if(Array.isArray(object[key])){
+          object[key].push(value);
+        }
+        else{
+          object[key] = []
+          object[key].push(value);
+
+        }
+      }
+      else{
+        object[key] = value;
+      }
+      // console.log(key,value);
+
+      
     });
-    console.log(object);
-    // const json = JSON.stringify(object);
+    console.log(JSON.stringify(object));
   }
 }

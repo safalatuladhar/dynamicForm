@@ -161,7 +161,7 @@ export class HtmlFormBuilder {
           ${this.generateCommonAttributes(
             { ...formComponent, id: item.id },
             'form-check-input'
-          )}
+          )}[]
           type="checkbox"
           ${this.flag ? fromControl : ''}
           value="${item.value}">
