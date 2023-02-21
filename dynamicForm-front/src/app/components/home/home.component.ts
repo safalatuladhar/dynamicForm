@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormService } from 'src/app/services/form.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly formService: FormService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly authService:AuthService
   ) {}
 
   formList: Form[] = [];
@@ -45,6 +47,11 @@ export class HomeComponent implements OnInit {
       });
   }
   formData(id:number){
-    this.router.navigate([`form/${id}`]);
+    window.open(`http://localhost:4200/form/${id}`)
+    // this.router.navigate([`form/${id}`]);
+  }
+  logout():void{
+    console.log("Hi")
+    this.authService.logout()
   }
 }

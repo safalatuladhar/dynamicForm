@@ -2,9 +2,12 @@
   <div>
     <a routerLink="/"> <h3>Form Builder</h3></a>
   </div>
-  <div>
-    <button type="button" class="btn btn-primary" (click)="redirect()">
+  <div class="right">
+    <button type="button" style="margin-right: 10px;" class="btn btn-primary" (click)="redirect()">
       Create Form
+    </button>
+    <button (click)="logout()">
+      <i class="fa fa-sign-out" aria-hidden="true" ></i>
     </button>
   </div>
 </header>

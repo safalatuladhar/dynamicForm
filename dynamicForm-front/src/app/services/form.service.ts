@@ -47,8 +47,8 @@ export class FormService {
   }
 
   public submitForm(formData:FormDataInterface):void{
-    this.http.post(`http://localhost:8080/formData/`,formData)
-    .pipe(  
+    this.http.post(`http://localhost:8080/formData`,formData)
+    .pipe(
       catchError((err) => {
         this.toastService.show('Error', 'Error updating form');
         return [];
@@ -56,7 +56,10 @@ export class FormService {
     )
     .subscribe((res) => {
       this.toastService.show('Success', 'Form updated successfully');
-      this.router.navigate(['']);
+      setTimeout(function(){
+        window.close();
+      },11000)
+      // this.router.navigate(['']);
     });
   }
 }

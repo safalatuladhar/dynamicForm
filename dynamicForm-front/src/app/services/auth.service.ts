@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -10,16 +10,19 @@ import { User } from '../interfaces/user';
 export class AuthService {
 
   private userSubject: BehaviorSubject<User | null>;
+  private eventSubject: Subject<boolean> = new Subject<boolean>();
   public user: Observable<User | null>;
+  private loggedIn = false;
 
   constructor(private router: Router,
     private http: HttpClient) { 
       this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
       this.user = this.userSubject.asObservable();
+      
     }
 
     public get userId(){
-      return this.userValue.id
+      return this.userValue.userId
     }
 
   public get userValue() {
@@ -39,5 +42,12 @@ export class AuthService {
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
+  }
+  isLoggedIn(){
+    console.log(this.userSubject.value)
+    if(this.userSubject.value){
+      return true
+    }
+    return false
   }
 }

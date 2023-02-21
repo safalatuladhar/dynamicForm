@@ -42,7 +42,8 @@ export class FormDataComponent implements OnInit {
         document.querySelector('.submittable-form').innerHTML = html;
       });
     this.formDataObject.formId = parseInt(id)
-    this.formDataObject.userId = this.authService.userId
+    console.log(this.authService.isLoggedIn())
+    
     
   }
 
@@ -74,6 +75,14 @@ export class FormDataComponent implements OnInit {
     // console.log(JSON.stringify(object));
     this.formDataObject.jsonData = JSON.stringify(object);
     // console.log(this.formDataObject)
+    console.log("asdfasdfasdf",this.authService.userId);
+    console.log(this.authService.user)
+    if(!this.authService.user){
+      
+      this.authService.logout()
+    }
+    this.formDataObject.userId = this.authService.userId
+
     this.formService.submitForm(this.formDataObject)
   }
 }
