@@ -25,8 +25,8 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody User user) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         User user1 = authService.getUserByEmail(user.getEmail());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (user1 != null) {
             String token = jwtUtils.generateToken(user.getEmail());
             return new ResponseEntity<>(new AuthResponseDTO(token, user1.getId(),user1.getEmail()), HttpStatus.OK);

@@ -2,6 +2,6 @@ export interface User {
     id: number;
     email:string,
     username: string;
-    accessToken?: string;
+    token?: string;
     tokenType?: string;
 }

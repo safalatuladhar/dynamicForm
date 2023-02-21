@@ -14,7 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class    SecurityConfig {
+public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -24,7 +24,7 @@ public class    SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(new AntPathRequestMatcher("/**"))
+                .requestMatchers(new AntPathRequestMatcher("/auth/**"))
                 .permitAll()
                 .anyRequest()
                 .authenticated()

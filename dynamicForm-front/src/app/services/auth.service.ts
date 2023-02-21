@@ -18,12 +18,16 @@ export class AuthService {
       this.user = this.userSubject.asObservable();
     }
 
+    public get userId(){
+      return this.userValue.id
+    }
+
   public get userValue() {
       return this.userSubject.value;
     }
 
-  login(username: string, password: string) {
-    return this.http.post<any>(`'http://localhost:8080/signin`, { username, password })
+  login(email: string, password: string) {
+    return this.http.post<any>(`http://localhost:8080/auth/login`, { email, password })
         .pipe(map(user => {
           console.log(user)
             localStorage.setItem('user', JSON.stringify(user));

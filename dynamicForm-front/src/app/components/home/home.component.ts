@@ -45,6 +45,6 @@ export class HomeComponent implements OnInit {
       });
   }
   formData(id:number){
-    this.router.navigate([`/${id}`]);
+    this.router.navigate([`form/${id}`]);
   }
 }

@@ -9,8 +9,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthService } from './services/auth.service';
-import { FormDataComponent } from './pages/form-data/form-data.component';
-import { FormDataModule } from './pages/form-data/form-data.module';
+
 
 @NgModule({
   declarations: [AppComponent],

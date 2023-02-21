@@ -13,6 +13,21 @@ const routes: Routes = [
       
   },
   {
+    path: 'form/:id',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/form-data/form-data.module').then(
+        (m) => m.FormDataModule
+      ),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/login/login.module').then(
+        (m) => m.LoginModule
+      ),
+  },
+  {
     path: 'form-builder',
     canActivate: [AuthGuard],
     loadChildren: () =>
@@ -26,21 +41,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/form-builder/form-builder.module').then(
         (m) => m.FormBuilderModule
-      ),
-  },
-  {
-    path: ':id',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/form-data/form-data.module').then(
-        (m) => m.FormDataModule
-      ),
-  },
-  {
-    path: 'login',
-    loadChildren: () =>
-      import('./pages/login/login.module').then(
-        (m) => m.LoginModule
       ),
   },
   {

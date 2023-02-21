@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 
@@ -17,7 +18,8 @@ export class FormBuilderHeaderComponent
   constructor(
     private readonly formService: FormBuilderService,
     private modalService: NgbModal,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService:AuthService
   ) {}
 
   private subscription: Subscription;
@@ -58,6 +60,9 @@ export class FormBuilderHeaderComponent
     this.formService.saveFormToRemote();
     this.router.navigate(['']);
 
+  }
+  logout():void{
+    this.authService.logout()
   }
 
   ngOnDestroy(): void {
