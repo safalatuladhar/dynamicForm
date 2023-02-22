@@ -2,10 +2,14 @@ package com.example.DynamicFormbackend.Model;
 
 import com.example.DynamicFormbackend.DTO.FormDataDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 
 @Entity
 @Data
@@ -22,6 +26,8 @@ public class FormData {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_data_id", referencedColumnName = "id")
     private User user;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_data_id", referencedColumnName = "id")
