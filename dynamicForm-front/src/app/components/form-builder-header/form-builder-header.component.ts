@@ -1,9 +1,11 @@
 import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
-import { HtmlFormBuilderUtil } from 'src/app/utils/html-form-builder.util';
+import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 
 @Component({
   selector: 'app-form-builder-header',
@@ -15,7 +17,8 @@ export class FormBuilderHeaderComponent
 {
   constructor(
     private readonly formService: FormBuilderService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private readonly router: Router
   ) {}
 
   private subscription: Subscription;
@@ -41,7 +44,7 @@ export class FormBuilderHeaderComponent
       return;
     }
     document.querySelector('.modal-form-preview').innerHTML =
-      new HtmlFormBuilderUtil(this.form).formBuilder();
+      new HtmlFormBuilder(this.form, false).formBuilder();
   }
 
   onTitleChange() {
@@ -49,13 +52,13 @@ export class FormBuilderHeaderComponent
   }
 
   cancel(): void {
-    console.log('Form Cancelled');
+    this.router.navigate(['']);
   }
 
   save(): void {
     this.formService.saveFormToRemote();
+    this.router.navigate(['']);
   }
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

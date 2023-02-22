@@ -17,6 +17,9 @@
       Cancel
     </button>
     <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    <!-- <button (click)="logout()">
+      <i class="fa fa-sign-out" aria-hidden="true" ></i>
+    </button> -->
   </div>
 </div>
 
@@ -25,11 +28,7 @@
     <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
       <h3>{{ form.name }}</h3>
     </div>
-    <form
-      method="post"
-      class="modal-form-preview"
-      enctype="multipart/form-data"
-    ></form>
+    <form method="post" class="modal-form-preview"></form>
     <div class="d-flex justify-content-end p-2">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>

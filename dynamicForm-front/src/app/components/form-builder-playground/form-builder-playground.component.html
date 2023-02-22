@@ -1,5 +1,5 @@
-<div class="playground">
+<div class="playground" cdkDropList  (cdkDropListDropped)="drop($event)">
   <div *ngFor="let formComponent of formComponents; index as i">
-    <app-form-element-raw [formElement]="formComponent" [index]="i"></app-form-element-raw>
+    <app-form-element-raw [formElement]="formComponent" [index]="i" ></app-form-element-raw>
   </div>
 </div>

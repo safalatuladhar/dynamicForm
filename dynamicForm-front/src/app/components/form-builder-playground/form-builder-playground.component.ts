@@ -7,6 +7,7 @@ import { FormElementType } from 'src/app/enums/FormElementType.enum';
 import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { FormService } from 'src/app/services/form.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-form-builder-playground',
@@ -22,6 +23,13 @@ export class FormBuilderPlaygroundComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.formService.form$$.subscribe(
       (val) => (this.formComponents = val.formComponents)
+    );
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.formComponents,
+      event.previousIndex,
+      event.currentIndex
     );
   }
 

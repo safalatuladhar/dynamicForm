@@ -150,13 +150,14 @@
       *ngIf="!elementChecklist[formType].includes('options')"
     >
       <p>Options</p>
-      <div class="form-wrapper">
+      <div cdkDropList (cdkDropListDropped)="drop($event)" class="example-list">
         <form>
-          <div
-            class="form-group"
+          <div 
+            class="form-group example-dialog-content" cdkDrag
             *ngFor="let option of formElement.options; index as i"
           >
-            <div>
+          <div *cdkDragPreview></div>
+            <div class="options-alignment">
               <label for="optionValue">Name</label>
               <input
                 type="text"
@@ -168,7 +169,7 @@
                 (change)="updateOptionNameField($event, i)"
               />
             </div>
-            <div>
+            <div class="options-alignment">
               <label for="optionValue">Value</label>
               <input
                 type="text"
@@ -181,7 +182,7 @@
               />
             </div>
 
-            <button
+            <button 
               type="button"
               class="btn btn-danger"
               *ngIf="formElement.options.length !== 1"

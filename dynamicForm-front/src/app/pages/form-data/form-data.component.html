@@ -1,0 +1,15 @@
+<div class="btn-wrapper">
+  <button type="button" class="btn btn-danger" (click)="routeBack()">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</div>
+<div class="container custom-form" style="padding: 1.5em">
+  <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
+    <h3>{{ form && form.name }}</h3>
+  </div>
+  <form
+    method="post"
+    class="submittable-form"
+    (submit)="getJson($event)"
+  ></form>
+</div>

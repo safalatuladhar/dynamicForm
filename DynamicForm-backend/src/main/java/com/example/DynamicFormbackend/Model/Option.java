@@ -9,15 +9,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-
+@Data
 @Table(name = "options")
 public class Option {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
     private String value;
+    private int orders;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,37 +32,7 @@ public class Option {
         this.name = optionDTO.getName();
         this.value = optionDTO.getValue();
         this.formComponent = formComponent;
+        this.orders = optionDTO.getOrders();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public FormComponent getFormComponent() {
-        return formComponent;
-    }
-
-    public void setFormComponent(FormComponent formComponent) {
-        this.formComponent = formComponent;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

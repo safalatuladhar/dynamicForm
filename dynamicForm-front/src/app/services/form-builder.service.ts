@@ -1,23 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { AppToastService } from './app-toast.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FormBuilderService {
   constructor(
     private readonly http: HttpClient,
-    private readonly toastService: AppToastService
+    private readonly toastService: AppToastService,
+    private readonly router: Router
   ) {}
 
   private form: Form = {
     id: -1,
     name: 'New Form',
-    user_id: 1,
+    userId: 1,
     formComponents: [],
   };
 
@@ -55,7 +55,23 @@ export class FormBuilderService {
     this.form.formComponents.splice(index, 1);
   }
 
+  updateElementOrder() {
+    this.form.formComponents = this.form.formComponents.map((item, index) => {
+      item.orders = index;
+      if (item.options) {
+        item.options = item.options.map((items, index) => {
+          items.orders = index;
+          return items;
+        });
+      }
+      return item;
+    });
+    this.form$$.next(this.form);
+  }
+
   saveFormToRemote() {
+    this.updateElementOrder();
+
     if (this.form.id !== -1) {
       this.http
         .put(`http://localhost:8080/form/${this.form.id}`, this.form)
@@ -67,6 +83,7 @@ export class FormBuilderService {
         )
         .subscribe((res) => {
           this.toastService.show('Success', 'Form updated successfully');
+          this.router.navigate(['']);
         });
       return;
     }
@@ -80,6 +97,7 @@ export class FormBuilderService {
       )
       .subscribe((res) => {
         this.toastService.show('Success', 'Form saved successfully');
+        this.router.navigate(['']);
       });
     return;
   }

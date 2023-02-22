@@ -18,6 +18,12 @@ public class User {
     private long id;
     private String name;
 
+    @Column(length = 50, nullable = false, unique = true)
+    private String email;
+
+    @Column(length = 200, nullable = false)
+    private String password;
+
     @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Form> forms;

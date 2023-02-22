@@ -3,8 +3,8 @@ import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
 
-export class HtmlFormBuilderUtil {
-  constructor(public form: Form) {}
+export class HtmlFormBuilder {
+  constructor(public form: Form, public flag: boolean) {}
 
   download() {
     let htmlFormat = this.generateCompleteHtml();
@@ -46,16 +46,18 @@ export class HtmlFormBuilderUtil {
   formBuilder(): string {
     let html = '';
     this.form.formComponents.forEach((item) => {
-      if (item.type === 0) {
+      if (item.type === FormElementType.TEXTFIELD) {
         html += this.textField(item);
-      } else if (item.type === 1) {
+      } else if (item.type === FormElementType.SELECT) {
         html += this.selectField(item);
-      } else if (item.type === 2) {
+      } else if (item.type === FormElementType.CHECKBOX) {
         html += this.checkboxField(item);
-      } else if (item.type === 3) {
+      } else if (item.type === FormElementType.TEXTAREA) {
         html += this.textareaField(item);
-      } else if (item.type === 4) {
+      } else if (item.type === FormElementType.FILE_UPLOAD) {
         html += this.fileuploadField(item);
+      } else if (item.type === FormElementType.RADIO) {
+        html += this.radioField(item);
       }
     });
     return html;
@@ -85,17 +87,36 @@ export class HtmlFormBuilderUtil {
     return head;
   }
 
+  private generateCommonAttributes(
+    formComponent: FormElement,
+    bstClass: string = 'form-control'
+  ) {
+    const html = `class="${bstClass} ${formComponent.className}"
+    id="${formComponent.id.toString()}" 
+    name="${formComponent.name}${
+      formComponent.type == FormElementType.CHECKBOX ? '[]' : ''
+    }"
+    ${formComponent.disabled ? 'disabled' : ''}
+    ${
+      formComponent.required &&
+      formComponent.type !== FormElementType.CHECKBOX &&
+      formComponent.type !== FormElementType.RADIO
+        ? 'required'
+        : ''
+    }`;
+    return html;
+  }
+
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>
-        <input type="text" id="${formComponent.id}" name="${
-      formComponent.name
-    }" value="${formComponent.value}"
-                class="form-control ${formComponent.className}" placeholder="${
-      formComponent.placeholder
-    }" ${formComponent.disabled ? 'disabled' : ''}"/>
+        <input type="text" 
+        ${this.generateCommonAttributes(formComponent)}
+        value="${formComponent.value}"
+        placeholder="${formComponent.placeholder}"
+        />
         </div>`;
     return html;
   }
@@ -108,13 +129,17 @@ export class HtmlFormBuilderUtil {
     return html;
   }
 
-  private selectField(data: FormElement) {
-    const option = this.option(data.options);
+  private selectField(formComponent: FormElement) {
+    const option = this.option(formComponent.options);
     const html = `<div class="form-group mb-2">
-        <label class="form-label" for="${data.id}">${data.label}</label>
-        <select class="form-control ${data.className}" id="${data.id}" name="${
-      data.name
-    }" ${data.disabled ? 'disabled' : ''}>
+        <label class="form-label" for="${formComponent.id}">${
+      formComponent.label
+    }</label>
+        <select ${this.generateCommonAttributes(
+      formComponent,
+      'form-select'
+    )} " "
+        >
                 ${option}         
         </select>
         </div>`;
@@ -122,20 +147,18 @@ export class HtmlFormBuilderUtil {
   }
 
   private checkboxField(formComponent: FormElement) {
-    let html = `<div>
+    let html = `<div class="form-group mb-2">
     <label class="form-label" for="52">${formComponent.label}</label>`;
     formComponent.options.forEach((item) => {
       html += `<div class="form-check" >
-        <label for="${formComponent.id}" class="form-check-label">${
-        item.name
-      }</label>
+        <label for="${item.id}" class="form-check-label">${item.name}</label>
         <input 
-          class="form-check-input ${formComponent.className}" 
-          type="checkbox"  
-          id="${formComponent.id}" 
-          name="${formComponent.name}" 
-          value="${formComponent.value}">
-          ${formComponent.disabled ? 'disabled' : ''}
+          ${this.generateCommonAttributes(
+            { ...formComponent, id: item.id },
+            'form-check-input'
+          )}[]
+          type="checkbox"
+          value="${item.value}">
         </div>`;
     });
     html += `</div>`;
@@ -148,11 +171,9 @@ export class HtmlFormBuilderUtil {
       formComponent.label
     }</label>
         <textarea
-          id="${formComponent.id}" 
-          name="${formComponent.name}"
-          class="form-control ${formComponent.className}" 
+          ${this.generateCommonAttributes(formComponent)}
           rows="${formComponent.rows}"
-          ${formComponent.disabled ? 'disabled' : ''}
+          placeholder="${formComponent.placeholder}"
           cols="${formComponent.cols}">${formComponent.value}</textarea>
         </div>`;
     return html;
@@ -160,15 +181,35 @@ export class HtmlFormBuilderUtil {
 
   private fileuploadField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
-    <label class="form-label" for="${formComponent.id}">${formComponent.label}</label>
-    <input 
+    <label class="form-label" for="${formComponent.id}">${
+      formComponent.label
+    }</label>
+    <input
+      ${this.generateCommonAttributes(formComponent)} 
       type="file" 
-      class="form-control ${formComponent.className}" 
-      id="${formComponent.id}" 
       multiple="${formComponent.multiple}"
-      name="${formComponent.name}"
       accept="${formComponent.fileType}">
   </div>`;
+    return html;
+  }
+
+  private radioField(formComponent: FormElement) {
+    let html = `<div>
+    <label class="form-label" for="52">${formComponent.label}</label>`;
+    formComponent.options.forEach((item) => {
+      html += `<div class="form-check" >
+        <label for="${item.id}" class="form-check-label">${item.name}</label>
+        <input 
+        ${this.generateCommonAttributes(
+          { ...formComponent, id: item.id },
+          'form-check-input'
+        )} 
+          type="radio"  
+          value="${item.value}"
+          >
+        </div>`;
+    });
+    html += `</div>`;
     return html;
   }
 }
