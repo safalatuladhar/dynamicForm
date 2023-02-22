@@ -46,12 +46,10 @@ export class HomeComponent implements OnInit {
         new HtmlFormBuilder(form,false).download();
       });
   }
-  formData(id:number){
-    window.open(`http://localhost:4200/form/${id}`)
-    // this.router.navigate([`form/${id}`]);
+  formData(id: number) {
+    this.router.navigate([`form/${id}`]);
   }
   logout():void{
-    // console.log("Hi")
     this.authService.logout()
   }
 }

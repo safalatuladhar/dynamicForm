@@ -9,10 +9,9 @@ import { AppToastService } from 'src/app/services/app-toast.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   error = '';
   login:boolean;
@@ -27,12 +26,12 @@ export class LoginComponent implements OnInit {
         
     }
 
-    ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required]
-        });
-    }
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
     get f() { return this.loginForm.controls; }
     onSubmit() {
@@ -59,6 +58,5 @@ export class LoginComponent implements OnInit {
               }
           }
       });
-    }
-
+  }
 }

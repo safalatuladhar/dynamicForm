@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormDataInterface } from 'src/app/interfaces/form-data';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormDataInterface } from 'src/app/interfaces/FormData.interface';
 import { Form } from 'src/app/interfaces/Form.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { FormService } from 'src/app/services/form.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-form-data',
@@ -17,16 +17,18 @@ import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 })
 export class FormDataComponent implements OnInit {
   form: Form;
-  formDataObject:FormDataInterface = {
+  formDataObject: FormDataInterface = {
     jsonData: '',
     userId: 0,
-    formId: 0
-  }
+    formId: 0,
+  };
   constructor(
     private route: ActivatedRoute,
     private readonly http: HttpClient,
-    private readonly authService:AuthService,
-    private readonly formService:FormService
+    private readonly authService: AuthService,
+    private readonly formService: FormService,
+    private readonly titleService: Title,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,49 +42,37 @@ export class FormDataComponent implements OnInit {
         <button type="submit" (click)="getjson(this)" class="btn btn-primary">Submit</button>
       </div>`;
         document.querySelector('.submittable-form').innerHTML = html;
+        this.titleService.setTitle(form.name);
       });
-    this.formDataObject.formId = parseInt(id)
-    console.log(this.authService.isLoggedIn())
-    
-    
+    this.formDataObject.formId = parseInt(id);
   }
 
-   getJson(event: Event) {
+  routeBack() {
+    this.router.navigate(['']);
+  }
+
+  getJson(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     let object = {};
     formData.forEach(function (value, key) {
-      if (key.includes("[]") )
-      {
-        // console.log(key,value);
-        if(Array.isArray(object[key])){
+      if (key.includes('[]')) {
+        if (Array.isArray(object[key])) {
+          object[key].push(value);
+        } else {
+          object[key] = [];
           object[key].push(value);
         }
-        else{
-          object[key] = []
-          object[key].push(value);
-
-        }
-      }
-      else{
+      } else {
         object[key] = value;
       }
-      // console.log(key,value);
-
-      
     });
-    // console.log(JSON.stringify(object));
     this.formDataObject.jsonData = JSON.stringify(object);
-    // console.log(this.formDataObject)
-    console.log("asdfasdfasdf",this.authService.userId);
-    console.log(this.authService.user)
-    if(!this.authService.user){
-      
-      this.authService.logout()
+    if (!this.authService.user) {
+      this.authService.logout();
     }
-    this.formDataObject.userId = this.authService.userId
-
-    this.formService.submitForm(this.formDataObject)
+    this.formDataObject.userId = this.authService.userId;
+    this.formService.submitForm(this.formDataObject);
   }
 }
