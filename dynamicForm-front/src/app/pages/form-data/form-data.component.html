@@ -4,17 +4,12 @@
   </button>
 </div>
 <div class="container custom-form" style="padding: 1.5em">
-  <div
-    _ngcontent-njr-c124=""
-    class="d-flex justify-content-center pb-3 mb-4 border-bottom"
-  >
-    <h3>{{ form.name }}</h3>
+  <div class="d-flex justify-content-center pb-3 mb-4 border-bottom">
+    <h3>{{ form && form.name }}</h3>
   </div>
   <form
-    #formDatas
     method="post"
     class="submittable-form"
-    name="submittable-form"
     (submit)="getJson($event)"
   ></form>
 </div>

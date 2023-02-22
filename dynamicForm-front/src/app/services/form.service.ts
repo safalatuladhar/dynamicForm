@@ -57,6 +57,7 @@ export class FormService {
       )
       .subscribe((res) => {
         this.toastService.show('Success', 'Form saved successfully');
+        this.router.navigate(['']);
       });
   }
 }

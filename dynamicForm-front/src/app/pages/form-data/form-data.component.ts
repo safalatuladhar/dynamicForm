@@ -42,7 +42,9 @@ export class FormDataComponent implements OnInit {
         <button type="submit" (click)="getjson(this)" class="btn btn-primary">Submit</button>
       </div>`;
         document.querySelector('.submittable-form').innerHTML = html;
-        this.titleService.setTitle(form.name);
+        if (form) {
+          this.titleService.setTitle(form.name);
+        }
       });
     this.formDataObject.formId = parseInt(id);
   }
