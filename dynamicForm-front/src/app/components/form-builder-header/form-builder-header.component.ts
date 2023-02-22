@@ -18,8 +18,7 @@ export class FormBuilderHeaderComponent
   constructor(
     private readonly formService: FormBuilderService,
     private modalService: NgbModal,
-    private readonly router: Router,
-    private readonly authService:AuthService
+    private readonly router: Router
   ) {}
 
   private subscription: Subscription;
@@ -45,7 +44,7 @@ export class FormBuilderHeaderComponent
       return;
     }
     document.querySelector('.modal-form-preview').innerHTML =
-      new HtmlFormBuilder(this.form,false).formBuilder();
+      new HtmlFormBuilder(this.form, false).formBuilder();
   }
 
   onTitleChange() {
@@ -59,12 +58,7 @@ export class FormBuilderHeaderComponent
   save(): void {
     this.formService.saveFormToRemote();
     this.router.navigate(['']);
-
   }
-  logout():void{
-    this.authService.logout()
-  }
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

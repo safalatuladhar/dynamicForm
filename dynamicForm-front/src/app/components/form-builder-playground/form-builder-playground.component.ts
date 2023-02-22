@@ -31,8 +31,6 @@ export class FormBuilderPlaygroundComponent implements OnInit, OnDestroy {
       event.previousIndex,
       event.currentIndex
     );
-    console.log(event.previousIndex, event.currentIndex);
-    console.log(event.previousIndex, event.container);
   }
 
   ngOnDestroy(): void {

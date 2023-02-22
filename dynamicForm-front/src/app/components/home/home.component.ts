@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     private readonly router: Router,
     private readonly formService: FormService,
     private readonly http: HttpClient,
-    private readonly authService:AuthService
+    private readonly authService: AuthService
   ) {}
 
   formList: Form[] = [];
@@ -43,15 +43,13 @@ export class HomeComponent implements OnInit {
     this.http
       .get<Form>(`http://localhost:8080/form/${id}`)
       .subscribe((form) => {
-        new HtmlFormBuilder(form,false).download();
+        new HtmlFormBuilder(form, false).download();
       });
   }
-  formData(id:number){
-    window.open(`http://localhost:4200/form/${id}`)
-    // this.router.navigate([`form/${id}`]);
+  formData(id: number) {
+    this.router.navigate([`form/${id}`]);
   }
-  logout():void{
-    console.log("Hi")
-    this.authService.logout()
+  logout(): void {
+    this.authService.logout();
   }
 }

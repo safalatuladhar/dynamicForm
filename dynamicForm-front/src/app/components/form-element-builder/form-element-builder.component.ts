@@ -133,9 +133,11 @@ export class FormElementBuilderComponent implements OnInit {
     this.formElement.name = this.sanitizeValues(this.formElement.name);
   }
 
-  drop(event:CdkDragDrop<string[]>){
-    // console.log("HELLO");
-    // console.log(event.previousIndex,event.currentIndex);
-    moveItemInArray(this.formElement.options,event.previousIndex,event.currentIndex)
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.formElement.options,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 }

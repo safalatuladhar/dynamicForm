@@ -121,8 +121,6 @@ export class HtmlFormBuilder {
         ${this.flag ? text : ''}
         />
         </div>`;
-    // console.log(text);
-
     return html;
   }
 
@@ -181,7 +179,6 @@ export class HtmlFormBuilder {
           rows="${formComponent.rows}"
           placeholder="${formComponent.placeholder}"
           cols="${formComponent.cols}">${formComponent.value}</textarea>
-          ${this.flag ? fromControl : ''}
         </div>`;
     return html;
   }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, first, of } from 'rxjs';
-import { FormDataInterface } from '../interfaces/form-data';
+import { FormDataInterface } from '../interfaces/FormData.interface';
 import { Form } from '../interfaces/Form.interface';
 import { AppToastService } from './app-toast.service';
 
@@ -46,20 +46,17 @@ export class FormService {
       });
   }
 
-  public submitForm(formData:FormDataInterface):void{
-    this.http.post(`http://localhost:8080/formData`,formData)
-    .pipe(
-      catchError((err) => {
-        this.toastService.show('Error', 'Error updating form');
-        return [];
-      })
-    )
-    .subscribe((res) => {
-      this.toastService.show('Success', 'Form updated successfully');
-      setTimeout(function(){
-        window.close();
-      },11000)
-      // this.router.navigate(['']);
-    });
+  public submitForm(formData: FormDataInterface): void {
+    this.http
+      .post(`http://localhost:8080/formData`, formData)
+      .pipe(
+        catchError((err) => {
+          this.toastService.show('Error', 'Error updating form');
+          return [];
+        })
+      )
+      .subscribe((res) => {
+        this.toastService.show('Success', 'Form saved successfully');
+      });
   }
 }
