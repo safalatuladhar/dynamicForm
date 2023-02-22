@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     // this.router.navigate([`form/${id}`]);
   }
   logout():void{
-    console.log("Hi")
+    // console.log("Hi")
     this.authService.logout()
   }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs';
+import { AppToastService } from 'src/app/services/app-toast.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,14 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   error = '';
+  login:boolean;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private toastService:AppToastService
     ) {
         
     }
@@ -34,6 +37,7 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
     onSubmit() {
       // console.log()
+      this.login = false
 
       this.authService.login(this.f['email'].value, this.f['password'].value)
       .pipe(first())
@@ -46,6 +50,13 @@ export class LoginComponent implements OnInit {
           },
           error: error => {
               this.error = error;
+              if(error){
+                console.log("error",error)
+                this.toastService.show(
+                  'Login Failed',
+                  'Check Credentials'
+                );
+              }
           }
       });
     }

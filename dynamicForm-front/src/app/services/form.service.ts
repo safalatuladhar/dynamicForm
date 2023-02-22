@@ -58,7 +58,7 @@ export class FormService {
       this.toastService.show('Success', 'Form updated successfully');
       setTimeout(function(){
         window.close();
-      },11000)
+      },3000)
       // this.router.navigate(['']);
     });
   }
