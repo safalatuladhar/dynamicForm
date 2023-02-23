@@ -46,7 +46,7 @@ export class FormService {
       });
   }
 
-  public submitForm(formData: FormDataInterface): void {
+  public submitForm(formData: FormData): void {
     this.http
       .post(`http://localhost:8080/formData`, formData)
       .pipe(

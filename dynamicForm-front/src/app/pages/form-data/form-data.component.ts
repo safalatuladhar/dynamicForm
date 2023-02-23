@@ -58,6 +58,7 @@ export class FormDataComponent implements OnInit {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     let object = {};
+    let formDatas: FormData = new FormData();
     formData.forEach(function (value, key) {
       if (key.includes('[]')) {
         if (Array.isArray(object[key])) {
@@ -67,14 +68,33 @@ export class FormDataComponent implements OnInit {
           object[key].push(value);
         }
       } else {
-        object[key] = value;
+        if(typeof(value)==='object'){
+          if(key in object){
+            if (Array.isArray(object[key])){
+              object[key].push = value.name
+            }
+            else{
+              let temp = object[key]
+              object[key] = []
+              object[key].push(temp)
+              object[key].push(value.name)
+            }
+          }
+          else{
+            object[key] = value.name
+
+          }
+          formDatas.append('file',value)
+        }
+        else{
+          object[key] = value;
+        }
       }
     });
-    this.formDataObject.jsonData = JSON.stringify(object);
-    if (!this.authService.user) {
-      this.authService.logout();
-    }
+    this.formDataObject.jsonData = JSON.stringify(object)
     this.formDataObject.userId = this.authService.userId;
-    this.formService.submitForm(this.formDataObject);
+    const formBlob = new Blob([JSON.stringify(this.formDataObject)],{type: "application/json"})
+    formDatas.append('formDataDTO',formBlob)
+    this.formService.submitForm(formDatas);
   }
 }
