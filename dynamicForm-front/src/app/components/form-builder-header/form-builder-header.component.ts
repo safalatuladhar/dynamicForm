@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Form } from 'src/app/interfaces/Form.interface';
+import { AppToastService } from 'src/app/services/app-toast.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
@@ -18,7 +19,8 @@ export class FormBuilderHeaderComponent
   constructor(
     private readonly formService: FormBuilderService,
     private modalService: NgbModal,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastService:AppToastService
   ) {}
 
   private subscription: Subscription;
@@ -56,6 +58,10 @@ export class FormBuilderHeaderComponent
   }
 
   save(): void {
+    if(!this.formService.validateForm()){
+      this.toastService.show('Failed', 'Check if there is form components');
+      return
+    }
     this.formService.saveFormToRemote();
     this.router.navigate(['']);
   }

@@ -115,6 +115,10 @@ export class HtmlFormBuilder {
     return `${value && 'value=' + value}`;
   }
 
+  private generatePattern(pattern:string){
+    return `${pattern && 'pattern='+pattern}`;
+  }
+
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
@@ -124,6 +128,7 @@ export class HtmlFormBuilder {
         ${this.generateCommonAttributes(formComponent)}
         ${this.generateValue(formComponent.value)}
         ${this.generatePlaceholder(formComponent.placeholder)}
+        ${this.generatePattern(formComponent.pattern)}
         />
         </div>`;
     return html;
