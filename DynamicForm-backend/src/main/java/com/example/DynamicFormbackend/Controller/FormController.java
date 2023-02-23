@@ -28,9 +28,8 @@ public class FormController {
     }
 
     @PostMapping("/form")
-    public HttpStatus createNewForm(@RequestBody FormDTO formDTO) {
-        formService.createFormAndComponents(formDTO);
-        return HttpStatus.OK;
+    public ResponseEntity<Form> createNewForm(@RequestBody FormDTO formDTO) {
+        return ResponseEntity.ok().body(formService.createFormAndComponents(formDTO));
     }
 
     @DeleteMapping("/form/{id}")
