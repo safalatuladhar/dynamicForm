@@ -22,5 +22,5 @@ public class FormComponentDTO {
     private int rows;
     private int cols;
     private List<OptionDTO> options;
-
+    private String pattern;
 }
