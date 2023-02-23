@@ -31,6 +31,7 @@ public class FormComponent {
     private String label;
     private String fileType;
     private boolean multiple;
+    private String pattern;
 
     @Column(name = "rowCount")
     private int rows;
@@ -64,6 +65,7 @@ public class FormComponent {
         this.type = formComponentDTO.getType();
         this.rows = formComponentDTO.getRows();
         this.cols = formComponentDTO.getCols();
+        this.pattern = formComponentDTO.getPattern();
     }
 
 }

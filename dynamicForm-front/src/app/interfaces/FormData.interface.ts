@@ -1,5 +1,5 @@
 export interface FormDataInterface {
-  jsonData: string;
+  jsonData: any;
   userId: number;
   formId: number;
 }
