@@ -57,6 +57,7 @@ export class FormElementBuilderComponent implements OnInit {
     orders: -1,
     multiple: null,
     fileType: '',
+    pattern:'',
   };
 
   addOptionField() {
@@ -92,7 +93,6 @@ export class FormElementBuilderComponent implements OnInit {
       this.formService.updateElementInform(this.formElement, this.index);
     }
     this.modal.dismiss();
-    // this.
   }
 
   validateFormElement(): boolean {
