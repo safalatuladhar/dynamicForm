@@ -5,13 +5,15 @@ import { BehaviorSubject, catchError } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { AppToastService } from './app-toast.service';
+import { FormService } from './form.service';
 
 @Injectable()
 export class FormBuilderService {
   constructor(
     private readonly http: HttpClient,
     private readonly toastService: AppToastService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly formService: FormService,
   ) {}
 
   private form: Form = {
@@ -97,8 +99,13 @@ export class FormBuilderService {
       )
       .subscribe((res) => {
         this.toastService.show('Success', 'Form saved successfully');
+        this.formService.addForm(res);
         this.router.navigate(['']);
       });
+
+
     return;
+
   }
+  
 }
