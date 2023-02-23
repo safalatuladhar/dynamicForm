@@ -28,6 +28,11 @@ export class FormService {
       });
   }
 
+  addForm(form: Form) {
+    this.formList.push(form);
+    this.formList$$.next(this.formList);
+  }
+
   public deleteForm(id: number): void {
     this.http
       .delete<Form[]>(`http://localhost:8080/form/${id}`)
@@ -58,6 +63,10 @@ export class FormService {
       .subscribe((res) => {
         this.toastService.show('Success', 'Form saved successfully');
         this.router.navigate(['']);
+        // this.formList.push();
+        // this.formList$$.next(this.formList);
       });
+
+    // this.formList$$.next(this.formList);
   }
 }
