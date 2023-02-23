@@ -45,7 +45,7 @@ public class FormService {
         return formRepository.save(form);
     }
 
-    public void createFormAndComponents(FormDTO formDTO) {
+    public Form createFormAndComponents(FormDTO formDTO) {
         User user = userRepository.getReferenceById(formDTO.getUserId());
         Form form = this.createForm(new Form(formDTO), user);
         for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
@@ -58,6 +58,7 @@ public class FormService {
                 this.optionRepository.saveAll(options);
             }
         }
+        return form;
 
     }
 
