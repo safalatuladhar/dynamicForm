@@ -20,7 +20,7 @@ export class FormBuilderHeaderComponent
     private readonly formService: FormBuilderService,
     private modalService: NgbModal,
     private readonly router: Router,
-    private readonly toastService: AppToastService
+    private readonly toastService:AppToastService
   ) {}
 
   private subscription: Subscription;
@@ -66,9 +66,9 @@ export class FormBuilderHeaderComponent
   }
 
   save(): void {
-    if (!this.formService.validateForm()) {
+    if(!this.formService.validateForm()){
       this.toastService.show('Failed', 'Check if there is form components');
-      return;
+      return
     }
     this.formService.saveFormToRemote();
     this.router.navigate(['']);

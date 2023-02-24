@@ -19,7 +19,7 @@ export class FormBuilderService {
 
   private form: Form = {
     id: -1,
-    name: 'New Form',
+    name: '',
     userId: 1,
     formComponents: [],
   };
@@ -59,11 +59,11 @@ export class FormBuilderService {
     this.form.formComponents.splice(index, 1);
   }
 
-  validateForm() {
-    if (this.form.formComponents.length === 0) {
+  validateForm(){
+    if(this.form.formComponents.length===0){
       return false;
     }
-    return true;
+    return true
   }
 
   updateElementOrder() {
@@ -81,6 +81,7 @@ export class FormBuilderService {
   }
 
   saveFormToRemote() {
+
     this.updateElementOrder();
 
     if (this.form.id !== -1) {
