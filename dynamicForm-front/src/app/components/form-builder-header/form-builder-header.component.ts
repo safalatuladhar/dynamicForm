@@ -56,6 +56,16 @@ export class FormBuilderHeaderComponent
   cancel(): void {
     this.router.navigate(['']);
   }
+  touched(touched){
+    // console.log(touched);
+    
+    if(this.form.id === -1 && !touched){
+      
+      // console.log("touched",this.form.id);
+      this.form.name=""
+    }
+    
+  }
 
   save(): void {
     if(!this.formService.validateForm()){
