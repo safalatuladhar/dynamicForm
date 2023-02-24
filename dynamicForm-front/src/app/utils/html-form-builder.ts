@@ -13,7 +13,9 @@ export class HtmlFormBuilder {
     const link = document.createElement('a');
     link.download = `${this.form.name}.html`;
     link.href = url;
-    link.click();
+    // link.click();
+    console.log(link)
+    link.remove();
   }
 
   private generateCompleteHtml(): string {
@@ -37,6 +39,9 @@ export class HtmlFormBuilder {
             </div>
           </form>
           </div>
+          <script>
+            $("form").validate();
+          </script>
           </body>
           </html>
         `;
@@ -71,6 +76,8 @@ export class HtmlFormBuilder {
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>  
     <style>
       body {
         padding: 1em;
@@ -81,6 +88,9 @@ export class HtmlFormBuilder {
           rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
         border-radius: 4px;
         padding: 1em 2em;
+      }
+      .error{
+        color: red;
       }
     </style>
     </head>`;
@@ -115,6 +125,10 @@ export class HtmlFormBuilder {
     return `${value && 'value=' + value}`;
   }
 
+  private generatePattern(pattern:string){
+    return `${pattern && 'pattern='+pattern}`;
+  }
+
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
@@ -124,6 +138,7 @@ export class HtmlFormBuilder {
         ${this.generateCommonAttributes(formComponent)}
         ${this.generateValue(formComponent.value)}
         ${this.generatePlaceholder(formComponent.placeholder)}
+        ${this.generatePattern(formComponent.pattern)}
         />
         </div>`;
     return html;

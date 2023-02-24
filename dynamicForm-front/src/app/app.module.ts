@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthService } from './services/auth.service';
+import { ngTouch } from 'angular-touch';
 
 
 @NgModule({

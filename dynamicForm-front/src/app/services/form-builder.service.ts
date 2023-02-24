@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
@@ -13,7 +14,7 @@ export class FormBuilderService {
     private readonly http: HttpClient,
     private readonly toastService: AppToastService,
     private readonly router: Router,
-    private readonly formService: FormService,
+    private readonly formService: FormService
   ) {}
 
   private form: Form = {
@@ -43,6 +44,7 @@ export class FormBuilderService {
     this.form$$.next(this.form);
   }
 
+
   addElementToForm(formElement: FormElement) {
     this.form.formComponents.push(formElement);
     this.form$$.next(this.form);
@@ -55,6 +57,13 @@ export class FormBuilderService {
 
   deleteElementFromForm(index: number) {
     this.form.formComponents.splice(index, 1);
+  }
+
+  validateForm(){
+    if(this.form.formComponents.length===0){
+      return false;
+    }
+    return true
   }
 
   updateElementOrder() {
@@ -72,6 +81,7 @@ export class FormBuilderService {
   }
 
   saveFormToRemote() {
+
     this.updateElementOrder();
 
     if (this.form.id !== -1) {
@@ -103,9 +113,6 @@ export class FormBuilderService {
         this.router.navigate(['']);
       });
 
-
     return;
-
   }
-  
 }
