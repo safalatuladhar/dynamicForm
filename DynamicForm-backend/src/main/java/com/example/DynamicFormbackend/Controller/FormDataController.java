@@ -27,8 +27,11 @@ public class FormDataController {
     }
     @PostMapping("/formData")
     public ResponseEntity<FormDataDTO> saveFormData(@RequestPart("formDataDTO") FormDataDTO formDataDTO, @RequestPart(value = "file", required = false) List <MultipartFile> files) {
-        for (MultipartFile file:files) {
-            storageService.store(file);
+        if(!(files ==null)){
+            for (MultipartFile file:files) {
+                storageService.store(file);
+            }
+
         }
         return ResponseEntity.ok().body(formDataService.saveData(formDataDTO));
     }

@@ -92,7 +92,7 @@ export class HtmlFormBuilder {
     bstClass: string = 'form-control'
   ) {
     const html = `class="${bstClass} ${formComponent.className}"
-    id="${formComponent.id.toString()}" 
+    ${formComponent.ids && 'id=' + formComponent.ids.toString()}
     name="${formComponent.name}${
       formComponent.type == FormElementType.CHECKBOX ? '[]' : ''
     }"
@@ -107,6 +107,18 @@ export class HtmlFormBuilder {
     return html;
   }
 
+  private generatePlaceholder(placeholder: string) {
+    return `${placeholder && 'placeholder=' + placeholder}`;
+  }
+
+  private generateValue(value: string) {
+    return `${value && 'value=' + value}`;
+  }
+
+  private generatePattern(pattern:string){
+    return `${pattern && 'pattern='+pattern}`;
+  }
+
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
@@ -114,8 +126,9 @@ export class HtmlFormBuilder {
     }</label>
         <input type="text" 
         ${this.generateCommonAttributes(formComponent)}
-        value="${formComponent.value}"
-        placeholder="${formComponent.placeholder}"
+        ${this.generateValue(formComponent.value)}
+        ${this.generatePlaceholder(formComponent.placeholder)}
+        ${this.generatePattern(formComponent.pattern)}
         />
         </div>`;
     return html;
@@ -136,9 +149,9 @@ export class HtmlFormBuilder {
       formComponent.label
     }</label>
         <select ${this.generateCommonAttributes(
-      formComponent,
-      'form-select'
-    )} " "
+          formComponent,
+          'form-select'
+        )} " "
         >
                 ${option}         
         </select>
@@ -173,7 +186,7 @@ export class HtmlFormBuilder {
         <textarea
           ${this.generateCommonAttributes(formComponent)}
           rows="${formComponent.rows}"
-          placeholder="${formComponent.placeholder}"
+          ${this.generatePlaceholder(formComponent.placeholder)}
           cols="${formComponent.cols}">${formComponent.value}</textarea>
         </div>`;
     return html;
@@ -187,7 +200,7 @@ export class HtmlFormBuilder {
     <input
       ${this.generateCommonAttributes(formComponent)} 
       type="file" 
-      multiple="${formComponent.multiple}"
+      ${formComponent.multiple ? 'multiple' : ''}
       accept="${formComponent.fileType}">
   </div>`;
     return html;

@@ -9,11 +9,11 @@ export enum FormElementType {
 
 export const formElementAtrributeMap = [
   ['multiple', 'options', 'fileType', 'rows-cols'], //TEXTFIELD
-  ['multiple', 'fileType', 'placeholder', 'value', 'rows-cols'], //SELECT
-  ['multiple', 'fileType', 'placeholder', 'rows-cols'], //CHECKBOX
-  ['multiple', 'options', 'fileType'], //TEXTAREA
-  ['options', 'placeholder', 'rows-cols'], //FILE_UPLOAD
-  ['multiple', 'fileType', 'placeholder', 'rows-cols'], //RADIO
+  ['multiple', 'fileType', 'placeholder', 'value', 'rows-cols','pattern'], //SELECT
+  ['multiple', 'fileType', 'placeholder', 'rows-cols','pattern'], //CHECKBOX
+  ['multiple', 'options', 'fileType','pattern'], //TEXTAREA
+  ['options', 'placeholder', 'rows-cols','pattern'], //FILE_UPLOAD
+  ['multiple', 'fileType', 'placeholder', 'rows-cols','pattern'], //RADIO
 ];
 
 export const formElementInfo: { class: string; title: string }[] = [

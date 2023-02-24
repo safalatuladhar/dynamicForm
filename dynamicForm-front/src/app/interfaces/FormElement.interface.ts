@@ -16,6 +16,7 @@ export interface FormElement {
   rows: number;
   orders: number;
   cols: number;
+  pattern : string;
   options: Option[] | null;
 }
 

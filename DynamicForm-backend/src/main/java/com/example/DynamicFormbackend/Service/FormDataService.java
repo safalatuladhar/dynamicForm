@@ -6,6 +6,7 @@ import com.example.DynamicFormbackend.Model.FormComponent;
 import com.example.DynamicFormbackend.Model.FormData;
 import com.example.DynamicFormbackend.Repository.FormComponentRepository;
 import com.example.DynamicFormbackend.Repository.FormDataRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FormDataService {
 
-    @Autowired
     private FormDataRepository formDataRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
-
-
-    public FormDataService(FormDataRepository formDataRepository){
-        this.formDataRepository = formDataRepository;
-    }
-
 
     public FormDataDTO saveData(FormDataDTO formDataDTO){
         FormData formData = modelMapper.map(formDataDTO, FormData.class);

@@ -3,9 +3,12 @@
     <input
       type="text"
       class="form-control"
+      placeholder="Enter Form Name"
       [(ngModel)]="form.name"
       name="title"
-      (change)="onTitleChange()"
+      #tst="ngModel"
+      (focus)="setTitleName(tst.touched)"
+      (focusout)="onTitleChange()"
     />
   </form>
 
