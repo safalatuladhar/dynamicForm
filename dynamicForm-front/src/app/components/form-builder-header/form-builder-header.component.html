@@ -7,7 +7,7 @@
       [(ngModel)]="form.name"
       name="title"
       #tst="ngModel"
-      (focus)="setTitleName(tst.touched)"
+      (focus)="touched(tst.touched)"
       (focusout)="onTitleChange()"
     />
   </form>
