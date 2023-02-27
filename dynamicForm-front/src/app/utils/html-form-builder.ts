@@ -13,7 +13,9 @@ export class HtmlFormBuilder {
     const link = document.createElement('a');
     link.download = `${this.form.name}.html`;
     link.href = url;
-    link.click();
+    // link.click();
+    console.log(link)
+    link.remove();
   }
 
   private generateCompleteHtml(): string {
@@ -37,6 +39,9 @@ export class HtmlFormBuilder {
             </div>
           </form>
           </div>
+          <script>
+            $("form").validate();
+          </script>
           </body>
           </html>
         `;
@@ -71,6 +76,8 @@ export class HtmlFormBuilder {
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>  
     <style>
       body {
         padding: 1em;
@@ -82,6 +89,9 @@ export class HtmlFormBuilder {
         border-radius: 4px;
         padding: 1em 2em;
       }
+      .error{
+        color: red;
+      }
     </style>
     </head>`;
     return head;
@@ -92,7 +102,7 @@ export class HtmlFormBuilder {
     bstClass: string = 'form-control'
   ) {
     const html = `class="${bstClass} ${formComponent.className}"
-    id="${formComponent.id.toString()}" 
+    ${formComponent.ids && 'id=' + formComponent.ids.toString()}
     name="${formComponent.name}${
       formComponent.type == FormElementType.CHECKBOX ? '[]' : ''
     }"
@@ -107,6 +117,18 @@ export class HtmlFormBuilder {
     return html;
   }
 
+  private generatePlaceholder(placeholder: string) {
+    return `${placeholder && 'placeholder=' + placeholder}`;
+  }
+
+  private generateValue(value: string) {
+    return `${value && 'value=' + value}`;
+  }
+
+  private generatePattern(pattern:string){
+    return `${pattern && 'pattern='+pattern}`;
+  }
+
   private textField(formComponent: FormElement) {
     const html = `<div class="form-group mb-2">
         <label class="form-label" for="${formComponent.id}">${
@@ -114,8 +136,9 @@ export class HtmlFormBuilder {
     }</label>
         <input type="text" 
         ${this.generateCommonAttributes(formComponent)}
-        value="${formComponent.value}"
-        placeholder="${formComponent.placeholder}"
+        ${this.generateValue(formComponent.value)}
+        ${this.generatePlaceholder(formComponent.placeholder)}
+        ${this.generatePattern(formComponent.pattern)}
         />
         </div>`;
     return html;
@@ -136,9 +159,9 @@ export class HtmlFormBuilder {
       formComponent.label
     }</label>
         <select ${this.generateCommonAttributes(
-      formComponent,
-      'form-select'
-    )} " "
+          formComponent,
+          'form-select'
+        )} " "
         >
                 ${option}         
         </select>
@@ -173,7 +196,7 @@ export class HtmlFormBuilder {
         <textarea
           ${this.generateCommonAttributes(formComponent)}
           rows="${formComponent.rows}"
-          placeholder="${formComponent.placeholder}"
+          ${this.generatePlaceholder(formComponent.placeholder)}
           cols="${formComponent.cols}">${formComponent.value}</textarea>
         </div>`;
     return html;
@@ -187,7 +210,7 @@ export class HtmlFormBuilder {
     <input
       ${this.generateCommonAttributes(formComponent)} 
       type="file" 
-      multiple="${formComponent.multiple}"
+      ${formComponent.multiple ? 'multiple' : ''}
       accept="${formComponent.fileType}">
   </div>`;
     return html;
