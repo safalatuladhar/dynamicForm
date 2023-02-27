@@ -24,6 +24,10 @@ public class Option {
     @ManyToOne(fetch = FetchType.LAZY)
     private FormComponent  formComponent;
 
+    @JsonIgnore
+    @ManyToOne(fetch =  FetchType.LAZY)
+    private AddableField addableField;
+
     public Option() {
     }
 
@@ -34,5 +38,14 @@ public class Option {
         this.formComponent = formComponent;
         this.orders = optionDTO.getOrders();
     }
+
+    public Option(OptionDTO optionDTO, AddableField addableField) {
+        this.id = optionDTO.getId();
+        this.name = optionDTO.getName();
+        this.value = optionDTO.getValue();
+        this.addableField = addableField;
+        this.orders = optionDTO.getOrders();
+    }
+
 
 }
