@@ -22,5 +22,7 @@ public class FormComponentDTO {
     private int rows;
     private int cols;
     private List<OptionDTO> options;
+    private List<AddableFieldDTO> addableFields;
     private String pattern;
+
 }

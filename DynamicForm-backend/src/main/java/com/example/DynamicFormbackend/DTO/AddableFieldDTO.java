@@ -15,12 +15,8 @@ public class AddableFieldDTO {
     private String ids;
     private String className;
     private int orders;
-    private int type;
     private String label;
-    private String fileType;
     private boolean multiple;
-    private int rows;
-    private int cols;
     private List<OptionDTO> options;
     private String pattern;
 }

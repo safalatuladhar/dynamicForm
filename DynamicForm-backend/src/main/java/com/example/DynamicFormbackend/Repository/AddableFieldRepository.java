@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 
 public interface AddableFieldRepository extends JpaRepository<AddableField, Long > {
-    List<AddableField> findAddableFieldByFormId(Long id, Sort sort);
+    List<AddableField> findAddableFieldById(Long id, Sort sort);
 
-    long deleteAddableFieldByFormId(Long id);
+    long deleteAddableFieldById(Long id);
 
 
 }

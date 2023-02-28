@@ -76,10 +76,10 @@ public class FormService {
         formComponentService.updateFormComponent(formDTO, form, id);
     }
 
-    public void updateAddableFieldAndComponent(FormDTO formDTO, long id){
+    public void updateAddableFieldAndComponent(FormComponentDTO formComponentDTO, long id){
         Form form = formRepository.findById(id).orElseThrow();
-        form.setName(formDTO.getName());
+        form.setName(formComponentDTO.getName());
         form = formRepository.save(form);
-        addableFieldService.updateAddableField(formDTO, form, id);
+        addableFieldService.updateAddableField(formComponentDTO, new FormComponent(), id);
     }
 }

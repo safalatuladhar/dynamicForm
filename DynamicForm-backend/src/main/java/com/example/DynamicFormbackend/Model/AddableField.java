@@ -45,9 +45,9 @@ public class AddableField {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Form form;
+    private FormComponent formComponent;
 
-    public AddableField(AddableFieldDTO addableFieldDTO, Form form) {
+    public AddableField(AddableFieldDTO addableFieldDTO, FormComponent formComponent) {
         this.id = addableFieldDTO.getId();
         this.name = addableFieldDTO.getName();
         this.value = addableFieldDTO.getValue();
@@ -58,12 +58,8 @@ public class AddableField {
         this.className = addableFieldDTO.getClassName();
         this.orders = (int) addableFieldDTO.getOrders();
         this.label = addableFieldDTO.getLabel();
-        this.fileType = addableFieldDTO.getFileType();
         this.multiple = addableFieldDTO.isMultiple();
-        this.form = form;
-        this.type = addableFieldDTO.getType();
-        this.rows = addableFieldDTO.getRows();
-        this.cols = addableFieldDTO.getCols();
+        this.formComponent =  formComponent;
         this.pattern = addableFieldDTO.getPattern();
     }
 

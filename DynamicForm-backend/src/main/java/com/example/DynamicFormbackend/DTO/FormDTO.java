@@ -11,6 +11,5 @@ public class FormDTO {
     private String name;
     private Long userId;
     private List<FormComponentDTO> formComponents;
-    private List<AddableFieldDTO> addableFields;
 
 }

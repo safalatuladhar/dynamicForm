@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository
 public interface FormDataRepository extends JpaRepository<FormData, Long> {
 
-     User findByUser(Long userId);
-
-     Form findByFormName(Long formId);
+//     User findByUser(Long userId);
+//
+//     Form findByFormName(Long formId);
 }

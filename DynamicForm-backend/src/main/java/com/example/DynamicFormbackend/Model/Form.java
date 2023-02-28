@@ -33,8 +33,6 @@ public class Form {
     @OneToMany(mappedBy = "form",cascade = CascadeType.ALL)
     private List<FormComponent> formComponents;
 
-    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL)
-    private List<AddableField> addableFields;
 
     @JsonIgnore
     @OneToMany(mappedBy = "form",cascade = CascadeType.ALL)

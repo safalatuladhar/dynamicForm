@@ -1,6 +1,7 @@
 package com.example.DynamicFormbackend.Controller;
 
 import com.example.DynamicFormbackend.DTO.AddableFieldDTO;
+import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.Model.AddableField;
 import com.example.DynamicFormbackend.Model.Form;
@@ -24,9 +25,9 @@ public class AddableFieldController {
     }
 
     @PostMapping("/addableField")
-    public ResponseEntity<AddableField> createAddableField(@RequestBody AddableField addableField) {
-        return ResponseEntity.ok().body(addableFieldService.createAddableField(addableField));
-
+    public ResponseEntity getAddableField(@RequestBody AddableField addableField){
+        return ResponseEntity.ok().body((addableFieldService.createAddableField(addableField)));
     }
+
 
 }

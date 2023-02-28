@@ -2,7 +2,6 @@ package com.example.DynamicFormbackend.Service;
 
 import com.example.DynamicFormbackend.DTO.AddableFieldDTO;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
-import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
 import com.example.DynamicFormbackend.Model.AddableField;
 import com.example.DynamicFormbackend.Model.Form;
@@ -34,7 +33,7 @@ public class AddableFieldService {
 
     public List<AddableField> getAddableFieldById(long id) {
 
-        return addableFieldRepository.findAddableFieldByFormId(id, Sort.by(Sort.Direction.ASC, "orders"));
+        return addableFieldRepository.findAddableFieldById(id, Sort.by(Sort.Direction.ASC, "orders"));
     }
 
     public AddableField createAddableField(AddableField addableField) {
@@ -42,11 +41,10 @@ public class AddableFieldService {
     }
 
 
-
-    public void updateAddableField(FormDTO formDTO, Form form, long id) {
-        addableFieldRepository.deleteAddableFieldByFormId(id);
-        for (AddableFieldDTO addableFieldDTO : formDTO.getAddableFields()) {
-            AddableField addableField = this.createAddableField(new AddableField(addableFieldDTO, form));
+    public void updateAddableField(FormComponentDTO formComponentDTO, FormComponent formComponent, long id) {
+        addableFieldRepository.deleteAddableFieldById(id);
+        for (AddableFieldDTO addableFieldDTO : formComponentDTO.getAddableFields()) {
+            AddableField addableField = this.createAddableField(new AddableField(addableFieldDTO, formComponent));
             if (addableFieldDTO.getOptions() != null) {
                 List<Option> options = new ArrayList<>();
                 for (OptionDTO optionDTO : addableFieldDTO.getOptions()) {
