@@ -45,6 +45,8 @@ export class FormBuilderService {
 
   addElementToForm(formElement: FormElement) {
     this.form.formComponents.push(formElement);
+    console.log(this.form);
+    
     this.form$$.next(this.form);
   }
 
@@ -79,6 +81,7 @@ export class FormBuilderService {
   }
 
   saveFormToRemote() {
+    
 
     this.updateElementOrder();
 

@@ -58,6 +58,21 @@ export class FormElementBuilderComponent implements OnInit {
     multiple: null,
     fileType: '',
     pattern:'',
+    addableInputField:[{
+      id: 101,
+      type:0,
+      name: '',
+      value: '',
+      disabled: false,
+      placeholder: '',
+      required: true,
+      label: '',
+      ids: '',
+      className: '',
+      multiple: null,
+      orders: -1,
+      pattern:'',
+    }]
   };
 
   addOptionField() {
@@ -76,6 +91,24 @@ export class FormElementBuilderComponent implements OnInit {
 
   removeOptionField(index: number) {
     this.formElement.options.splice(index, 1);
+  }
+  removeAddableInputField(index:number){
+    this.formElement.addableInputField.splice(index, 1);
+  }
+  addAddableInputField(){
+    this.formElement.addableInputField.push({id: 101,
+      type: 0,
+      name: '',
+      value: '',
+      disabled: false,
+      placeholder: '',
+      required: true,
+      label: '',
+      ids: '',
+      className: '',
+      multiple: null,
+      orders: -1,
+      pattern:'',})
   }
 
   private sanitizeValues(value: string) {
@@ -96,6 +129,23 @@ export class FormElementBuilderComponent implements OnInit {
   }
 
   validateFormElement(): boolean {
+    if(this.formType !== FormElementType.ADDABLE_TEXTFIELD){
+      this.formElement.addableInputField = null;
+    }else{
+      //validate addableInputField
+      let valid = true;
+      this.formElement.addableInputField.forEach((addableInputField)=>{
+        valid = valid && addableInputField.name.trim().length>0;
+        // valid = valid && addableInputField.ids.trim().length>0;
+      });
+      if (!valid) {
+        this.toastService.show(
+          'Validation Failed',
+          'Invalid addable input field!! Check and try again'
+        );
+        return false;
+      }
+    }
     if (
       this.formType !== FormElementType.SELECT &&
       this.formType !== FormElementType.CHECKBOX &&
@@ -105,6 +155,7 @@ export class FormElementBuilderComponent implements OnInit {
     } else {
       let valid = true;
       this.formElement.options.forEach((option) => {
+        valid = valid && option.name.trim().length > 0;
         valid = valid && option.name.trim().length > 0;
       });
       if (!valid) {
