@@ -85,6 +85,9 @@ export class FormBuilderService {
 
     this.updateElementOrder();
 
+    console.log(this.form);
+    
+
     if (this.form.id !== -1) {
       this.http
         .put(`http://localhost:8080/form/${this.form.id}`, this.form)
@@ -93,7 +96,7 @@ export class FormBuilderService {
             this.toastService.show('Error', 'Error updating form');
             return [];
           })
-        )
+        ) 
         .subscribe((res) => {
           this.toastService.show('Success', 'Form updated successfully');
           this.router.navigate(['']);

@@ -1,12 +1,10 @@
 package com.example.DynamicFormbackend.Service;
 
+import com.example.DynamicFormbackend.DTO.AddableFieldDTO;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
-import com.example.DynamicFormbackend.Model.Form;
-import com.example.DynamicFormbackend.Model.FormComponent;
-import com.example.DynamicFormbackend.Model.Option;
-import com.example.DynamicFormbackend.Model.User;
+import com.example.DynamicFormbackend.Model.*;
 import com.example.DynamicFormbackend.Repository.FormRepository;
 import com.example.DynamicFormbackend.Repository.OptionRepository;
 import com.example.DynamicFormbackend.Repository.UserRepository;
@@ -60,7 +58,12 @@ public class FormService {
                 }
                 this.optionRepository.saveAll(options);
             }
+            if (formComponentDTO.getAddableFields() != null) {
+
+                this.addableFieldService.createAllAddableField(formComponentDTO.getAddableFields(),formComponent);
+            }
         }
+        this.formComponentService.createAllFormComponent(formDTO.getFormComponents(),form);
         return form;
     }
 
@@ -69,7 +72,6 @@ public class FormService {
     }
 
     public void updateFormAndComponent(FormDTO formDTO, long id) {
-//        formRepository
         Form form = formRepository.findById(id).orElseThrow();
         form.setName(formDTO.getName());
         form = formRepository.save(form);
@@ -81,5 +83,6 @@ public class FormService {
         form.setName(formComponentDTO.getName());
         form = formRepository.save(form);
         addableFieldService.updateAddableField(formComponentDTO, new FormComponent(), id);
+//        addableFieldService
     }
 }

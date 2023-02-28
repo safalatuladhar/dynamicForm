@@ -265,12 +265,12 @@
     </div>
 
   <div *ngIf="formType===6">
-    <div *ngFor="let formElementI of formElement.addableInputField; index as i">
+    <div *ngFor="let formElementI of formElement.addableFields; index as i">
       <div style="position: relative; text-align: right;">
         <button 
         type="button"
         class="btn btn-danger"
-        *ngIf="formElement.addableInputField.length !== 1"
+        *ngIf="formElement.addableFields.length !== 1"
         (click)="removeAddableInputField(i)"
         >
         <i class="fa fa-times" aria-hidden="true"></i>

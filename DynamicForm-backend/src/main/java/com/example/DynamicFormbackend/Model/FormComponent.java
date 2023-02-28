@@ -46,7 +46,7 @@ public class FormComponent {
     @ManyToOne(fetch = FetchType.LAZY)
     private Form form;
 
-    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<AddableField> addableFields;
 
     public FormComponent() {

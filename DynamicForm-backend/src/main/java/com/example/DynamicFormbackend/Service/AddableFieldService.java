@@ -4,7 +4,6 @@ import com.example.DynamicFormbackend.DTO.AddableFieldDTO;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
 import com.example.DynamicFormbackend.Model.AddableField;
-import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Model.FormComponent;
 import com.example.DynamicFormbackend.Model.Option;
 import com.example.DynamicFormbackend.Repository.AddableFieldRepository;
@@ -38,6 +37,20 @@ public class AddableFieldService {
 
     public AddableField createAddableField(AddableField addableField) {
         return addableFieldRepository.save(addableField);
+    }
+
+    public void createAllAddableField(List<AddableFieldDTO> addableFields, FormComponent formComponent) {
+
+        for (AddableFieldDTO addableFieldDTO : addableFields) {
+            AddableField addableField = this.createAddableField(new AddableField(addableFieldDTO, formComponent));
+            if (addableFieldDTO.getOptions() != null) {
+                List<Option> options = new ArrayList<>();
+                for (OptionDTO optionDTO : addableFieldDTO.getOptions()) {
+                    options.add(new Option(optionDTO, addableField));
+                }
+                this.optionRepository.saveAll(options);
+            }
+        }
     }
 
 

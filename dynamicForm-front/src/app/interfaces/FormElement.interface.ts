@@ -19,7 +19,7 @@ export interface FormElement {
   cols: number;
   pattern : string;
   options: Option[] | null;
-  addableInputField : AddableInputField[] | null;
+  addableFields : AddableInputField[] | null;
 }
 
 /**

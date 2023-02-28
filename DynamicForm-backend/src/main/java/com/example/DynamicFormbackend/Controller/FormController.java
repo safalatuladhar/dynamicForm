@@ -42,7 +42,6 @@ public class FormController {
     @PutMapping("/form/{id}")
     public HttpStatus updateForm(@RequestBody FormDTO formDTO, @PathVariable long id) {
         formService.updateFormAndComponent(formDTO, id);
-        formService.updateAddableFieldAndComponent(new FormComponentDTO(),id);
         return HttpStatus.OK;
     }
 }

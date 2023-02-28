@@ -58,7 +58,7 @@ export class FormElementBuilderComponent implements OnInit {
     multiple: null,
     fileType: '',
     pattern:'',
-    addableInputField:[{
+    addableFields:[{
       id: 101,
       type:0,
       name: '',
@@ -93,10 +93,10 @@ export class FormElementBuilderComponent implements OnInit {
     this.formElement.options.splice(index, 1);
   }
   removeAddableInputField(index:number){
-    this.formElement.addableInputField.splice(index, 1);
+    this.formElement.addableFields.splice(index, 1);
   }
   addAddableInputField(){
-    this.formElement.addableInputField.push({id: 101,
+    this.formElement.addableFields.push({id: 101,
       type: 0,
       name: '',
       value: '',
@@ -130,11 +130,11 @@ export class FormElementBuilderComponent implements OnInit {
 
   validateFormElement(): boolean {
     if(this.formType !== FormElementType.ADDABLE_TEXTFIELD){
-      this.formElement.addableInputField = null;
+      this.formElement.addableFields = null;
     }else{
       //validate addableInputField
       let valid = true;
-      this.formElement.addableInputField.forEach((addableInputField)=>{
+      this.formElement.addableFields.forEach((addableInputField)=>{
         valid = valid && addableInputField.name.trim().length>0;
         // valid = valid && addableInputField.ids.trim().length>0;
       });
