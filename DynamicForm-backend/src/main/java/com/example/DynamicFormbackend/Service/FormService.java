@@ -29,6 +29,9 @@ public class FormService {
     @Autowired
     private OptionRepository optionRepository;
 
+    @Autowired
+    private AddableFieldService addableFieldService;
+
     public List<Form> getAllForm() {
         return formRepository.findAll();
     }
@@ -59,7 +62,6 @@ public class FormService {
             }
         }
         return form;
-
     }
 
     public void deleteForm(long id) {
@@ -72,5 +74,12 @@ public class FormService {
         form.setName(formDTO.getName());
         form = formRepository.save(form);
         formComponentService.updateFormComponent(formDTO, form, id);
+    }
+
+    public void updateAddableFieldAndComponent(FormComponentDTO formComponentDTO, long id){
+        Form form = formRepository.findById(id).orElseThrow();
+        form.setName(formComponentDTO.getName());
+        form = formRepository.save(form);
+        addableFieldService.updateAddableField(formComponentDTO, new FormComponent(), id);
     }
 }
