@@ -167,7 +167,7 @@ export class HtmlFormBuilder {
     <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>`
-    console.log(formComponent);
+    // console.log(formComponent);
     return html
   }
 
@@ -292,7 +292,7 @@ export class HtmlFormBuilder {
     let html = `<tr id="row">`
     formComponent.addableFields.forEach((item) => {
       html+=`
-      <th>${this.textFieldForAddable(formComponent)}</th>`
+      <th>${this.textFieldForAddable(item)}</th>`
     })
     html+=`<th><button class="btn btn-danger" style="margin-left: 10px;" id="DeleteRow" type="button">-</button></th>`
     html+=`</tr>`
@@ -317,7 +317,7 @@ export class HtmlFormBuilder {
     <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>`
-    console.log(formComponent);
+    // console.log(formComponent);
     return html
   }
 
@@ -327,9 +327,7 @@ export class HtmlFormBuilder {
   ) {
     const html = `class="${bstClass} ${formComponent.className}"
     ${formComponent.ids && 'id=' + formComponent.ids.toString()}
-    name="${formComponent.name}${
-      formComponent.type == FormElementType.CHECKBOX ? '[]' : ''
-    }"
+    name="${formComponent.name}[]"
     ${formComponent.disabled ? 'disabled' : ''}
     ${
       formComponent.required &&
