@@ -429,6 +429,7 @@
     <button
       type="button"
       class="btn btn-primary btn-add"
+      *ngIf="formElement.addableFields.length !== 3"
       (click)="addAddableInputField()"
     >
       Add

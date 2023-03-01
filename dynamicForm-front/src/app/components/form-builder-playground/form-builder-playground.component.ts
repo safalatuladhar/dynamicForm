@@ -8,6 +8,7 @@ import { FormElement } from 'src/app/interfaces/FormElement.interface';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { FormService } from 'src/app/services/form.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import * as $ from 'jquery' 
 
 @Component({
   selector: 'app-form-builder-playground',
