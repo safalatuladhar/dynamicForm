@@ -350,6 +350,9 @@ export class HtmlFormBuilder {
 
       scrpit+=`$("body").on("click", "#DeleteRow", function () {
         $(this).parents("#row").remove();
+        if($('#add`+formComponent.id+`').find("#row").length==0){
+          $("#add-btn`+formComponent.id+`").click()
+        }
     })`
 
       this.scrpit+=scrpit;

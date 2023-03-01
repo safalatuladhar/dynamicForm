@@ -66,6 +66,9 @@ export class FormDataComponent implements OnInit {
               $(document).ready(function(){
                 $("body").on("click", "#DeleteRow", function () {
                   $(this).parents("#row").remove();
+                if($('#add'+element.id).find("#row").length==0){
+                  $("#add-btn"+element.id).click()
+                }
               })
               })
             }
