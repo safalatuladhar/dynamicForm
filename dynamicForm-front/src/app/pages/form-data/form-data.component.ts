@@ -8,6 +8,8 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { FormService } from 'src/app/services/form.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 import { Title } from '@angular/platform-browser';
+import * as $ from 'jquery' 
+
 
 @Component({
   selector: 'app-form-data',
@@ -45,6 +47,29 @@ export class FormDataComponent implements OnInit {
         if (form) {
           this.titleService.setTitle(form.name);
         }
+        var htmlform:HtmlFormBuilder = new HtmlFormBuilder(this.form, false);
+
+       console.log("Hi");
+          this.form.formComponents.forEach(element => {
+          if(element.addableFields!==null){
+            var script = htmlform.addableTextFieldAdder(element);
+            $(document).ready(function(){
+              console.log(element.id);
+              
+              $("#add-btn"+element.id).click(function(){
+                $('#add'+element.id).append(script);
+                // console.log("Hi");
+                // alert("Hi")
+                
+              })
+              })
+              $(document).ready(function(){
+                $("body").on("click", "#DeleteRow", function () {
+                  $(this).parents("#row").remove();
+              })
+              })
+            }
+          });
       });
     this.formDataObject.formId = parseInt(id);
   }

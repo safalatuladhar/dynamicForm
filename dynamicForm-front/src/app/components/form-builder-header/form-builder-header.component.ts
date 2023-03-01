@@ -7,6 +7,8 @@ import { AppToastService } from 'src/app/services/app-toast.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
+import * as $ from 'jquery' 
+
 
 @Component({
   selector: 'app-form-builder-header',
@@ -33,20 +35,40 @@ export class FormBuilderHeaderComponent
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    
   }
 
   ngOnInit(): void {
     this.subscription = this.formService.form$$.subscribe((val) => {
       this.form = val;
     });
+    
+    
   }
 
   ngAfterViewChecked(): void {
     if (!document.querySelector('.modal-form-preview')) {
       return;
     }
-    document.querySelector('.modal-form-preview').innerHTML =
-      new HtmlFormBuilder(this.form, false).formBuilder();
+    var htmlform:HtmlFormBuilder = new HtmlFormBuilder(this.form, false);
+    document.querySelector('.modal-form-preview').innerHTML = htmlform.formBuilder();
+    //   console.log("Hi");
+    // this.form.formComponents.forEach(element => {
+    //   if(element.addableFields!==null){
+    //     var script = htmlform.addableTextFieldAdder(element);
+    //     $(document).ready(function(){
+    //       console.log(element.id);
+          
+    //       $("#add-btn"+element.id).click(function(){
+    //         // $('#add`+formComponent.id+`').append(`+ s +`);
+    //         // console.log("Hi");
+    //         alert("Hi")
+            
+    //       })
+    //     })
+    //   }
+    // });
+      
   }
 
   onTitleChange() {

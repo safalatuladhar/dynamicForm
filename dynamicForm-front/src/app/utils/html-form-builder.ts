@@ -4,6 +4,7 @@ import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
 
+
 export class HtmlFormBuilder {
   constructor(public form: Form, public flag: boolean) {
   }
@@ -80,6 +81,9 @@ export class HtmlFormBuilder {
         html += (this.addableTextField(item))
       }
     });
+    // html+=`<script>this.scrpit</script>`
+    // console.log(this.scrpit);
+    
     return html;
   }
 
@@ -284,7 +288,7 @@ export class HtmlFormBuilder {
     return html
   }
 
-  private addableTextFieldAdder(formComponent:FormElement){
+  addableTextFieldAdder(formComponent:FormElement){
     let html = `<tr id="row">`
     formComponent.addableFields.forEach((item) => {
       html+=`
