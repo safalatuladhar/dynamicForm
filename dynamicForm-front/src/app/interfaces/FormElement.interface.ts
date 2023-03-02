@@ -1,4 +1,5 @@
 import { FormElementType } from '../enums/FormElementType.enum';
+import { AddableInputField } from './addable-input-field';
 import { Option } from './Option.interface';
 export interface FormElement {
   id: number | null;
@@ -18,6 +19,7 @@ export interface FormElement {
   cols: number;
   pattern : string;
   options: Option[] | null;
+  addableFields : AddableInputField[] | null;
 }
 
 /**

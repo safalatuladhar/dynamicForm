@@ -1,0 +1,87 @@
+<div class="form-group mb-2">
+    <label class="form-label" for="1064">Label for addable Field</label>
+    <div id="1064">
+      <table id="add1064">
+        <tbody>
+          <tr>
+            <th style="font-weight: 400;">
+              <label class="form-label" for="167">asdf</label>
+            </th>
+            <th style="font-weight: 400;">
+              <label class="form-label" for="168">second field</label>
+            </th>
+            <th style="font-weight: 400;">
+              <label class="form-label" for="169">third field</label>
+            </th>
+          </tr>
+          <tr id="row">
+            <th>
+              <input type="text" class="form-control " name="asdf[]" required="" placeholder="asdf">
+            </th>
+            <th>
+              <input type="text" class="form-control " name="2nd field[]" placeholder="second" field="">
+            </th>
+            <th>
+              <input type="text" class="form-control " name="third field[]" required="" placeholder="third" field="">
+            </th>
+            <th>
+              <button class="btn btn-danger" style="margin-left: 10px;" id="DeleteRow" type="button">-</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" style="margin-top: 10px;" id="add-btn1064" class="btn btn-success"> Add </button>
+    <div style="margin-top:10px;margin-bottom:10px;height: 1px;background: black;"></div>
+    <div class="form-group mb-2">
+      <label class="form-label" for="1065">Addable</label>
+      <div id="1065">
+        <table id="add1065">
+          <tbody>
+            <tr>
+              <th style="font-weight: 400;">
+                <label class="form-label" for="170">new2222</label>
+              </th>
+            </tr>
+            <tr id="row">
+              <th>
+                <input type="text" class="form-control " name="new2[]" required="" placeholder="new2222new">
+              </th>
+              <th>
+                <button class="btn btn-danger" style="margin-left: 10px;" id="DeleteRow" type="button">-</button>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" style="margin-top: 10px;" id="add-btn1065" class="btn btn-success"> Add </button>
+      <div style=" margin-top:10px;margin-bottom:10px; height: 1px;background: black;"></div>
+      <div class="form-group mb-2">
+        <label class="form-label" for="1066">New addable</label>
+        <div id="1066">
+          <table id="add1066">
+            <tbody>
+              <tr>
+                <th style="font-weight: 400;">
+                  <label class="form-label" for="171">label for new addable </label>
+                </th>
+              </tr>
+              <tr id="row">
+                <th>
+                  <input type="text" class="form-control " name="name[]" required="" placeholder="addabel">
+                </th>
+                <th>
+                  <button class="btn btn-danger" style="margin-left: 10px;" id="DeleteRow" type="button">-</button>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button type="button" style="margin-top: 10px;" id="add-btn1066" class="btn btn-success"> Add </button>
+        <div style=" margin-top:10px;margin-bottom:10px; height: 1px;background: black;"></div>
+        <div class="d-flex justify-content-end p-2">
+          <button type="submit" (click)="getjson(this)" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>

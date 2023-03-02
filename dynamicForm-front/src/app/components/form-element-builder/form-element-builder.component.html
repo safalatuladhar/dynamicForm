@@ -21,7 +21,8 @@
   <div class="scroll-container">
     <div class="text-form-wrapper">
       <form>
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('name')">
           <label for="nameInput">Name</label>
           <input
             [(ngModel)]="formElement.name"
@@ -33,7 +34,8 @@
             required
           />
         </div>
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('ids')">
           <label for="idInput">ID</label>
           <input
             [(ngModel)]="formElement.ids"
@@ -45,7 +47,8 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('label')">
           <label for="labelInput">Label</label>
           <input
             [(ngModel)]="formElement.label"
@@ -73,7 +76,8 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('class')">
           <label for="classInput">Class</label>
           <input
             type="text"
@@ -222,7 +226,7 @@
       </div>
     </div>
 
-    <div class="settings-wrapper">
+    <div *ngIf="formType!==6" class="settings-wrapper">
       <p>Settings</p>
       <div class="checkbox-wrapper">
         <div class="form-check form-check-inline">
@@ -263,5 +267,180 @@
         </div>
       </div>
     </div>
+
+  <div *ngIf="formType===6">
+    <div *ngFor="let formElementI of formElement.addableFields; index as i">
+      <div  class="get-boarder">
+      <div style="position: relative; text-align: right;">
+        <button 
+        type="button"
+        class="btn btn-danger"
+        *ngIf="formElement.addableFields.length !== 1"
+        (click)="removeAddableInputField(i)"
+        >
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+
+      
+      <div class="text-form-wrapper">
+        <form>
+          <div class="form-group">
+            <label for="nameInput">Name</label>
+            <input
+              [(ngModel)]="formElementI.name"
+              type="text"
+              id="nameInput"
+              name="name"
+              class="form-control"
+              placeholder="Enter form element's name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="idInput">ID</label>
+            <input
+              [(ngModel)]="formElementI.ids"
+              type="text"
+              class="form-control"
+              id="idInput"
+              name="ids"
+              placeholder="Enter form element's id"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="labelInput">Label</label>
+            <input
+              [(ngModel)]="formElementI.label"
+              type="text"
+              class="form-control"
+              id="labelInput"
+              name="label"
+              required
+              placeholder="Enter form element's label"
+            />
+          </div>
+
+          <div
+            class="form-group"
+            *ngIf="!elementChecklist[0].includes('placeholder')"
+          >
+            <label for="placeholderInput">Placeholder</label>
+            <input
+              [(ngModel)]="formElementI.placeholder"
+              type="text"
+              id="placeholderInput"
+              class="form-control"
+              name="placeholder"
+              placeholder="Enter form element's placeholder"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="classInput">Class</label>
+            <input
+              type="text"
+              [(ngModel)]="formElementI.className"
+              id="classInput"
+              name="class"
+              class="form-control"
+              placeholder="Enter form element's class"
+            />
+          </div>
+
+          <div
+            class="form-group"
+            *ngIf="!elementChecklist[0].includes('value')"
+          >
+            <label for="classInput">Value</label>
+            <input
+              [(ngModel)]="formElementI.value"
+              type="text"
+              id="valueInput"
+              name="value"
+              class="form-control"
+              placeholder="Enter form element's value"
+            />
+          </div>
+          
+          <div
+            class="form-group"
+            *ngIf="!elementChecklist[0].includes('pattern')"
+          >
+            <label for="fileTypeInput">Pattern</label>
+            <input
+              type="text"
+              [(ngModel)]="formElementI.pattern"
+              id="patternInput"
+              name="pattern"
+              class="form-control"
+              placeholder="Enter pattern for input"
+            />
+          </div>
+
+
+        </form>
+      </div>
+
+      
+
+      <div class="settings-wrapper">
+        <p>Settings</p>
+        <div class="checkbox-wrapper">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox1"
+              value="option1"
+              name="required"
+              [(ngModel)]="formElementI.required"
+            />
+            <label class="form-check-label" for="inlineCheckbox1">Required</label>
+          </div>
+          <div
+            class="form-check form-check-inline"
+            *ngIf="!elementChecklist[formType].includes('multiple')"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox2"
+              name="multiple"
+              [(ngModel)]="formElementI.multiple"
+              value="option2"
+            />
+            <label class="form-check-label" for="inlineCheckbox2">Multiple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox3"
+              name="disabled"
+              [(ngModel)]="formElementI.disabled"
+              value="option3"
+            />
+            <label class="form-check-label" for="inlineCheckbox3">Disabled</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+  <div class="btn-add-wrapper">
+    <button
+      type="button"
+      class="btn btn-primary btn-add"
+      *ngIf="formElement.addableFields.length !== 3"
+      (click)="addAddableInputField()"
+    >
+      Add
+    </button>
+  </div>
+</div>
+
+</div>
+
 </div>

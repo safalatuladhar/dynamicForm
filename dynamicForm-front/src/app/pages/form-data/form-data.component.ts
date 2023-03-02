@@ -8,6 +8,8 @@ import { FormBuilderService } from 'src/app/services/form-builder.service';
 import { FormService } from 'src/app/services/form.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 import { Title } from '@angular/platform-browser';
+import * as $ from 'jquery' 
+
 
 @Component({
   selector: 'app-form-data',
@@ -45,6 +47,26 @@ export class FormDataComponent implements OnInit {
         if (form) {
           this.titleService.setTitle(form.name);
         }
+        var htmlform:HtmlFormBuilder = new HtmlFormBuilder(this.form, false);
+          this.form.formComponents.forEach(element => {
+          if(element.addableFields!==null){
+            var script = htmlform.addableTextFieldAdder(element);
+            // $("form").validate();       
+            $(document).ready(function(){
+              $("#add-btn"+element.id).click(function(){
+                $('#add'+element.id).append(script);
+              })
+              })
+              $(document).ready(function(){
+                $("body").on("click", "#DeleteRow", function () {
+                  $(this).parents("#row").remove();
+                if($('#add'+element.id).find("#row").length===0){
+                  $("#add-btn"+element.id).click()
+                }
+              })
+              })
+            }
+          });
       });
     this.formDataObject.formId = parseInt(id);
   }
@@ -56,10 +78,16 @@ export class FormDataComponent implements OnInit {
   getJson(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
+    // console.log(form);
+    
     const formData = new FormData(form);
     let object = {};
+    // console.log(formData);
+    
     let formDatas: FormData = new FormData();
     formData.forEach(function (value, key) {
+      // console.log(key,value);
+      
       if (key.includes('[]')) {
         if (Array.isArray(object[key])) {
           object[key].push(value);
@@ -91,6 +119,44 @@ export class FormDataComponent implements OnInit {
         }
       }
     });
+    // console.log(this.form);
+    // console.log(object);
+    
+    let keystoremove=[]
+    
+    this.form.formComponents.forEach(element => {
+      let objects=[];
+      if(element.addableFields){
+          let i =0;
+          let continueloop = true;
+          do{
+          let obj={};
+          element.addableFields.forEach(addableField => {
+            obj[addableField.name] = object[addableField.name+"[]"][i];
+            if(!keystoremove.includes(addableField.name+"[]")){
+              keystoremove.push(addableField.name+"[]")
+            }
+            if(i+1===object[addableField.name+"[]"].length){
+              continueloop = false
+            }
+          });
+          objects.push(obj);
+          i++;
+        }while(continueloop);
+
+      }
+      // console.log(objects)
+      object[element.name]=objects
+    });
+    // console.log(keystoremove);
+
+    keystoremove.forEach(element => {
+      delete object[element]
+    });
+    
+    console.log(object);
+    
+    
     this.formDataObject.jsonData = JSON.stringify(object)
     this.formDataObject.userId = this.authService.userId;
     const formBlob = new Blob([JSON.stringify(this.formDataObject)],{type: "application/json"})

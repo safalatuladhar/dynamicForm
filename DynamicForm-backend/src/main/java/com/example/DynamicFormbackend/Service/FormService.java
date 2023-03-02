@@ -1,12 +1,10 @@
 package com.example.DynamicFormbackend.Service;
 
+import com.example.DynamicFormbackend.DTO.AddableFieldDTO;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
-import com.example.DynamicFormbackend.Model.Form;
-import com.example.DynamicFormbackend.Model.FormComponent;
-import com.example.DynamicFormbackend.Model.Option;
-import com.example.DynamicFormbackend.Model.User;
+import com.example.DynamicFormbackend.Model.*;
 import com.example.DynamicFormbackend.Repository.FormRepository;
 import com.example.DynamicFormbackend.Repository.OptionRepository;
 import com.example.DynamicFormbackend.Repository.UserRepository;
@@ -29,6 +27,9 @@ public class FormService {
     @Autowired
     private OptionRepository optionRepository;
 
+    @Autowired
+    private AddableFieldService addableFieldService;
+
     public List<Form> getAllForm() {
         return formRepository.findAll();
     }
@@ -48,18 +49,22 @@ public class FormService {
     public Form createFormAndComponents(FormDTO formDTO) {
         User user = userRepository.getReferenceById(formDTO.getUserId());
         Form form = this.createForm(new Form(formDTO), user);
-        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
-            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
-            if (formComponentDTO.getOptions() != null) {
-                List<Option> options = new ArrayList<>();
-                for (OptionDTO optionDTO : formComponentDTO.getOptions()) {
-                    options.add(new Option(optionDTO, formComponent));
-                }
-                this.optionRepository.saveAll(options);
-            }
-        }
+//        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
+//            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
+//            if (formComponentDTO.getOptions() != null) {
+//                List<Option> options = new ArrayList<>();
+//                for (OptionDTO optionDTO : formComponentDTO.getOptions()) {
+//                    options.add(new Option(optionDTO, formComponent));
+//                }
+//                this.optionRepository.saveAll(options);
+//            }
+//            if (formComponentDTO.getAddableFields() != null) {
+//
+//                this.addableFieldService.createAllAddableField(formComponentDTO.getAddableFields(),formComponent);
+//            }
+//        }
+        this.formComponentService.createAllFormComponent(formDTO.getFormComponents(),form);
         return form;
-
     }
 
     public void deleteForm(long id) {
@@ -67,10 +72,17 @@ public class FormService {
     }
 
     public void updateFormAndComponent(FormDTO formDTO, long id) {
-//        formRepository
         Form form = formRepository.findById(id).orElseThrow();
         form.setName(formDTO.getName());
         form = formRepository.save(form);
         formComponentService.updateFormComponent(formDTO, form, id);
+    }
+
+    public void updateAddableFieldAndComponent(FormComponentDTO formComponentDTO, long id){
+        Form form = formRepository.findById(id).orElseThrow();
+        form.setName(formComponentDTO.getName());
+        form = formRepository.save(form);
+        addableFieldService.updateAddableField(formComponentDTO, new FormComponent(), id);
+//        addableFieldService
     }
 }

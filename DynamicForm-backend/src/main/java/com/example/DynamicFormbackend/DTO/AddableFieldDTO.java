@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FormComponentDTO {
+public class AddableFieldDTO {
     private long id;
     private String name;
     private String value;
@@ -15,14 +15,8 @@ public class FormComponentDTO {
     private String ids;
     private String className;
     private int orders;
-    private int type;
     private String label;
-    private String fileType;
     private boolean multiple;
-    private int rows;
-    private int cols;
     private List<OptionDTO> options;
-    private List<AddableFieldDTO> addableFields;
     private String pattern;
-
 }

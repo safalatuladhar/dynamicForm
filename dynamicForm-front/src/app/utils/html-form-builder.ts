@@ -1,21 +1,31 @@
 import { FormElementType } from '../enums/FormElementType.enum';
+import { AddableInputField } from '../interfaces/addable-input-field';
 import { Form } from '../interfaces/Form.interface';
 import { FormElement } from '../interfaces/FormElement.interface';
 import { Option } from '../interfaces/Option.interface';
 
+
 export class HtmlFormBuilder {
-  constructor(public form: Form, public flag: boolean) {}
+  constructor(public form: Form, public flag: boolean) {
+  }
+  scrpit:string = ``;
+  
 
   download() {
+    var promise = new Promise((resolve, reject) => {
+
     let htmlFormat = this.generateCompleteHtml();
     const data = new Blob([htmlFormat], { type: 'text/html' });
     const url = URL.createObjectURL(data);
     const link = document.createElement('a');
     link.download = `${this.form.name}.html`;
     link.href = url;
-    // link.click();
-    console.log(link)
-    link.remove();
+    link.click();
+    // console.log(link)
+    URL.revokeObjectURL(url);
+    // console.log("data",data);
+  });
+
   }
 
   private generateCompleteHtml(): string {
@@ -41,6 +51,7 @@ export class HtmlFormBuilder {
           </div>
           <script>
             $("form").validate();
+            ${this.scrpit}
           </script>
           </body>
           </html>
@@ -49,6 +60,7 @@ export class HtmlFormBuilder {
   }
 
   formBuilder(): string {
+    
     let html = '';
     this.form.formComponents.forEach((item) => {
       if (item.type === FormElementType.TEXTFIELD) {
@@ -63,10 +75,14 @@ export class HtmlFormBuilder {
         html += this.fileuploadField(item);
       } else if (item.type === FormElementType.RADIO) {
         html += this.radioField(item);
+      } else if (item.type === FormElementType.ADDABLE_TEXTFIELD) {
+        html += (this.addableTextField(item))
       }
     });
+    
     return html;
   }
+
 
   private generateHead(): string {
     let head = `
@@ -75,6 +91,7 @@ export class HtmlFormBuilder {
     <title>${this.form.name}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>  
@@ -130,10 +147,7 @@ export class HtmlFormBuilder {
   }
 
   private textField(formComponent: FormElement) {
-    const html = `<div class="form-group mb-2">
-        <label class="form-label" for="${formComponent.id}">${
-      formComponent.label
-    }</label>
+    const html = `${this.textFieldLabel(formComponent)}
         <input type="text" 
         ${this.generateCommonAttributes(formComponent)}
         ${this.generateValue(formComponent.value)}
@@ -142,6 +156,16 @@ export class HtmlFormBuilder {
         />
         </div>`;
     return html;
+  }
+
+  private textFieldLabel(formComponent:FormElement){
+    const html=`<div class="form-group mb-2">
+    <label class="form-label" for="${formComponent.id}">
+    ${formComponent.type===FormElementType.ADDABLE_TEXTFIELD?'<u>':''}${
+      formComponent.label
+    }${formComponent.type===FormElementType.ADDABLE_TEXTFIELD?'</u>':''}
+    </label>`
+    return html
   }
 
   private option(data: Option[]) {
@@ -234,5 +258,103 @@ export class HtmlFormBuilder {
     });
     html += `</div>`;
     return html;
+  }
+  private addableTextField(formComponent: FormElement) {
+    let html = `${this.textFieldLabel(formComponent)}
+    <div id=${formComponent.id}>
+    <table id=add${formComponent.id}>
+    <tr>`
+    formComponent.addableFields.forEach((item) => {
+      html+=`<th style="font-weight: 400;">${this.textFieldLabelForAddable(item)}</th>`
+    })
+
+
+    html+=`</tr> ${this.addableTextFieldAdder(formComponent)}
+    </table>
+    </div> 
+    <button 
+    type="button"
+    style="margin-top: 10px;"
+    id="add-btn${formComponent.id}"
+    class="btn btn-success">
+    Add 
+    </button>
+    <hr>`
+    this.generateAddButtonWithJQuery(formComponent)
+
+    return html
+  }
+
+  addableTextFieldAdder(formComponent:FormElement){
+    let html = `<tr id="row">`
+    formComponent.addableFields.forEach((item) => {
+      html+=`
+      <th>${this.textFieldForAddable(item)}</th>`
+    })
+    html+=`<th><button class="btn btn-danger" style="margin-left: 10px;" id="DeleteRow" type="button">-</button></th>`
+    html+=`</tr>`
+    
+
+    return html
+  }
+
+  private textFieldForAddable(formComponent: AddableInputField) {
+    const html = `
+        <input type="text" 
+        ${this.generateCommonAttributesForAddable(formComponent)}
+        ${this.generateValue(formComponent.value)}
+        ${this.generatePlaceholder(formComponent.placeholder)}
+        ${this.generatePattern(formComponent.pattern)}/>
+        </div>`;
+    return html;
+  }
+
+  private textFieldLabelForAddable(formComponent:AddableInputField){
+    const html=`
+    <label class="form-label" for="${formComponent.id}">${
+      formComponent.label
+    }</label>`
+    return html
+  }
+
+  private generateCommonAttributesForAddable(
+    formComponent: AddableInputField,
+    bstClass: string = 'form-control'
+  ) {
+    const html = `class="${bstClass} ${formComponent.className}"
+    ${formComponent.ids && 'id=' + formComponent.ids.toString()}
+    name="${formComponent.name}[]"
+    ${formComponent.disabled ? 'disabled' : ''}
+    ${
+      formComponent.required &&
+      formComponent.type !== FormElementType.CHECKBOX &&
+      formComponent.type !== FormElementType.RADIO
+        ? 'required'
+        : ''
+    }`;
+    return html;
+  }
+  private generateAddButtonWithJQuery(formComponent: FormElement){
+    let html=this.addableTextFieldAdder(formComponent)
+    let s ="`"
+    s += this.addableTextFieldAdder(formComponent)
+    s+= "`"
+    var scrpit=`
+      $("#add-btn`+formComponent.id+`").click(function(){
+        $('#add`+formComponent.id+`').append(`+ s +`);
+      });`;
+
+      scrpit+=`$("body").on("click", "#DeleteRow", function () {
+        $(this).parents("#row").remove();
+        if($('#add`+formComponent.id+`').find("#row").length==0){
+          $("#add-btn`+formComponent.id+`").click()
+        }
+    })`
+
+      this.scrpit+=scrpit;
+
+    return scrpit;
+
+
   }
 }

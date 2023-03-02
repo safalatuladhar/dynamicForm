@@ -1,6 +1,7 @@
 package com.example.DynamicFormbackend.Controller;
 
 
+import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Service.FormService;
@@ -30,7 +31,6 @@ public class FormController {
     @PostMapping("/form")
     public ResponseEntity<Form> createNewForm(@RequestBody FormDTO formDTO) {
         return ResponseEntity.ok().body(formService.createFormAndComponents(formDTO));
-
     }
 
     @DeleteMapping("/form/{id}")

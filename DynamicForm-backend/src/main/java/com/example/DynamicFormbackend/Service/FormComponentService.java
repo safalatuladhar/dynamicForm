@@ -4,6 +4,7 @@ package com.example.DynamicFormbackend.Service;
 import com.example.DynamicFormbackend.DTO.FormComponentDTO;
 import com.example.DynamicFormbackend.DTO.FormDTO;
 import com.example.DynamicFormbackend.DTO.OptionDTO;
+import com.example.DynamicFormbackend.Model.AddableField;
 import com.example.DynamicFormbackend.Model.Form;
 import com.example.DynamicFormbackend.Model.FormComponent;
 import com.example.DynamicFormbackend.Model.Option;
@@ -27,6 +28,9 @@ public class FormComponentService {
     @Autowired
     private OptionRepository optionRepository;
 
+    @Autowired
+    private AddableFieldService addableFieldService;
+
     public List<FormComponent> getAllFormComponent() {
         return formComponentRepository.findAll();
     }
@@ -44,7 +48,12 @@ public class FormComponentService {
 
     public void updateFormComponent(FormDTO formDTO, Form form, long id) {
         formComponentRepository.deleteByFormId(id);
-        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
+        this.createAllFormComponent(formDTO.getFormComponents(),form);
+    }
+
+
+    public void createAllFormComponent(List<FormComponentDTO> formComponents, Form form) {
+        for (FormComponentDTO formComponentDTO : formComponents) {
             FormComponent formComponent = this.createFormComponent(new FormComponent(formComponentDTO, form));
             if (formComponentDTO.getOptions() != null) {
                 List<Option> options = new ArrayList<>();
@@ -52,6 +61,10 @@ public class FormComponentService {
                     options.add(new Option(optionDTO, formComponent));
                 }
                 this.optionRepository.saveAll(options);
+            }
+            if (formComponentDTO.getAddableFields() != null) {
+
+                this.addableFieldService.createAllAddableField(formComponentDTO.getAddableFields(),formComponent);
             }
         }
     }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,6 +45,9 @@ public class FormComponent {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Form form;
+
+    @OneToMany(mappedBy = "formComponent", cascade = CascadeType.ALL)
+    private List<AddableField> addableFields;
 
     public FormComponent() {
     }
