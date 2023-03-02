@@ -49,20 +49,20 @@ public class FormService {
     public Form createFormAndComponents(FormDTO formDTO) {
         User user = userRepository.getReferenceById(formDTO.getUserId());
         Form form = this.createForm(new Form(formDTO), user);
-        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
-            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
-            if (formComponentDTO.getOptions() != null) {
-                List<Option> options = new ArrayList<>();
-                for (OptionDTO optionDTO : formComponentDTO.getOptions()) {
-                    options.add(new Option(optionDTO, formComponent));
-                }
-                this.optionRepository.saveAll(options);
-            }
-            if (formComponentDTO.getAddableFields() != null) {
-
-                this.addableFieldService.createAllAddableField(formComponentDTO.getAddableFields(),formComponent);
-            }
-        }
+//        for (FormComponentDTO formComponentDTO : formDTO.getFormComponents()) {
+//            FormComponent formComponent = this.formComponentService.createFormComponent(new FormComponent(formComponentDTO, form));
+//            if (formComponentDTO.getOptions() != null) {
+//                List<Option> options = new ArrayList<>();
+//                for (OptionDTO optionDTO : formComponentDTO.getOptions()) {
+//                    options.add(new Option(optionDTO, formComponent));
+//                }
+//                this.optionRepository.saveAll(options);
+//            }
+//            if (formComponentDTO.getAddableFields() != null) {
+//
+//                this.addableFieldService.createAllAddableField(formComponentDTO.getAddableFields(),formComponent);
+//            }
+//        }
         this.formComponentService.createAllFormComponent(formDTO.getFormComponents(),form);
         return form;
     }

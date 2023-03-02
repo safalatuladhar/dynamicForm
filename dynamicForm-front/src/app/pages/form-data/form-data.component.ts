@@ -48,25 +48,19 @@ export class FormDataComponent implements OnInit {
           this.titleService.setTitle(form.name);
         }
         var htmlform:HtmlFormBuilder = new HtmlFormBuilder(this.form, false);
-
-       console.log("Hi");
           this.form.formComponents.forEach(element => {
           if(element.addableFields!==null){
             var script = htmlform.addableTextFieldAdder(element);
+            // $("form").validate();       
             $(document).ready(function(){
-              console.log(element.id);
-              
               $("#add-btn"+element.id).click(function(){
                 $('#add'+element.id).append(script);
-                // console.log("Hi");
-                // alert("Hi")
-                
               })
               })
               $(document).ready(function(){
                 $("body").on("click", "#DeleteRow", function () {
                   $(this).parents("#row").remove();
-                if($('#add'+element.id).find("#row").length==0){
+                if($('#add'+element.id).find("#row").length===0){
                   $("#add-btn"+element.id).click()
                 }
               })
@@ -88,7 +82,7 @@ export class FormDataComponent implements OnInit {
     
     const formData = new FormData(form);
     let object = {};
-    console.log(formData);
+    // console.log(formData);
     
     let formDatas: FormData = new FormData();
     formData.forEach(function (value, key) {
@@ -126,7 +120,7 @@ export class FormDataComponent implements OnInit {
       }
     });
     // console.log(this.form);
-    console.log(object);
+    // console.log(object);
     
     let keystoremove=[]
     
@@ -138,7 +132,7 @@ export class FormDataComponent implements OnInit {
           do{
           let obj={};
           element.addableFields.forEach(addableField => {
-            obj[addableField.name+"[]"] = object[addableField.name+"[]"][i];
+            obj[addableField.name] = object[addableField.name+"[]"][i];
             if(!keystoremove.includes(addableField.name+"[]")){
               keystoremove.push(addableField.name+"[]")
             }
@@ -151,10 +145,10 @@ export class FormDataComponent implements OnInit {
         }while(continueloop);
 
       }
-      console.log(objects)
+      // console.log(objects)
       object[element.name]=objects
     });
-    console.log(keystoremove);
+    // console.log(keystoremove);
 
     keystoremove.forEach(element => {
       delete object[element]

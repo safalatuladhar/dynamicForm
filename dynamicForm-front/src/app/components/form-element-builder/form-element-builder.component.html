@@ -21,7 +21,8 @@
   <div class="scroll-container">
     <div class="text-form-wrapper">
       <form>
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('name')">
           <label for="nameInput">Name</label>
           <input
             [(ngModel)]="formElement.name"
@@ -33,7 +34,8 @@
             required
           />
         </div>
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('ids')">
           <label for="idInput">ID</label>
           <input
             [(ngModel)]="formElement.ids"
@@ -45,7 +47,8 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('label')">
           <label for="labelInput">Label</label>
           <input
             [(ngModel)]="formElement.label"
@@ -73,7 +76,8 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group"
+        *ngIf="!elementChecklist[formType].includes('class')">
           <label for="classInput">Class</label>
           <input
             type="text"
@@ -266,6 +270,7 @@
 
   <div *ngIf="formType===6">
     <div *ngFor="let formElementI of formElement.addableFields; index as i">
+      <div  class="get-boarder">
       <div style="position: relative; text-align: right;">
         <button 
         type="button"
@@ -276,7 +281,6 @@
         <i class="fa fa-times" aria-hidden="true"></i>
       </button>
     </div>
-    <div  style="border: solid;">
 
       
       <div class="text-form-wrapper">

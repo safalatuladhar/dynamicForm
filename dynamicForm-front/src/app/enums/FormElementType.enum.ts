@@ -15,7 +15,7 @@ export const formElementAtrributeMap = [
   ['multiple', 'options', 'fileType','pattern'], //TEXTAREA
   ['options', 'placeholder', 'rows-cols','pattern'], //FILE_UPLOAD
   ['multiple', 'fileType', 'placeholder', 'rows-cols','pattern'], //RADIO
-  ['multiple', 'options', 'fileType', 'rows-cols','pattern','value','placeholder'], //ADDABLE_TEXTFIELD
+  ['multiple', 'options', 'fileType', 'rows-cols','pattern','value','placeholder','name','ids','class'], //ADDABLE_TEXTFIELD
 ];
 
 export const formElementInfo: { class: string; title: string }[] = [

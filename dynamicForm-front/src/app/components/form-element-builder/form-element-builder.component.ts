@@ -133,6 +133,7 @@ export class FormElementBuilderComponent implements OnInit {
       this.formElement.addableFields = null;
     }else{
       //validate addableInputField
+      this.formElement.name = this.formElement.label
       let valid = true;
       this.formElement.addableFields.forEach((addableInputField)=>{
         valid = valid && addableInputField.name.trim().length>0;

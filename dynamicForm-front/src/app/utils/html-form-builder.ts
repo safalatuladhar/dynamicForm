@@ -14,7 +14,6 @@ export class HtmlFormBuilder {
   download() {
     var promise = new Promise((resolve, reject) => {
 
-
     let htmlFormat = this.generateCompleteHtml();
     const data = new Blob([htmlFormat], { type: 'text/html' });
     const url = URL.createObjectURL(data);
@@ -22,9 +21,9 @@ export class HtmlFormBuilder {
     link.download = `${this.form.name}.html`;
     link.href = url;
     link.click();
-    console.log(link)
-    link.remove();
-
+    // console.log(link)
+    URL.revokeObjectURL(url);
+    // console.log("data",data);
   });
 
   }
@@ -61,7 +60,6 @@ export class HtmlFormBuilder {
   }
 
   formBuilder(): string {
-    // console.log(this.form);
     
     let html = '';
     this.form.formComponents.forEach((item) => {
@@ -81,8 +79,6 @@ export class HtmlFormBuilder {
         html += (this.addableTextField(item))
       }
     });
-    // html+=`<script>this.scrpit</script>`
-    // console.log(this.scrpit);
     
     return html;
   }
@@ -164,10 +160,11 @@ export class HtmlFormBuilder {
 
   private textFieldLabel(formComponent:FormElement){
     const html=`<div class="form-group mb-2">
-    <label class="form-label" for="${formComponent.id}">${
+    <label class="form-label" for="${formComponent.id}">
+    ${formComponent.type===FormElementType.ADDABLE_TEXTFIELD?'<u>':''}${
       formComponent.label
-    }</label>`
-    // console.log(formComponent);
+    }${formComponent.type===FormElementType.ADDABLE_TEXTFIELD?'</u>':''}
+    </label>`
     return html
   }
 
@@ -279,10 +276,10 @@ export class HtmlFormBuilder {
     type="button"
     style="margin-top: 10px;"
     id="add-btn${formComponent.id}"
-    class="btn btn-danger">
+    class="btn btn-success">
     Add 
     </button>
-    <div style=" margin-top:10px;margin-bottom:10px; height: 1px;background: black;"></div>`
+    <hr>`
     this.generateAddButtonWithJQuery(formComponent)
 
     return html
@@ -317,7 +314,6 @@ export class HtmlFormBuilder {
     <label class="form-label" for="${formComponent.id}">${
       formComponent.label
     }</label>`
-    // console.log(formComponent);
     return html
   }
 
@@ -357,10 +353,8 @@ export class HtmlFormBuilder {
 
       this.scrpit+=scrpit;
 
-    // var script=``
     return scrpit;
 
 
   }
-  // private generateDeleteButtonWithJquery()
 }
