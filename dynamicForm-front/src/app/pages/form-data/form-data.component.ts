@@ -9,6 +9,7 @@ import { FormService } from 'src/app/services/form.service';
 import { HtmlFormBuilder } from 'src/app/utils/html-form-builder';
 import { Title } from '@angular/platform-browser';
 import * as $ from 'jquery' 
+import { FormElementType } from 'src/app/enums/FormElementType.enum';
 
 
 @Component({
@@ -120,13 +121,16 @@ export class FormDataComponent implements OnInit {
       }
     });
     // console.log(this.form);
-    // console.log(object);
+    console.log(object);
     
     let keystoremove=[]
     
     this.form.formComponents.forEach(element => {
+      if(element.type===FormElementType.ADDABLE_TEXTFIELD){
+
       let objects=[];
-      if(element.addableFields){
+      console.log(element);
+      if(element.addableFields.length!==0){
           let i =0;
           let continueloop = true;
           do{
@@ -147,6 +151,8 @@ export class FormDataComponent implements OnInit {
       }
       // console.log(objects)
       object[element.name]=objects
+    }
+
     });
     // console.log(keystoremove);
 
@@ -161,6 +167,6 @@ export class FormDataComponent implements OnInit {
     this.formDataObject.userId = this.authService.userId;
     const formBlob = new Blob([JSON.stringify(this.formDataObject)],{type: "application/json"})
     formDatas.append('formDataDTO',formBlob)
-    this.formService.submitForm(formDatas);
+    // this.formService.submitForm(formDatas);
   }
 }
